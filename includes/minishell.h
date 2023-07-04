@@ -44,24 +44,25 @@ typedef struct s_list
 
 typedef enum e_token_type
 {
-	KEY,
-	PIPE,
-	REDIRECT,
+	//TODO : ; 추가
+	KEY,		
+	PIPE,				// |
+	REDIRECT,			// > >> < <<
 }	t_token_type;
 
 typedef struct s_token
 {
-	t_token_type	type;
-	char			*s;
+	t_token_type	type;	// KEY, PIPE, REDIRECT
+	char			*s;		// token string -> ex) ls, |, >, >>
+	size_t			token_index; // 해당 토큰 인덱스 -> 위치 
 }	t_token;
 
 typedef struct s_parse
 {
-	size_t			line_index;
-	char			*line;
-	size_t			tokens_index;
-	size_t			token_count;
-	t_token			*tokens;
+	size_t			line_index;		// line 인덱스
+	char			*line;			// line
+	size_t			token_count;	// 토큰 개수
+	t_token			*tokens;		// 토큰 배열
 }	t_parse;
 
 typedef enum e_redirect_type

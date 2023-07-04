@@ -10,8 +10,10 @@ int main(int ac, char **av, char **env)
 {
     t_parse parse;
     t_info  info;
+    size_t  line_index;    // line 인덱스, 나중에 
 
     init_info(&info, ac, av, env);
+    line_index = 0;
     while (TRUE)
     {
         init_sig(&info);
@@ -27,6 +29,7 @@ int main(int ac, char **av, char **env)
             free(parse.line);
             continue ;
         }
+        parse.line_index = line_index++; 
         add_history(parse.line);
         free(parse.line);
     }
