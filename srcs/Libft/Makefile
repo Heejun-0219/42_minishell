@@ -56,8 +56,6 @@ $(NAME)	:	$(OBJS)
 .PHONY	:	clean
 clean	:
 			rm -f $(OBJS) 
-			rm -f $(B_OBJS)
-			@rm -f $(B_DUM)
 
 .PHONY	:	fclean
 fclean	:	clean

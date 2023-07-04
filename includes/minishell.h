@@ -31,16 +31,65 @@ extern int	g_exit_code;
 typedef struct s_node
 {
 	void			*content;
-	struct s_node	*next_node;
-	struct s_node	*prev_node;
+	struct s_node	*next;
+	struct s_node	*prev;
 }	t_node;
 
 typedef struct s_list
 {
-	t_node			*front_node;
-	t_node			*back_node;
-	t_node			*cur_node;
+	t_node			*front;
+	t_node			*back;
+	t_node			*cur;
 }	t_list;
+
+typedef enum e_token_type
+{
+	KEY,
+	PIPE,
+	REDIRECT,
+}	t_token_type;
+
+typedef struct s_token
+{
+	t_token_type	type;
+	char			*s;
+}	t_token;
+
+typedef struct s_parse
+{
+	size_t			line_index;
+	char			*line;
+	size_t			tokens_index;
+	size_t			token_count;
+	t_token			*tokens;
+}	t_parse;
+
+typedef enum e_redirect_type
+{
+	OUT_ONE,
+	OUT_TWO,
+	IN,
+	HERE,
+}	t_redirect_type;
+
+typedef struct s_redirect
+{
+	t_redirect_type		type;
+	char				*value;
+}	t_redirect;
+
+typedef struct s_pipe
+{
+	char			*cmd_path;
+	char			**cmd;
+	size_t			cmd_index;
+	t_redirect		*redirect;
+	size_t			redirect_index;
+	pid_t			pid;
+	int				pipe_fd[2];
+	int				in_fd;
+	int				out_fd;
+}	t_pipe;
 
 typedef struct s_info
 {

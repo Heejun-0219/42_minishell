@@ -14,7 +14,7 @@
 
 void	ft_lstclear(t_list *lst)
 {
-	lst->cur_node = lst->front_node;
-	while (lst->cur_node)
-		ft_lstdel_node(lst, lst->cur_node);
+	lst->cur = lst->front;
+	while (lst->cur)
+		ft_lstdel_node(lst, lst->cur);
 }

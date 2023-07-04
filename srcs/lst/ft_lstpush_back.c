@@ -10,17 +10,17 @@ int ft_lstpush_back(t_list *list, void *content)
     if (new_node == NULL)
         return (ft_error("ft_list_push_back: malloc failed", 1));
     new_node->content = content;
-    new_node->next_node = NULL;
-	new_node->prev_node = list->back_node;
-	if (new_node->prev_node != NULL)
-		new_node->prev_node->next_node = new_node;
-	if (list->front_node == NULL)
+    new_node->next = NULL;
+	new_node->prev = list->back;
+	if (new_node->prev != NULL)
+		new_node->prev->next = new_node;
+	if (list->front == NULL)
 	{
-		list->front_node = new_node;
-		list->back_node = new_node;
-		list->cur_node = new_node;
+		list->front = new_node;
+		list->back = new_node;
+		list->cur = new_node;
 		return (SUCCESS);
 	}
-	list->back_node = new_node;
+	list->back = new_node;
 	return (SUCCESS);
 }

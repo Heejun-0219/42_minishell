@@ -36,12 +36,13 @@ $(NAME)	: $(OBJS) $(INCLUDES)
 .PHONY	: clean
 clean	:
 			@$(MAKE) -C $(LIBFT_DIR) clean
-			@rm -rf $(OBJS) 
+			rm -rf $(OBJS) 
 
 .PHONY	: fclean
-fclean	: clean
+fclean	:
 			@$(MAKE) -C $(LIBFT_DIR) fclean
-			@rm -rf $(NAME)
+			rm -rf $(OBJS)
+			rm -rf $(NAME)
 
 .PHONY	: re
 re		:

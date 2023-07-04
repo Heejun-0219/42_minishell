@@ -17,60 +17,60 @@ static void	ft_del_node(t_node *node)
 	t_node	*node1;
 	t_node	*node2;
 
-	node1 = node->prev_node;
-	node2 = node->next_node;
+	node1 = node->prev;
+	node2 = node->next;
 	free(node->content);
 	free(node);
-	node1->next_node = node2;
-	node2->prev_node = node1;
+	node1->next = node2;
+	node2->prev = node1;
 }
 
 static void	ft_del_front_node(t_list *list, t_node *node)
 {
 	t_node	*node_temp;
 
-	node_temp = node->next_node;
-	node_temp->prev_node = NULL;
+	node_temp = node->next;
+	node_temp->prev = NULL;
 	free(node->content);
 	free(node);
-	list->front_node = node_temp;
-	list->cur_node = node_temp;
+	list->front = node_temp;
+	list->cur = node_temp;
 }
 
 static void	ft_del_back_node(t_list *list, t_node *node)
 {
 	t_node	*node_temp;
 
-	node_temp = node->prev_node;
-	node_temp->next_node = NULL;
+	node_temp = node->prev;
+	node_temp->next = NULL;
 	free(node->content);
 	free(node);
-	list->back_node = node_temp;
-	list->cur_node = list->front_node;
+	list->back = node_temp;
+	list->cur = list->front;
 }
 
 static void	ft_del_cur_node(t_list *list, t_node *node)
 {
 	ft_del_node(node);
-	list->cur_node = list->front_node;
+	list->cur = list->front;
 }
 
 int	ft_lstdel_node(t_list *list, t_node *node)
 {
 	if (list == NULL || node == NULL)
 		return (ft_error("argument has been wrong", FAILURE));
-	if (node->next_node == NULL && node->prev_node == NULL)
+	if (node->next == NULL && node->prev == NULL)
 	{
 		free(node->content);
 		free(node);
 		*list = ft_lst_init();
 		return (SUCCESS);
 	}
-	if (list->front_node == node)
+	if (list->front == node)
 		ft_del_front_node(list, node);
-	else if (list->back_node == node)
+	else if (list->back == node)
 		ft_del_back_node(list, node);
-	else if (list->cur_node == node)
+	else if (list->cur == node)
 		ft_del_cur_node(list, node);
 	else
 		ft_del_node(node);
