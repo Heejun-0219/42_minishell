@@ -1,35 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strdup.c                                        :+:      :+:    :+:   */
+/*   ft_malloc.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mi <mi@student.42seoul.kr>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/10 09:48:32 by heejunki          #+#    #+#             */
-/*   Updated: 2023/07/04 22:21:34 by mi               ###   ########.fr       */
+/*   Created: 2023/07/04 22:19:33 by mi                #+#    #+#             */
+/*   Updated: 2023/07/04 22:21:15 by mi               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strdup(const char *src)
+void *ft_malloc(size_t size)	// 할당시 에러 처리한 malloc
 {
-	char	*newsrc;
-	int		src_len;
-	int		i;
+	void *ptr;
 
-	src_len = 0;
-	i = 0;
-	while (src[src_len])
-		src_len++;
-	newsrc = (char *) ft_malloc (sizeof (char) * (src_len + 1));
-	if (!newsrc)
-		return (0);
-	while (src[i])
+	ptr = malloc(size);
+	if (!ptr)
 	{
-		newsrc[i] = src[i];
-		i++;
+		ft_error("malloc error", 1);
+		exit(1);
 	}
-	newsrc[i] = '\0';
-	return (newsrc);
+	return (ptr);
 }
