@@ -17,7 +17,8 @@ SRCS		=	srcs/main.c					\
 				srcs/lst/ft_lstclear.c		\
 				srcs/lst/ft_lstinit.c		\
 				srcs/lst/ft_lstdelone.c		\
-				srcs/lst/ft_lstpush_back.c	
+				srcs/lst/ft_lstpush_back.c	\
+				srcs/parsing/parsing.c
 
 OBJS 		= $(SRCS:.c=.o)
 

@@ -115,4 +115,7 @@ void    init_sig(t_info *info);
 void    init_info(t_info *info, int ac, char **av, char **env);
 void    init_env_list(t_info *info, char **env);
 int     ft_list_push_back(t_list *list, void *content);
+
+// parsing
+void tokenize_line(t_parse *parse);
 #endif
