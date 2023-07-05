@@ -1,5 +1,9 @@
-Makefile
 */*.o
 */*.a
 *.o
 *.a
+
+Makefile
+minishell
+
+.vscode
