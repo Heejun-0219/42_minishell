@@ -22,6 +22,7 @@ SRCS		=	srcs/main.c							\
 				srcs/parsing/parsing.c				\
 				srcs/parsing/quoter_utils.c			\
 				srcs/make_cmd_info/make_cmd_info.c	\
+				srcs/make_cmd_info/make_pipe.c		\
 				srcs/exe_cmd/exe_cmd.c				
 OBJS 		= $(SRCS:.c=.o)
 

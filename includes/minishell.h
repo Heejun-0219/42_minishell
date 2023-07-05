@@ -66,10 +66,10 @@ typedef struct s_parse
 
 typedef enum e_redirect_type
 {
-	OUT_ONE,
-	OUT_TWO,
-	IN,
-	HERE,
+	WRITE,
+	APPEND,
+	READ,
+	HEREDOC,
 }	t_redirect_type;
 
 typedef struct s_redirect
@@ -86,7 +86,7 @@ typedef struct s_pipe
 	t_redirect		*redirect;
 	size_t			redirect_index;
 	pid_t			pid;
-	int				status;
+	int				is_pipe;
 	int				pipe_fd[2];
 	int				in_fd;
 	int				out_fd;
@@ -125,6 +125,16 @@ void	free_cmd(t_cmd *cmd, size_t pipe_i);
 int		ft_error(char *m, int error);
 
 int		make_cmd_info(t_parse *parse, t_cmd *cmd, t_info *info);
+void    init_pipe(t_pipe *pipe);
+int		init_cmd(t_parse *parse, t_cmd *cmd, t_info *info);
+int		get_path_env(t_parse *parse, t_cmd *cmd, t_info *info);
+void	get_exe_count(t_parse *parse, t_cmd *cmd);
+
+int		make_pipe(t_parse *parse, t_cmd *cmd);
+int		set_pipe(t_parse *parse, t_pipe *pipe);
+int		set_re(t_parse *parse, t_pipe *pipe, size_t index);
+int		malloc_re(t_parse *parse, t_pipe *pipe);
+int		malloc_cmd(t_parse *parse, t_pipe *pipe);
 
 int 	exe_cmd(t_parse *parse, t_cmd *cmd, t_info *info);
 
