@@ -20,7 +20,8 @@ SRCS		=	srcs/main.c							\
 				srcs/lst/ft_lstpush_back.c			\
 				srcs/parsing/parsing.c				\
 				srcs/parsing/quoter_utils.c			\
-				srcs/make_cmd_info/make_cmd_info.c	
+				srcs/make_cmd_info/make_cmd_info.c	\
+				srcs/exe_cmd/exe_cmd.c				
 OBJS 		= $(SRCS:.c=.o)
 
 

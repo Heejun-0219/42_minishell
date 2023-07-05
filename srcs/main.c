@@ -6,7 +6,7 @@ static int parse_exe(t_parse *parse, t_cmd *cmd, t_info *info)
 
     if (make_cmd_info(parse, cmd, info) == FAILURE)
         return (FAILURE);
-    if (exec_cmd(parse, cmd, info) == FAILURE)
+    if (exe_cmd(parse, cmd, info) == FAILURE)
         return (FAILURE);
     free_mini(parse, cmd);
 }
