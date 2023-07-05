@@ -38,8 +38,6 @@ SRCS		=	srcs/main.c							\
 				srcs/parsing/parsing.c				\
 				srcs/parsing/parsing_utils.c		\
 
-
-
 OBJS 		= $(SRCS:.c=.o)
 
 .PHONY	: all
