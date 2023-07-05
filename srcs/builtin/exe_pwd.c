@@ -12,6 +12,6 @@ int exe_pwd(t_parse *parse, t_cmd *cmd, t_info *info, t_pipe *pipe)
         printf("%s\n", pwd);
     else
         exit(EXIT_FAILURE);
-    exit(EXIT_SUCCESS)
+    exit(EXIT_SUCCESS);
 }
     

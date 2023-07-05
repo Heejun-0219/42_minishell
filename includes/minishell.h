@@ -152,7 +152,7 @@ int		is_heredoc(t_cmd *cmd);
 void    heredoc_child(t_cmd *cmd);
 void    tmp_heredoc(t_redirect *redirect);
 
-int		is_builtin(t_parse *parse, t_cmd *cmd, t_info *info);
+int		is_builtin(t_cmd *cmd, t_pipe *pipe);
 int		exe_builtin(t_parse *parse, t_cmd *cmd, t_info *info, t_pipe *pipe);
 
 int		exe_cd(t_parse *parse, t_cmd *cmd, t_info *info, t_pipe *pipe);

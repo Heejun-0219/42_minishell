@@ -1,6 +1,6 @@
 #include "minishell.h"
 
-int is_builtin(t_parse *parse, t_cmd *cmd, t_info *info)
+int is_builtin(t_cmd *cmd, t_pipe *pipe)
 {
     if (cmd->pipe[cmd->pipe_index].cmd == NULL)
         return (FALSE);
