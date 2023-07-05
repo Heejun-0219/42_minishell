@@ -119,6 +119,12 @@ int     ft_lstpush_back(t_list *list, void *content);
 t_list  ft_lst_init(void);
 
 int	    ft_error(char *m, int error);
+void    free_mini(t_parse *parse, t_cmd *cmd);
+void	ft_free_tokens(t_parse *parse, size_t token_size);
+void	ft_free_cmd(t_cmd *cmd, size_t pipe_i);
+int		ft_error(char *m, int error);
+
+int		make_cmd_info(t_parse *parse, t_cmd *cmd, t_info *info);
 
 void    sig_handler(int signo);
 void    init_sig(t_info *info);
