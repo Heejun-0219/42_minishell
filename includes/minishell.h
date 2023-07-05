@@ -44,39 +44,38 @@ typedef struct s_list
 
 typedef enum e_token_type
 {
-	//TODO : ; 추가
-	KEY,		
-	PIPE,				// |
-	REDIRECT,			// > >> < <<
+	KEY,
+	PIPE,
+	REDIRECT,
 }	t_token_type;
 
 typedef struct s_token
 {
-	t_token_type	type;	// KEY, PIPE, REDIRECT
-	char			*s;		// token string -> ex) ls, |, >, >>
-	size_t			token_index; // 해당 토큰 인덱스 -> 위치 
+	t_token_type	type;
+	char			*s;
 }	t_token;
 
 typedef struct s_parse
 {
-	size_t			line_index;		// line 인덱스
-	char			*line;			// line
-	size_t			token_count;	// 토큰 개수
-	t_token			*tokens;		// 토큰 배열
+	size_t			line_index;
+	char			*line;
+	size_t			tokens_index;
+	size_t			token_count;
+	t_token			*tokens;
 }	t_parse;
 
 typedef enum e_redirect_type
 {
-	OUT_ONE,
-	OUT_TWO,
-	IN,
-	HERE,
+	WRITE,
+	APPEND,
+	READ,
+	HEREDOC,
 }	t_redirect_type;
 
 typedef struct s_redirect
 {
 	t_redirect_type		type;
-	char				*value;
+	char				*val;
 }	t_redirect;
 
 typedef struct s_pipe
@@ -87,10 +86,22 @@ typedef struct s_pipe
 	t_redirect		*redirect;
 	size_t			redirect_index;
 	pid_t			pid;
+	int				is_pipe;
 	int				pipe_fd[2];
 	int				in_fd;
 	int				out_fd;
+	int				builtin;
 }	t_pipe;
+
+typedef struct s_cmd
+{
+	t_pipe			*pipe;
+	size_t			pipe_count;
+	size_t			pipe_index;
+	int				pre_pipe_fd;
+	char			**envp;
+	pid_t			pid;
+}	t_cmd;
 
 typedef struct s_info
 {
@@ -108,13 +119,31 @@ int     ft_lstpush_back(t_list *list, void *content);
 t_list  ft_lst_init(void);
 
 int	    ft_error(char *m, int error);
+void    free_mini(t_parse *parse, t_cmd *cmd);
+void	free_tokens(t_parse *parse, size_t token_size);
+void	free_cmd(t_cmd *cmd, size_t pipe_i);
+int		ft_error(char *m, int error);
+
+int		make_cmd_info(t_parse *parse, t_cmd *cmd, t_info *info);
+void    init_pipe(t_pipe *pipe);
+int		init_cmd(t_parse *parse, t_cmd *cmd, t_info *info);
+int		get_path_env(t_parse *parse, t_cmd *cmd, t_info *info);
+void	get_exe_count(t_parse *parse, t_cmd *cmd);
+
+int		make_pipe(t_parse *parse, t_cmd *cmd);
+int		set_pipe(t_parse *parse, t_pipe *pipe);
+int		set_re(t_parse *parse, t_pipe *pipe, size_t index);
+int		malloc_re(t_parse *parse, t_pipe *pipe);
+int		malloc_cmd(t_parse *parse, t_pipe *pipe);
+
+int 	exe_cmd(t_parse *parse, t_cmd *cmd, t_info *info);
 
 void    sig_handler(int signo);
 void    init_sig(t_info *info);
 
 void    init_info(t_info *info, int ac, char **av, char **env);
 void    init_env_list(t_info *info, char **env);
-int     ft_list_push_back(t_list *list, void *content);
+
 
 // parsing
 void tokenize_line(t_parse *parse);

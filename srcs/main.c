@@ -1,15 +1,22 @@
 #include "minishell.h"
 
-int	ft_error(char *m, int error)
+static int parse_exe(t_parse *parse, t_cmd *cmd, t_info *info)
 {
-	printf("Error\n%s\n", m);
-	return (error);
+    // parse | info 환경변수 확인? 
+
+    if (make_cmd_info(parse, cmd, info) == FAILURE)
+        return (FAILURE);
+    if (exe_cmd(parse, cmd, info) == FAILURE)
+        return (FAILURE);
+    free_mini(parse, cmd);
+    return (SUCCESS);
 }
 
 int main(int ac, char **av, char **env)
 {
     t_parse parse;
     t_info  info;
+    t_cmd   cmd;
     size_t  line_index;    // line 인덱스, 나중에 
 
     init_info(&info, ac, av, env);
@@ -32,6 +39,7 @@ int main(int ac, char **av, char **env)
         tokenize_line(&parse);
         parse.line_index = line_index++;
         add_history(parse.line);
+        parse_exe(&parse, &cmd, &info);
         free(parse.line);
     }
     return (SUCCESS);

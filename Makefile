@@ -14,14 +14,20 @@ LIBFT_DIR	=	srcs/Libft
 LIBFT		= 	srcs/Libft/libft.a
 LIBFT_INC	=	-L$(LIBFT_DIR) -lft
 
-SRCS		=	srcs/main.c					\
-				srcs/init.c					\
-				srcs/lst/ft_lstclear.c		\
-				srcs/lst/ft_lstinit.c		\
-				srcs/lst/ft_lstdelone.c		\
-				srcs/lst/ft_lstpush_back.c	\
-				srcs/parsing/parsing.c		\
-				srcs/parsing/quoter_utils.c	
+
+SRCS		=	srcs/main.c							\
+				srcs/init.c							\
+				srcs/error_free.c					\
+				srcs/lst/ft_lstclear.c				\
+				srcs/lst/ft_lstinit.c				\
+				srcs/lst/ft_lstdelone.c				\
+				srcs/lst/ft_lstpush_back.c			\
+				srcs/parsing/parsing.c				\
+				srcs/parsing/quoter_utils.c			\
+				srcs/make_cmd_info/make_cmd_info.c	\
+				srcs/make_cmd_info/make_pipe.c		\
+				srcs/exe_cmd/exe_cmd.c				
+
 OBJS 		= $(SRCS:.c=.o)
 
 .PHONY	: all
