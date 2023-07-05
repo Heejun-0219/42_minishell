@@ -53,13 +53,13 @@ typedef struct s_token
 {
 	t_token_type	type;
 	char			*s;
+	size_t			token_index;
 }	t_token;
 
 typedef struct s_parse
 {
-	size_t			line_index;
 	char			*line;
-	size_t			tokens_index;
+	size_t			line_index;
 	size_t			token_count;
 	t_token			*tokens;
 }	t_parse;
@@ -162,5 +162,14 @@ int		exe_exit(t_parse *parse, t_cmd *cmd, t_info *info, t_pipe *pipe);
 int		exe_export(t_parse *parse, t_cmd *cmd, t_info *info, t_pipe *pipe);
 int		exe_pwd(t_parse *parse, t_cmd *cmd, t_info *info, t_pipe *pipe);
 int		exe_unset(t_parse *parse, t_cmd *cmd, t_info *info, t_pipe *pipe);
+
+
+// parsing
+void tokenize_line(t_parse *parse);
+
+// parsing/quoter_util.c
+void merge_and_free_tokens(char **dest, char *src);
+int ends_with_quote(char *token);
+size_t get_array_size(char **array); 
 
 #endif

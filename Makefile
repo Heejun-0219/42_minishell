@@ -4,13 +4,16 @@ cc 		= 	cc
 CFLAGS	=	-Wall -Wextra -Werror
 RM		=	rm -rf
 
-READLINE_FLAGS		:= $(shell brew info readline | grep export | awk -F '"' '{print $$2}' | tr '\n' ' ')
-READLINE_INCLUDE	:= $(shell brew info readline | grep CPPFLAGS | awk -F '"' '{print $$2}')
+# READLINE_FLAGS		:= $(shell brew info readline | grep export | awk -F '"' '{print $$2}' | tr '\n' ' ')
+# READLINE_INCLUDE	:= $(shell brew info readline | grep CPPFLAGS | awk -F '"' '{print $$2}')
+READLINE_FLAGS		= -L/opt/homebrew/opt/readline/lib
+READLINE_INCLUDE	= -I/opt/homebrew/opt/readline/include
 
 INCLUDES	=	includes/
 LIBFT_DIR	=	srcs/Libft
 LIBFT		= 	srcs/Libft/libft.a
 LIBFT_INC	=	-L$(LIBFT_DIR) -lft
+
 
 SRCS		=	srcs/main.c							\
 				srcs/utils/init.c					\
@@ -35,16 +38,16 @@ SRCS		=	srcs/main.c							\
 
 OBJS 		= $(SRCS:.c=.o)
 
-
 .PHONY	: all
 all		: $(NAME)
 
 $(NAME)	: $(OBJS) $(INCLUDES)
-			$(MAKE) -C $(LIBFT_DIR) all
-			$(CC) $(CFLAGS) $(OBJS) $(LIBFT) -o $(NAME) -lreadline $(READLINE_FLAGS)
+	$(MAKE) -C $(LIBFT_DIR) all
+	$(CC) $(CFLAGS) $(OBJS) $(LIBFT) $(READLINE_FLAGS) -lreadline -o $(NAME)
+
 
 %.o		: %.c
-			$(CC) $(CFLAGS) -c $< -o $@ -I$(INCLUDES) $(READLINE_INCLUDE)
+			$(CC) $(CFLAGS) -g -c $< -o $@ -I$(INCLUDES) $(READLINE_INCLUDE)
 
 
 .PHONY	: clean
