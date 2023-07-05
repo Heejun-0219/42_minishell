@@ -1,6 +1,47 @@
 #include "minishell.h"
 
-static void export_option(t_info *info, t_pipe *pipe)
+static int check_valid(char *str)
+{
+    size_t  i;
+
+    i = 1;
+    if (ft_isalpha(str[0]) == FALSE && str[0] != '_')
+    {
+        return (FALSE);
+    }
+    while (str[i])
+    {
+        if (str[i] == '=')
+            return (TRUE);
+        if (ft_isalnum(str[i]) == FALSE && str[i] != '_')
+            return (FALSE);
+        i++;
+    }
+    return (TRUE);
+}
+
+static t_node  *check_if_env_exist(t_list *env_list, const char *s)
+{
+    t_node  *node;
+    char    *front;
+
+    front = ft_split(s, '=')[0];
+    node = env_list->front;
+    while (node)
+    {
+        if (ft_strncmp(node->content, front, ft_strlen(front) + 1) == 0 \
+            || ft_strncmp(node->content, front, ft_strlen(front) + 1) == '=')
+        {
+            free(front);
+            return (node);
+        }
+        node = node->next;
+    }
+    free(front);
+    return (NULL);
+}
+
+static void export_insert(t_info *info, t_pipe *pipe)
 {
     size_t  i;
     t_node  *node;
@@ -8,14 +49,28 @@ static void export_option(t_info *info, t_pipe *pipe)
     i = 1;
     while (pipe->cmd[i])
     {
-        
+        if (check_valid(pipe->cmd[i]) == FALSE)
+        {
+            printf("minishell: export: `%s': not a valid identifier\n", \
+                pipe->cmd[i]);
+            i++;
+            continue ;
+        }
+        node = check_if_env_exist(&(info->env_list), pipe->cmd[i]);
+        if (node == NULL)
+            ft_lstpush_back(&(info->env_list), ft_strdup(pipe->cmd[i]));
+        else
+        {
+            free(node->content);
+            node->content = ft_strdup(pipe->cmd[i]);
+        }
         i++;
     }
 }
 
 static void export_no(t_list *env_list)
 {
-    t_list *env;
+    t_node *env;
 
     env = env_list->front;
     while (env)
@@ -32,7 +87,7 @@ int exe_export(t_parse *parse, t_cmd *cmd, t_info *info, t_pipe *pipe)
     if (pipe->cmd[1] == NULL)
         export_no(&(info->env_list));
     else
-        export_option(info, pipe);
+        export_insert(info, pipe);
     if (pipe->builtin == TRUE)
         return (SUCCESS);
     else
