@@ -6,6 +6,12 @@ int	ft_error(char *m, int error)
 	return (error);
 }
 
+int	ft_perror(int error)
+{
+	perror("Error");
+	return (error);
+}
+
 void	free_cmd(t_cmd *cmd, size_t pipe_i)
 {
 	size_t		i;
