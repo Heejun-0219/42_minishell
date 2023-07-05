@@ -53,7 +53,7 @@ typedef struct s_token
 {
 	t_token_type	type;
 	char			*s;
-	size_t			tokens_index;
+	size_t			token_index;
 }	t_token;
 
 typedef struct s_parse
