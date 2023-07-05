@@ -1,6 +1,6 @@
 #include "minishell.h"
 
-int diff_env_export(char *str)
+static int diff_env_export(char *str)
 {
     int i;
 
@@ -21,11 +21,11 @@ int exe_env(t_parse *parse, t_cmd *cmd, t_info *info, t_pipe *pipe)
     (void)parse;
     (void)cmd;
     (void)pipe;
-    node = info->env.front;
+    node = info->env_list.front;
     while (node)
     {
         if (diff_env_export(node->content) == TRUE)
-            printf("%s\n", node->content);
+            printf("%s\n", (char *)(node->content));
         node = node->next;
     }
     exit(EXIT_SUCCESS);
