@@ -118,11 +118,20 @@ int	    ft_lstdel_node(t_list *list, t_node *node);
 int     ft_lstpush_back(t_list *list, void *content);
 t_list  ft_lst_init(void);
 
+int		ft_perror(int error);
 int	    ft_error(char *m, int error);
 void    free_mini(t_parse *parse, t_cmd *cmd);
 void	free_tokens(t_parse *parse, size_t token_size);
 void	free_cmd(t_cmd *cmd, size_t pipe_i);
 int		ft_error(char *m, int error);
+
+void    sig_handler(int signo);
+void    init_sig(t_info *info);
+void    sig_heredoc_parent(int signo);
+void    sig_heredoc_child(int signo);
+
+void    init_info(t_info *info, int ac, char **av, char **env);
+void    init_env_list(t_info *info, char **env);
 
 int		make_cmd_info(t_parse *parse, t_cmd *cmd, t_info *info);
 void    init_pipe(t_pipe *pipe);
@@ -137,12 +146,22 @@ int		malloc_re(t_parse *parse, t_pipe *pipe);
 int		malloc_cmd(t_parse *parse, t_pipe *pipe);
 
 int 	exe_cmd(t_parse *parse, t_cmd *cmd, t_info *info);
+int		wait_mini(t_cmd *cmd);
 
-void    sig_handler(int signo);
-void    init_sig(t_info *info);
+int		is_heredoc(t_cmd *cmd);
+void    heredoc_child(t_cmd *cmd);
+void    tmp_heredoc(t_redirect *redirect);
 
-void    init_info(t_info *info, int ac, char **av, char **env);
-void    init_env_list(t_info *info, char **env);
+int		is_builtin(t_parse *parse, t_cmd *cmd, t_info *info);
+int		exe_builtin(t_parse *parse, t_cmd *cmd, t_info *info, t_pipe *pipe);
+
+int		exe_cd(t_parse *parse, t_cmd *cmd, t_info *info, t_pipe *pipe);
+int		exe_echo(t_parse *parse, t_cmd *cmd, t_info *info, t_pipe *pipe);
+int		exe_env(t_parse *parse, t_cmd *cmd, t_info *info, t_pipe *pipe);
+int		exe_exit(t_parse *parse, t_cmd *cmd, t_info *info, t_pipe *pipe);
+int		exe_export(t_parse *parse, t_cmd *cmd, t_info *info, t_pipe *pipe);
+int		exe_pwd(t_parse *parse, t_cmd *cmd, t_info *info, t_pipe *pipe);
+int		exe_unset(t_parse *parse, t_cmd *cmd, t_info *info, t_pipe *pipe);
 
 
 // parsing
