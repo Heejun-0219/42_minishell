@@ -122,6 +122,6 @@ void tokenize_line(t_parse *parse);
 // parsing/quoter_util.c
 void merge_and_free_tokens(char **dest, char *src);
 int ends_with_quote(char *token);
-size_t get_array_size(char **array);
+size_t get_array_size(char **array); 
 
 #endif

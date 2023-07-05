@@ -29,7 +29,8 @@ int main(int ac, char **av, char **env)
             free(parse.line);
             continue ;
         }
-        parse.line_index = line_index++; 
+        tokenize_line(&parse);
+        parse.line_index = line_index++;
         add_history(parse.line);
         free(parse.line);
     }
