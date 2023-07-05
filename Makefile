@@ -13,17 +13,26 @@ LIBFT		= 	srcs/Libft/libft.a
 LIBFT_INC	=	-L$(LIBFT_DIR) -lft
 
 SRCS		=	srcs/main.c							\
-				srcs/init.c							\
-				srcs/error_free.c					\
+				srcs/utils/init.c					\
+				srcs/utils/error_free.c				\
+				srcs/utils/sig.c					\
 				srcs/lst/ft_lstclear.c				\
 				srcs/lst/ft_lstinit.c				\
 				srcs/lst/ft_lstdelone.c				\
 				srcs/lst/ft_lstpush_back.c			\
-				srcs/parsing/parsing.c				\
-				srcs/parsing/quoter_utils.c			\
 				srcs/make_cmd_info/make_cmd_info.c	\
 				srcs/make_cmd_info/make_pipe.c		\
-				srcs/exe_cmd/exe_cmd.c				
+				srcs/exe_cmd/exe_cmd.c				\
+				srcs/exe_cmd/here_doc.c				\
+				srcs/builtin/exe_cd.c				\
+				srcs/builtin/exe_echo.c				\
+				srcs/builtin/exe_env.c				\
+				srcs/builtin/exe_exit.c				\
+				srcs/builtin/exe_export.c			\
+				srcs/builtin/exe_pwd.c				\
+				srcs/builtin/exe_unset.c			\
+				srcs/builtin/builtin.c		
+
 OBJS 		= $(SRCS:.c=.o)
 
 
