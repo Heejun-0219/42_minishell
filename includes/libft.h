@@ -6,7 +6,7 @@
 /*   By: mi <mi@student.42seoul.kr>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 13:52:32 by heejunki          #+#    #+#             */
-/*   Updated: 2023/07/04 22:21:24 by mi               ###   ########.fr       */
+/*   Updated: 2023/07/05 03:16:07 by mi               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,5 +61,7 @@ void	ft_putstr_fd(char *s, int fd);
 void	ft_putendl_fd(char *s, int fd);
 void	ft_putnbr_fd(int n, int fd);
 void	*ft_malloc(size_t size);
+void	*ft_realloc(void *ptr, size_t size);
+
 
 #endif

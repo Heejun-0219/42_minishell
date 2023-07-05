@@ -6,7 +6,7 @@
 /*   By: mi <mi@student.42seoul.kr>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 22:19:33 by mi                #+#    #+#             */
-/*   Updated: 2023/07/04 22:21:15 by mi               ###   ########.fr       */
+/*   Updated: 2023/07/05 02:55:54 by mi               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,6 @@ void *ft_malloc(size_t size)	// 할당시 에러 처리한 malloc
 
 	ptr = malloc(size);
 	if (!ptr)
-	{
-		ft_error("malloc error", 1);
 		exit(1);
-	}
 	return (ptr);
 }
