@@ -44,25 +44,24 @@ typedef struct s_list
 
 typedef enum e_token_type
 {
-	//TODO : ; 추가
-	KEY,		
-	PIPE,				// |
-	REDIRECT,			// > >> < <<
+	KEY,
+	PIPE,
+	REDIRECT,
 }	t_token_type;
 
 typedef struct s_token
 {
-	t_token_type	type;	// KEY, PIPE, REDIRECT
-	char			*s;		// token string -> ex) ls, |, >, >>
-	size_t			token_index; // 해당 토큰 인덱스 -> 위치 
+	t_token_type	type;
+	char			*s;
 }	t_token;
 
 typedef struct s_parse
 {
-	size_t			line_index;		// line 인덱스
-	char			*line;			// line
-	size_t			token_count;	// 토큰 개수
-	t_token			*tokens;		// 토큰 배열
+	size_t			line_index;
+	char			*line;
+	size_t			tokens_index;
+	size_t			token_count;
+	t_token			*tokens;
 }	t_parse;
 
 typedef enum e_redirect_type
@@ -87,10 +86,22 @@ typedef struct s_pipe
 	t_redirect		*redirect;
 	size_t			redirect_index;
 	pid_t			pid;
+	int				status;
 	int				pipe_fd[2];
 	int				in_fd;
 	int				out_fd;
+	int				builtin;
 }	t_pipe;
+
+typedef struct s_cmd
+{
+	t_pipe			*pipe;
+	size_t			pipe_index;
+	size_t			pipe_count;
+	int				pre_pipe_fd;
+	char			**envp;
+	pid_t			pid;
+}	t_cmd;
 
 typedef struct s_info
 {
@@ -114,14 +125,5 @@ void    init_sig(t_info *info);
 
 void    init_info(t_info *info, int ac, char **av, char **env);
 void    init_env_list(t_info *info, char **env);
-int     ft_list_push_back(t_list *list, void *content);
-
-// parsing
-void tokenize_line(t_parse *parse);
-
-// parsing/quoter_util.c
-void merge_and_free_tokens(char **dest, char *src);
-int ends_with_quote(char *token);
-size_t get_array_size(char **array);
 
 #endif
