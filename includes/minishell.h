@@ -163,7 +163,6 @@ int		exe_export(t_parse *parse, t_cmd *cmd, t_info *info, t_pipe *pipe);
 int		exe_pwd(t_parse *parse, t_cmd *cmd, t_info *info, t_pipe *pipe);
 int		exe_unset(t_parse *parse, t_cmd *cmd, t_info *info, t_pipe *pipe);
 
-
 // parsing
 void tokenize_line(t_parse *parse);
 
