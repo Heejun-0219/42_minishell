@@ -96,8 +96,8 @@ typedef struct s_pipe
 typedef struct s_cmd
 {
 	t_pipe			*pipe;
-	size_t			pipe_index;
 	size_t			pipe_count;
+	size_t			pipe_index;
 	int				pre_pipe_fd;
 	char			**envp;
 	pid_t			pid;
@@ -120,11 +120,13 @@ t_list  ft_lst_init(void);
 
 int	    ft_error(char *m, int error);
 void    free_mini(t_parse *parse, t_cmd *cmd);
-void	ft_free_tokens(t_parse *parse, size_t token_size);
-void	ft_free_cmd(t_cmd *cmd, size_t pipe_i);
+void	free_tokens(t_parse *parse, size_t token_size);
+void	free_cmd(t_cmd *cmd, size_t pipe_i);
 int		ft_error(char *m, int error);
 
 int		make_cmd_info(t_parse *parse, t_cmd *cmd, t_info *info);
+
+int 	exe_cmd(t_parse *parse, t_cmd *cmd, t_info *info);
 
 void    sig_handler(int signo);
 void    init_sig(t_info *info);

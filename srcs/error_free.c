@@ -6,7 +6,7 @@ int	ft_error(char *m, int error)
 	return (error);
 }
 
-void	ft_free_cmd(t_cmd *cmd, size_t pipe_i)
+void	free_cmd(t_cmd *cmd, size_t pipe_i)
 {
 	size_t		i;
 
@@ -20,11 +20,14 @@ void	ft_free_cmd(t_cmd *cmd, size_t pipe_i)
 	free(cmd->pipe);
 	i = 0;
 	while (cmd->envp[i])
-		free(cmd->envp[i++]);
+    {
+		free(cmd->envp[i]);
+        i++;
+    }
 	free(cmd->envp);
 }
 
-void	ft_free_tokens(t_parse *parse, size_t token_size)
+void	free_tokens(t_parse *parse, size_t token_size)
 {
 	size_t	i;
 
@@ -39,6 +42,6 @@ void	ft_free_tokens(t_parse *parse, size_t token_size)
 
 void    free_mini(t_parse *parse, t_cmd *cmd)
 {
-    free(parse->line);
-    free_cmd(cmd);
+    free_tokens(parse, parse->token_count);
+    free_cmd(cmd, cmd->pipe_count);
 }

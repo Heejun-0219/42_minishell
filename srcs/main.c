@@ -9,6 +9,7 @@ static int parse_exe(t_parse *parse, t_cmd *cmd, t_info *info)
     if (exe_cmd(parse, cmd, info) == FAILURE)
         return (FAILURE);
     free_mini(parse, cmd);
+    return (SUCCESS);
 }
 
 int main(int ac, char **av, char **env)

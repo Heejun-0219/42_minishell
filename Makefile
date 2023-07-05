@@ -14,6 +14,7 @@ LIBFT_INC	=	-L$(LIBFT_DIR) -lft
 
 SRCS		=	srcs/main.c							\
 				srcs/init.c							\
+				srcs/error_free.c					\
 				srcs/lst/ft_lstclear.c				\
 				srcs/lst/ft_lstinit.c				\
 				srcs/lst/ft_lstdelone.c				\
