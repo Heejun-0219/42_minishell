@@ -75,7 +75,7 @@ typedef enum e_redirect_type
 typedef struct s_redirect
 {
 	t_redirect_type		type;
-	char				*value;
+	char				*val;
 }	t_redirect;
 
 typedef struct s_pipe

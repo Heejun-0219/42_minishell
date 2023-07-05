@@ -59,7 +59,7 @@ int set_re(t_parse *parse, t_pipe *pipe, size_t index)
         pipe->redirect[pipe->redirect_index].type = HEREDOC;
     else
         return (ft_error("syntax error near unexpected token\n", FAILURE));
-    pipe->redirect[pipe->redirect_index].value = \
+    pipe->redirect[pipe->redirect_index].val = \
         parse->tokens[i + 1].s;
     pipe->redirect_index++;
     return (SUCCESS);
