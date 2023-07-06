@@ -52,8 +52,8 @@ int	exe_cmd(t_parse *parse, t_cmd *cmd, t_info *info)
 	while (cmd->pipe_index < cmd->pipe_count)
 	{
 		tmp_pipe = &cmd->pipe[cmd->pipe_index];
-		if (check_builtin(cmd, tmp_pipe) == TRUE)
-			return (exe_builtin(parse, cmd, info, tmp_pipe));
+		if (exe_builtin_parent(cmd, tmp_pipe) == TRUE)
+			return (exe_builtin_parent(parse, cmd, info, tmp_pipe));
 		if (tmp_pipe->is_pipe == TRUE)
 		{
 			if (pipe(tmp_pipe->pipe_fd) == FAILURE)
