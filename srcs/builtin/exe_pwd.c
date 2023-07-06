@@ -1,13 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   exe_pwd.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: heejunki <heejunki@student.42seoul.kr>     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/07/06 14:50:23 by heejunki          #+#    #+#             */
+/*   Updated: 2023/07/06 14:51:42 by heejunki         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
-int exe_pwd(t_parse *parse, t_cmd *cmd, t_info *info, t_pipe *pipe)
+int exe_pwd(void)
 {
-    char pwd[256];
+    char    pwd[256];
 
-    (void)parse;
-    (void)cmd;
-    (void)info;
-    (void)pipe;
     if (getcwd(pwd, 256))
         printf("%s\n", pwd);
     else

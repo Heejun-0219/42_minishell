@@ -6,7 +6,7 @@
 /*   By: heejunki <heejunki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/06 14:25:04 by heejunki          #+#    #+#             */
-/*   Updated: 2023/07/06 14:35:52 by heejunki         ###   ########.fr       */
+/*   Updated: 2023/07/06 14:51:48 by heejunki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -168,14 +168,14 @@ void	tmp_heredoc(t_redirect *redirect);
 int		check_builtin(t_cmd *cmd, t_pipe *pipe);
 int		exe_builtin(t_parse *parse, t_cmd *cmd, t_info *info, t_pipe *pipe);
 
-int		exe_cd(t_parse *parse, t_cmd *cmd, t_info *info, t_pipe *pipe);
+int		exe_cd(t_pipe *pipe);
 int		exe_echo(t_parse *parse, t_cmd *cmd, t_info *info, t_pipe *pipe);
 int		exe_env(t_parse *parse, t_cmd *cmd, t_info *info, t_pipe *pipe);
 int		exe_exit(t_parse *parse, t_cmd *cmd, t_info *info, t_pipe *pipe);
 int		exe_export(t_parse *parse, t_cmd *cmd, t_info *info, t_pipe *pipe);
 t_node	*get_if_env_exist(t_list *env_list, const char *s);
 int		check_valid(char *str);
-int		exe_pwd(t_parse *parse, t_cmd *cmd, t_info *info, t_pipe *pipe);
+int		exe_pwd(void);
 int		exe_unset(t_parse *parse, t_cmd *cmd, t_info *info, t_pipe *pipe);
 
 // parsing

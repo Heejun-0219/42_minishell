@@ -1,24 +1,36 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   exe_echo.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: heejunki <heejunki@student.42seoul.kr>     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/07/06 14:47:43 by heejunki          #+#    #+#             */
+/*   Updated: 2023/07/06 14:47:56 by heejunki         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
-static void echo_str(char **str, int flag)
+static void	echo_str(char **str, int flag)
 {
-    int i;
+	int	i;
 
-    i = 0;
-    while (str[i])
-    {
-        printf("%s", str[i]);
-        if (str[i + 1] != NULL)
-            printf(" ");
-        i++;
-    }
-    if (flag == FALSE)
-        printf("\n");
+	i = 0;
+	while (str[i])
+	{
+		printf("%s", str[i]);
+		if (str[i + 1] != NULL)
+			printf(" ");
+		i++;
+	}
+	if (flag == FALSE)
+		printf("\n");
 }
 
-int exe_echo(t_parse *parse, t_cmd *cmd, t_info *info, t_pipe *pipe)
+int	exe_echo(t_parse *parse, t_cmd *cmd, t_info *info, t_pipe *pipe)
 {
-    if (pipe->cmd[1] == NULL)
+	if (pipe->cmd[1] == NULL)
 	{
 		printf("\n");
 	}
@@ -30,5 +42,5 @@ int exe_echo(t_parse *parse, t_cmd *cmd, t_info *info, t_pipe *pipe)
 	{
 		echo_str(pipe->cmd + 1, FALSE);
 	}
-    exit(EXIT_SUCCESS);
+	exit(EXIT_SUCCESS);
 }
