@@ -6,7 +6,7 @@
 /*   By: heejunki <heejunki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/06 14:26:58 by heejunki          #+#    #+#             */
-/*   Updated: 2023/07/06 14:28:11 by heejunki         ###   ########.fr       */
+/*   Updated: 2023/07/06 16:22:23 by heejunki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,9 +48,9 @@ int	main(int ac, char **av, char **env)
 			free(parse.line);
 			continue ;
 		}
+		add_history(parse.line);
 		tokenize_line(&parse);
 		parse.line_index = line_index++;
-		add_history(parse.line);
 		parse_exe(&parse, &cmd, &info);
 		free(parse.line);
 	}

@@ -6,7 +6,7 @@
 /*   By: heejunki <heejunki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/06 14:25:04 by heejunki          #+#    #+#             */
-/*   Updated: 2023/07/06 15:55:56 by heejunki         ###   ########.fr       */
+/*   Updated: 2023/07/06 16:48:43 by heejunki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -171,7 +171,7 @@ int		exe_builtin(t_parse *parse, t_cmd *cmd, t_info *info, t_pipe *pipe);
 int		exe_builtin_parent(t_parse *parse, t_cmd *cmd, t_info *info, \
 		t_pipe *pipe);
 
-int		exe_cd(t_pipe *pipe);
+int		exe_cd(t_pipe *pipe, t_info *info);
 int		exe_echo(t_pipe *pipe);
 int		exe_env(t_parse *parse, t_cmd *cmd, t_info *info, t_pipe *pipe);
 int		exe_exit(t_parse *parse, t_cmd *cmd, t_info *info, t_pipe *pipe);

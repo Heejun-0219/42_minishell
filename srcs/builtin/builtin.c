@@ -6,7 +6,7 @@
 /*   By: heejunki <heejunki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/06 14:46:20 by heejunki          #+#    #+#             */
-/*   Updated: 2023/07/06 15:55:38 by heejunki         ###   ########.fr       */
+/*   Updated: 2023/07/06 16:48:53 by heejunki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ int	check_builtin_parent(t_cmd *cmd, t_pipe *pipe)
 int	exe_builtin(t_parse *parse, t_cmd *cmd, t_info *info, t_pipe *pipe)
 {
 	if (ft_strncmp(pipe->cmd[0], "cd", 3) == SUCCESS)
-		return (exe_cd(pipe));
+		return (exe_cd(pipe, info));
 	if (ft_strncmp(pipe->cmd[0], "echo", 5) == SUCCESS)
 		return (exe_echo(pipe));
 	if (ft_strncmp(pipe->cmd[0], "env", 4) == SUCCESS)
@@ -75,7 +75,7 @@ int	exe_builtin_parent(t_parse *parse, t_cmd *cmd, t_info *info, t_pipe *pipe)
 {
 	pipe->builtin = TRUE;
 	if (ft_strncmp(pipe->cmd[0], "cd", 3) == SUCCESS)
-		return (exe_cd(pipe));
+		return (exe_cd(pipe, info));
 	if (ft_strncmp(pipe->cmd[0], "exit", 5) == SUCCESS)
 		return (exe_exit(parse, cmd, info, pipe));
 	if (ft_strncmp(pipe->cmd[0], "export", 7) == SUCCESS)
