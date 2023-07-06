@@ -1,6 +1,6 @@
 #include "minishell.h"
 
-static int check_valid(char *str)
+int check_valid(char *str)
 {
     size_t  i;
 
@@ -20,7 +20,7 @@ static int check_valid(char *str)
     return (TRUE);
 }
 
-static t_node  *check_if_env_exist(t_list *env_list, const char *s)
+t_node  *get_if_env_exist(t_list *env_list, const char *s)
 {
     t_node  *node;
     char    *front;

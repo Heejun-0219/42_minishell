@@ -160,6 +160,8 @@ int		exe_echo(t_parse *parse, t_cmd *cmd, t_info *info, t_pipe *pipe);
 int		exe_env(t_parse *parse, t_cmd *cmd, t_info *info, t_pipe *pipe);
 int		exe_exit(t_parse *parse, t_cmd *cmd, t_info *info, t_pipe *pipe);
 int		exe_export(t_parse *parse, t_cmd *cmd, t_info *info, t_pipe *pipe);
+t_node	*get_if_env_exist(t_list *env_list, const char *s);
+int 	check_valid(char *str);
 int		exe_pwd(t_parse *parse, t_cmd *cmd, t_info *info, t_pipe *pipe);
 int		exe_unset(t_parse *parse, t_cmd *cmd, t_info *info, t_pipe *pipe);
 
