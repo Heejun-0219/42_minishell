@@ -1,8 +1,20 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   sig.c                                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: heejunki <heejunki@student.42seoul.kr>     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/07/06 14:28:54 by heejunki          #+#    #+#             */
+/*   Updated: 2023/07/06 14:30:37 by heejunki         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
-void    sig_handler(int signo)
+void	sig_handler(int signo)
 {
-    (void)signo;
+	(void)signo;
 	g_exit_code = 1;
 	printf("\n");
 	if (rl_on_new_line() == -1)
@@ -11,23 +23,23 @@ void    sig_handler(int signo)
 	rl_redisplay();
 }
 
-void    init_sig(t_info *info)
+void	init_sig(t_info *info)
 {
-    info->term = info->term_back;
-    info->term.c_lflag = ~ECHOCTL;
-    tcsetattr(STDIN_FILENO, TCSANOW, &info->term);
-    signal(SIGINT, sig_handler);
-    signal(SIGQUIT, SIG_IGN);
+	info->term = info->term_back;
+	info->term.c_lflag = ~ECHOCTL;
+	tcsetattr(STDIN_FILENO, TCSANOW, &info->term);
+	signal(SIGINT, sig_handler);
+	signal(SIGQUIT, SIG_IGN);
 }
 
-void    sig_heredoc_child(int signo)
+void	sig_heredoc_child(int signo)
 {
-    (void)signo;
-    exit(1);
+	(void)signo;
+	exit(1);
 }
 
-void    sig_heredoc_parent(int signo)
+void	sig_heredoc_parent(int signo)
 {
-    (void)signo;
-    write(STDOUT_FILENO, "\n", 1);
+	(void)signo;
+	write(STDOUT_FILENO, "\n", 1);
 }

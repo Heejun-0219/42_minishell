@@ -1,121 +1,93 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   make_pipe.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: heejunki <heejunki@student.42seoul.kr>     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/07/06 14:32:41 by heejunki          #+#    #+#             */
+/*   Updated: 2023/07/06 14:35:22 by heejunki         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
-int malloc_cmd(t_parse *parse, t_pipe *pipe)
+int	set_re(t_parse *parse, t_pipe *pipe, size_t index)
 {
-    size_t  i;
-    size_t  token_count;
+	size_t	i;
 
-    i = 0;
-    token_count = 0;
-    while (i < parse->token_count)
-    {
-        if (parse->tokens[i].type == PIPE)
-            break ;
-        if (parse->tokens[i].type == REDIRECT)
-            i++;
-        if (parse->tokens[i].type == KEY)
-            token_count++;
-        i++;
-    }
-    pipe->cmd = (char **)malloc(sizeof(char *) * (token_count + 1));
-    if (pipe->cmd == NULL)
-        return (ft_error("malloc error\n", FAILURE));
-    return (SUCCESS);
+	i = index;
+	if (ft_strncmp(parse->tokens[i].s, ">", 2) == TRUE)
+		pipe->redirect[pipe->redirect_index].type = WRITE;
+	else if (ft_strncmp(parse->tokens[i].s, ">>", 3) == TRUE)
+		pipe->redirect[pipe->redirect_index].type = APPEND;
+	else if (ft_strncmp(parse->tokens[i].s, "<", 2) == TRUE)
+		pipe->redirect[pipe->redirect_index].type = READ;
+	else if (ft_strncmp(parse->tokens[i].s, "<<", 3) == TRUE)
+		pipe->redirect[pipe->redirect_index].type = HEREDOC;
+	else
+		return (ft_error("syntax error near unexpected token\n", FAILURE));
+	pipe->redirect[pipe->redirect_index].val = \
+		parse->tokens[i + 1].s;
+	pipe->redirect_index++;
+	return (SUCCESS);
 }
 
-int malloc_re(t_parse *parse, t_pipe *pipe)
+void	set_key(t_parse *parse, t_pipe *pipe, size_t index)
 {
-    size_t  i;
-    size_t  re_count;
-
-    i = 0;
-    re_count = 0;
-    while (i < parse->token_count)
-    {
-        if (parse->tokens[i].type == PIPE)
-            break ;
-        if (parse->tokens[i].type == REDIRECT)
-            re_count++;
-        i++;
-    }
-    pipe->redirect = (t_redirect *)malloc(sizeof(t_redirect) * (re_count + 1));
-    if (pipe->redirect == NULL)
-        return (ft_error("malloc error\n", FAILURE));
-    return (SUCCESS);
+	pipe->cmd[pipe->cmd_index] = parse->tokens[index].s;
+	if (pipe->cmd_index == FALSE)
+		pipe->cmd_path = pipe->cmd[pipe->cmd_index];
+	pipe->cmd_index++;
 }
 
-int set_re(t_parse *parse, t_pipe *pipe, size_t index)
+int	set_pipe(t_parse *parse, t_pipe *pipe, size_t index)
 {
-    size_t  i;
-
-    i = index;
-    if (ft_strncmp(parse->tokens[i].s, ">", 2) == TRUE)
-        pipe->redirect[pipe->redirect_index].type = WRITE;
-    else if (ft_strncmp(parse->tokens[i].s, ">>", 3) == TRUE)
-        pipe->redirect[pipe->redirect_index].type = APPEND;
-    else if (ft_strncmp(parse->tokens[i].s, "<", 2) == TRUE)
-        pipe->redirect[pipe->redirect_index].type = READ;
-    else if (ft_strncmp(parse->tokens[i].s, "<<", 3) == TRUE)
-        pipe->redirect[pipe->redirect_index].type = HEREDOC;
-    else
-        return (ft_error("syntax error near unexpected token\n", FAILURE));
-    pipe->redirect[pipe->redirect_index].val = \
-        parse->tokens[i + 1].s;
-    pipe->redirect_index++;
-    return (SUCCESS);
+	if (malloc_cmd(parse, pipe) == FAILURE)
+		return (FAILURE);
+	if (malloc_re(parse, pipe) == FAILURE)
+		return (FAILURE);
+	while (index < parse->token_count)
+	{
+		if (parse->tokens[index].type == PIPE)
+		{
+			pipe->is_pipe = TRUE;
+			index++;
+			break ;
+		}
+		if (parse->tokens[index].type == KEY)
+		{
+			set_key(parse, pipe, index);
+		}
+		if (parse->tokens[index].type == REDIRECT)
+		{
+			if (set_re(parse, pipe, index) == FAILURE)
+				return (FAILURE);
+			index++;
+		}
+		index++;
+	}
+	return (SUCCESS);
 }
 
-int set_pipe(t_parse *parse, t_pipe *pipe)
+int	make_pipe(t_parse *parse, t_cmd *cmd)
 {
-    size_t  i;
+	t_pipe	*pipe;
+	size_t	i;
+	size_t	j;
 
-    i = 0;
-    if (malloc_cmd(parse, pipe) == FAILURE)
-        return (FAILURE);
-    if (malloc_re(parse, pipe) == FAILURE)
-        return (FAILURE);
-    while (i < parse->token_count)
-    {
-        if (parse->tokens[i].type == PIPE)
-        {
-            pipe->is_pipe = TRUE;
-            i++;
-            break ;
-        }
-        if (parse->tokens[i].type == KEY)
-        {
-            pipe->cmd[pipe->cmd_index] = parse->tokens[i].s;
-            if (pipe->cmd_index == FALSE)
-                pipe->cmd_path = pipe->cmd[pipe->cmd_index];
-            pipe->cmd_index++;
-        }
-        if (parse->tokens[i].type == REDIRECT)
-        {
-            if (set_re(parse, pipe, i) == FAILURE)
-                return (FAILURE);
-            i++;
-        }
-        i++;
-    }
-    return (SUCCESS);
-}
-
-int make_pipe(t_parse *parse, t_cmd *cmd)
-{
-    t_pipe  *pipe;
-    size_t  i;
-
-    i = 0;
-    while (i < cmd->pipe_count)
-    {
-        pipe = &cmd->pipe[i];
-        init_pipe(pipe);
-        if (set_pipe(parse, pipe) == FAILURE)
-        {
-            free_cmd(cmd, i);
-            return (FAILURE);
-        }
-        i++;
-    }
-    return (SUCCESS);
+	i = 0;
+	j = 0;
+	while (i < cmd->pipe_count)
+	{
+		pipe = &cmd->pipe[i];
+		init_pipe(pipe);
+		if (set_pipe(parse, pipe, j) == FAILURE)
+		{
+			free_cmd(cmd, i);
+			return (FAILURE);
+		}
+		i++;
+	}
+	return (SUCCESS);
 }

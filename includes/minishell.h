@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   minishell.h                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: heejunki <heejunki@student.42seoul.kr>     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/07/06 14:25:04 by heejunki          #+#    #+#             */
+/*   Updated: 2023/07/06 14:35:52 by heejunki         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
@@ -105,52 +117,53 @@ typedef struct s_cmd
 
 typedef struct s_info
 {
-    int             ac;
-    char            **av;
-    char            **env;
-    t_list          env_list;
-    struct termios  term;
-    struct termios  term_back;
-}   t_info;
+	int				ac;
+	char			**av;
+	char			**env;
+	t_list			env_list;
+	struct termios	term;
+	struct termios	term_back;
+}	t_info;
 
 void	ft_lstclear(t_list *lst);
-int	    ft_lstdel_node(t_list *list, t_node *node);
-int     ft_lstpush_back(t_list *list, void *content);
-t_list  ft_lst_init(void);
+int		ft_lstdel_node(t_list *list, t_node *node);
+int		ft_lstpush_back(t_list *list, void *content);
+t_list	ft_lst_init(void);
 
 int		ft_perror(int error);
-int	    ft_error(char *m, int error);
-void    free_mini(t_parse *parse, t_cmd *cmd);
+int		ft_error(char *m, int error);
+void	free_mini(t_parse *parse, t_cmd *cmd);
 void	free_tokens(t_parse *parse, size_t token_size);
 void	free_cmd(t_cmd *cmd, size_t pipe_i);
 int		ft_error(char *m, int error);
 
-void    sig_handler(int signo);
-void    init_sig(t_info *info);
-void    sig_heredoc_parent(int signo);
-void    sig_heredoc_child(int signo);
+void	sig_handler(int signo);
+void	init_sig(t_info *info);
+void	sig_heredoc_parent(int signo);
+void	sig_heredoc_child(int signo);
 
-void    init_info(t_info *info, int ac, char **av, char **env);
-void    init_env_list(t_info *info, char **env);
+void	init_info(t_info *info, int ac, char **av, char **env);
+void	init_env_list(t_info *info, char **env);
 
 int		make_cmd_info(t_parse *parse, t_cmd *cmd, t_info *info);
-void    init_pipe(t_pipe *pipe);
+void	init_pipe(t_pipe *pipe);
 int		init_cmd(t_parse *parse, t_cmd *cmd, t_info *info);
 int		get_path_env(t_parse *parse, t_cmd *cmd, t_info *info);
 void	get_exe_count(t_parse *parse, t_cmd *cmd);
 
 int		make_pipe(t_parse *parse, t_cmd *cmd);
-int		set_pipe(t_parse *parse, t_pipe *pipe);
+int		set_pipe(t_parse *parse, t_pipe *pipe, size_t index);
 int		set_re(t_parse *parse, t_pipe *pipe, size_t index);
+void	set_key(t_parse *parse, t_pipe *pipe, size_t index);
 int		malloc_re(t_parse *parse, t_pipe *pipe);
 int		malloc_cmd(t_parse *parse, t_pipe *pipe);
 
-int 	exe_cmd(t_parse *parse, t_cmd *cmd, t_info *info);
+int		exe_cmd(t_parse *parse, t_cmd *cmd, t_info *info);
 int		wait_mini(t_cmd *cmd);
 
 int		is_heredoc(t_cmd *cmd);
-void    heredoc_child(t_cmd *cmd);
-void    tmp_heredoc(t_redirect *redirect);
+void	heredoc_child(t_cmd *cmd);
+void	tmp_heredoc(t_redirect *redirect);
 
 int		check_builtin(t_cmd *cmd, t_pipe *pipe);
 int		exe_builtin(t_parse *parse, t_cmd *cmd, t_info *info, t_pipe *pipe);
@@ -161,12 +174,12 @@ int		exe_env(t_parse *parse, t_cmd *cmd, t_info *info, t_pipe *pipe);
 int		exe_exit(t_parse *parse, t_cmd *cmd, t_info *info, t_pipe *pipe);
 int		exe_export(t_parse *parse, t_cmd *cmd, t_info *info, t_pipe *pipe);
 t_node	*get_if_env_exist(t_list *env_list, const char *s);
-int 	check_valid(char *str);
+int		check_valid(char *str);
 int		exe_pwd(t_parse *parse, t_cmd *cmd, t_info *info, t_pipe *pipe);
 int		exe_unset(t_parse *parse, t_cmd *cmd, t_info *info, t_pipe *pipe);
 
 // parsing
-void tokenize_line(t_parse *parse);
+void	tokenize_line(t_parse *parse);
 
 // // quoter
 // void merge_quoted_tokens(char **tokens_str);
@@ -174,9 +187,10 @@ void tokenize_line(t_parse *parse);
 // void check_toggle_quote_type(char **tokens_str, int i, int *quoter_type);
 
 // parsing/quoter_util.c
-void merge_and_free_tokens(char **dest, char *src);
-int ends_with_quote(char *token);
-size_t get_array_size(char **array);
-int is_end_of_quote_scope(char *token, int inside_double, int inside_single);
+void	merge_and_free_tokens(char **dest, char *src);
+int		ends_with_quote(char *token);
+size_t	get_array_size(char **array);
+int		is_end_of_quote_scope(char *token, int inside_double, \
+	int inside_single);
 
 #endif
