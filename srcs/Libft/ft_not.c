@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_not.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mi <mi@student.42seoul.kr>                 +#+  +:+       +#+        */
+/*   By: heejunki <heejunki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/06 03:13:30 by mi                #+#    #+#             */
-/*   Updated: 2023/07/06 03:48:52 by mi               ###   ########.fr       */
+/*   Updated: 2023/07/06 14:56:08 by heejunki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void ft_not(int *value)
+void	ft_not(int *value)
 {
 	if (*value == 1)
 		*value = 0;
