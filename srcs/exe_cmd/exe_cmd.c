@@ -6,7 +6,7 @@
 /*   By: heejunki <heejunki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/06 14:41:22 by heejunki          #+#    #+#             */
-/*   Updated: 2023/07/06 14:43:36 by heejunki         ###   ########.fr       */
+/*   Updated: 2023/07/06 15:46:01 by heejunki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ int	exe_cmd(t_parse *parse, t_cmd *cmd, t_info *info)
 	while (cmd->pipe_index < cmd->pipe_count)
 	{
 		tmp_pipe = &cmd->pipe[cmd->pipe_index];
-		if (exe_builtin_parent(cmd, tmp_pipe) == TRUE)
+		if (check_builtin_parent(cmd, tmp_pipe) == TRUE)
 			return (exe_builtin_parent(parse, cmd, info, tmp_pipe));
 		if (tmp_pipe->is_pipe == TRUE)
 		{

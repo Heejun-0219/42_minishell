@@ -6,7 +6,7 @@
 /*   By: heejunki <heejunki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/06 14:47:43 by heejunki          #+#    #+#             */
-/*   Updated: 2023/07/06 14:47:56 by heejunki         ###   ########.fr       */
+/*   Updated: 2023/07/06 15:54:50 by heejunki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static void	echo_str(char **str, int flag)
 		printf("\n");
 }
 
-int	exe_echo(t_parse *parse, t_cmd *cmd, t_info *info, t_pipe *pipe)
+int	exe_echo(t_pipe *pipe)
 {
 	if (pipe->cmd[1] == NULL)
 	{

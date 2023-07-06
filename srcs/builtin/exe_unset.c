@@ -6,7 +6,7 @@
 /*   By: heejunki <heejunki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/06 14:50:27 by heejunki          #+#    #+#             */
-/*   Updated: 2023/07/06 14:51:08 by heejunki         ###   ########.fr       */
+/*   Updated: 2023/07/06 15:55:40 by heejunki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static void	del_env_val(t_info *info, t_pipe *pipe)
 	}
 }
 
-int	exe_unset(t_parse *parse, t_cmd *cmd, t_info *info, t_pipe *pipe)
+int	exe_unset(t_info *info, t_pipe *pipe)
 {
 	if (pipe->cmd[1] == NULL)
 	{
