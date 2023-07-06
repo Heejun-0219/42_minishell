@@ -145,11 +145,16 @@ void	sig_heredoc_child(int signo);
 void	init_info(t_info *info, int ac, char **av, char **env);
 void	init_env_list(t_info *info, char **env);
 
+char	*get_env_val(char *key, t_info *info);
+int		if_env_change(t_info *info, t_parse *parse);
+
 int		make_cmd_info(t_parse *parse, t_cmd *cmd, t_info *info);
 void	init_pipe(t_pipe *pipe);
 int		init_cmd(t_parse *parse, t_cmd *cmd, t_info *info);
 int		get_path_env(t_parse *parse, t_cmd *cmd, t_info *info);
 void	get_exe_count(t_parse *parse, t_cmd *cmd);
+
+char	*get_env_val(char *key, t_info *info);
 
 int		make_pipe(t_parse *parse, t_cmd *cmd);
 int		set_pipe(t_parse *parse, t_pipe *pipe, size_t index);
@@ -171,7 +176,7 @@ int		exe_builtin(t_parse *parse, t_cmd *cmd, t_info *info, t_pipe *pipe);
 int		exe_builtin_parent(t_parse *parse, t_cmd *cmd, t_info *info, \
 		t_pipe *pipe);
 
-int		exe_cd(t_pipe *pipe, t_info *info);
+int		exe_cd(t_pipe *pipe);
 int		exe_echo(t_pipe *pipe);
 int		exe_env(t_parse *parse, t_cmd *cmd, t_info *info, t_pipe *pipe);
 int		exe_exit(t_parse *parse, t_cmd *cmd, t_info *info, t_pipe *pipe);

@@ -28,6 +28,7 @@ SRCS		=	srcs/main.c							\
 				srcs/parsing/parsing.c				\
 				srcs/parsing/quoter_utils.c			\
 				srcs/make_cmd_info/make_cmd_info.c	\
+				srcs/make_cmd_info/change_env.c		\
 				srcs/make_cmd_info/make_pipe.c		\
 				srcs/builtin/builtin.c				\
 				srcs/exe_cmd/exe_cmd.c				\

@@ -12,13 +12,35 @@
 
 #include "minishell.h"
 
+static int memory_parse(t_parse *parse, t_info *info)
+{
+	size_t	i;
+
+	info->ac = (int) parse->token_count;
+	info->av = (char **)malloc(sizeof(char *) * (parse->token_count + 1));
+	if (info->av == NULL)
+		return (ft_error("malloc error\n", FAILURE));
+	i = 0;
+	while (i < parse->token_count)
+	{
+		info->av[i] = ft_strdup(parse->tokens[i].s);
+		i++;
+	}
+	info->av[parse->token_count] = NULL;
+	return (SUCCESS);
+}
+
 static int	parse_exe(t_parse *parse, t_cmd *cmd, t_info *info)
 {
 	// parse | info 환경변수 확인? 
 
 	if (make_cmd_info(parse, cmd, info) == FAILURE)
 		return (FAILURE);
+	for (size_t i = 0; i < parse->token_count; i++)
+		printf("token[%zu] = %s\n", i, parse->tokens[i].s);
 	if (exe_cmd(parse, cmd, info) == FAILURE)
+		return (FAILURE);
+	if (memory_parse(parse, info) == FAILURE)
 		return (FAILURE);
 	free_mini(parse, cmd);
 	return (SUCCESS);

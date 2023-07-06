@@ -99,6 +99,11 @@ int	get_path_env(t_parse *parse, t_cmd *cmd, t_info *info)
 
 int	make_cmd_info(t_parse *parse, t_cmd *cmd, t_info *info)
 {
+	if (if_env_change(info, parse) == FAILURE)
+	{
+		free_tokens(parse, parse->token_count);
+		return (FAILURE);
+	}
 	get_exe_count(parse, cmd);
 	if (init_cmd(parse, cmd, info) == FAILURE)
 		return (FAILURE);
