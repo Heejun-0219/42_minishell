@@ -34,8 +34,8 @@ int exe_builtin(t_parse *parse, t_cmd *cmd, t_info *info, t_pipe *pipe)
         return (exe_cd(parse, cmd, info, pipe));
     if (ft_strncmp(pipe->cmd[0], "pwd", 4) == TRUE)
         return (exe_pwd(parse, cmd, info, pipe));
-    if (ft_strncmp(pipe->cmd[0], "export", 7) == TRUE)
-        return (exe_export(parse, cmd, info, pipe));
+    
+    
     if (ft_strncmp(pipe->cmd[0], "unset", 6) == TRUE)
         return (exe_unset(parse, cmd, info, pipe));
     if (ft_strncmp(pipe->cmd[0], "env", 4) == TRUE)
