@@ -18,17 +18,17 @@ static void echo_str(char **str, int flag)
 
 int exe_echo(t_parse *parse, t_cmd *cmd, t_info *info, t_pipe *pipe)
 {
-    if (exec_info->cmd[1] == NULL)
+    if (pipe->cmd[1] == NULL)
 	{
 		printf("\n");
 	}
-	else if (ft_strncmp(exec_info->cmd[1], "-n", 3) == 0)
+	else if (ft_strncmp(pipe->cmd[1], "-n", 3) == 0)
 	{
-		echo_str(exec_info->cmd + 2, TRUE);
+		echo_str(pipe->cmd + 2, TRUE);
 	}
 	else
 	{
-		echo_str(exec_info->cmd + 1, FALSE);
+		echo_str(pipe->cmd + 1, FALSE);
 	}
     exit(EXIT_SUCCESS);
 }

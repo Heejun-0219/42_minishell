@@ -34,9 +34,9 @@ SRCS		=	srcs/main.c							\
 				srcs/builtin/exe_echo.c				\
 				srcs/builtin/exe_env.c				\
 				srcs/builtin/exe_exit.c				\
+				srcs/builtin/exe_export.c			\
 				srcs/builtin/exe_pwd.c				\
-				srcs/builtin/exe_unset.c			\
-				# srcs/builtin/builtin.c				\
+				srcs/builtin/exe_unset.c			
 
 OBJS 		= $(SRCS:.c=.o)
 

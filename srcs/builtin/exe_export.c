@@ -56,7 +56,7 @@ static void export_insert(t_info *info, t_pipe *pipe)
             i++;
             continue ;
         }
-        node = check_if_env_exist(&(info->env_list), pipe->cmd[i]);
+        node = get_if_env_exist(&(info->env_list), pipe->cmd[i]);
         if (node == NULL)
             ft_lstpush_back(&(info->env_list), ft_strdup(pipe->cmd[i]));
         else
