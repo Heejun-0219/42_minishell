@@ -6,7 +6,7 @@
 /*   By: mi <mi@student.42seoul.kr>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 23:41:24 by mi                #+#    #+#             */
-/*   Updated: 2023/07/06 03:26:16 by mi               ###   ########.fr       */
+/*   Updated: 2023/07/06 14:04:59 by mi               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,69 +48,51 @@ file.txt
 ```
 */
 // //TODO : 따옴표의 갯수가 홀수일 때 전처리 필요!
-// void merge_quoted_tokens(char **tokens_str)
-// {
-// 	size_t i;
-// 	size_t j;
-// 	size_t array_size;
-// 	int inside;
+void check_and_toggle_quote_type(char **tokens_str, size_t i, int *inside_double, int *inside_single)
+{
+	if (tokens_str[i][0] == '\"' && !(*inside_single))
+		*inside_double = !(*inside_double);
+	if (tokens_str[i][0] == '\'' && !(*inside_double))
+		*inside_single = !(*inside_single);
+}
 
-// 	i = 0;
-// 	inside = 0;
-// 	while (tokens_str[i] != NULL)
-// 	{
-// 		if ((tokens_str[i][0] == '\"' || tokens_str[i][0] == '\'')&& !inside)
-// 		{
-// 			inside = 1;
-// 			j = i + 1;
-// 			while (tokens_str[j] != NULL && !ends_with_quote(tokens_str[j]))
-// 			{
-// 				merge_and_free_tokens(&tokens_str[i], tokens_str[j]);
-// 				j++;
-// 			}
-// 			if (ends_with_quote(tokens_str[j]))
-// 				merge_and_free_tokens(&tokens_str[i], tokens_str[j]);
-// 			array_size = sizeof(char *) * (get_array_size(tokens_str) - j);
-// 			memmove(&tokens_str[i + 1], &tokens_str[j + 1], array_size);
-// 		}
-// 		i++;
-// 	}
-// }
+void merge_tokens(char **tokens_str, size_t *i, size_t *j, int *inside_double, int *inside_single)
+{
+	size_t array_size;
 
-// void merge_quoted_tokens(char **tokens_str)
-// {
-// 	size_t i;
-// 	size_t j;
-// 	size_t array_size;
-// 	int inside_double;
-// 	int inside_single;
+	if (*inside_double || *inside_single)
+	{
+		(*j) = (*i) + 1;
+		while (tokens_str[*j] != NULL && !is_end_of_quote_scope(tokens_str[*j], *inside_double, *inside_single))
+			merge_and_free_tokens(&tokens_str[*i], tokens_str[(*j)++]);
+		if (is_end_of_quote_scope(tokens_str[*j], *inside_double, *inside_single))
+		{
+			merge_and_free_tokens(&tokens_str[*i], tokens_str[*j]);
+			ft_not(inside_double);
+			ft_not(inside_single);
+		}
+		array_size = sizeof(char *) * (get_array_size(tokens_str) - *j);
+		memmove(&tokens_str[*i + 1], &tokens_str[*j + 1], array_size);
+	}
+}
 
-// 	i = 0;
-// 	inside_double = 0;
-// 	inside_single = 0;
-// 	while (tokens_str[i] != NULL)
-// 	{
-// 		if (tokens_str[i][0] == '\"' && !inside_single)
-// 			inside_double = !inside_double;
-// 		if (tokens_str[i][0] == '\'' && !inside_double)
-// 			inside_single = !inside_single;
-// 		if (inside_double || inside_single)
-// 		{
-// 			j = i + 1;
-// 			while (tokens_str[j] != NULL && !is_end_of_quote_scope(tokens_str[j], inside_double, inside_single))
-// 				merge_and_free_tokens(&tokens_str[i], tokens_str[j++]);
-// 			if (is_end_of_quote_scope(tokens_str[j], inside_double, inside_single))
-// 			{
-// 				merge_and_free_tokens(&tokens_str[i], tokens_str[j]);
-// 				inside_double = ft_not(inside_double);	// 1 -> 0, 0 -> 1
-// 				inside_single = ft_not(inside_single);	// 1 -> 0, 0 -> 1
-// 			}
-// 			array_size = sizeof(char *) * (get_array_size(tokens_str) - j);
-// 			memmove(&tokens_str[i + 1], &tokens_str[j + 1], array_size);
-// 		}
-// 		i++;
-// 	}
-// }
+void merge_quoted_tokens(char **tokens_str)
+{
+	size_t i;
+	size_t j;
+	int inside_double;
+	int inside_single;
+
+	i = 0;
+	inside_double = 0;
+	inside_single = 0;
+	while (tokens_str[i] != NULL)
+	{
+		check_and_toggle_quote_type(tokens_str, i, &inside_double, &inside_single);
+		merge_tokens(tokens_str, &i, &j, &inside_double, &inside_single);
+		i++;
+	}
+}
 
 void tokenize_line(t_parse *parse) // 라인을 쪼개서, 토큰화 시킴
 {

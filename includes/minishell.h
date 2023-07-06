@@ -177,6 +177,6 @@ void tokenize_line(t_parse *parse);
 void merge_and_free_tokens(char **dest, char *src);
 int ends_with_quote(char *token);
 size_t get_array_size(char **array);
-int is_end_of_quote_scope(char *token, int *quoter_type);
+int is_end_of_quote_scope(char *token, int inside_double, int inside_single);
 
 #endif
