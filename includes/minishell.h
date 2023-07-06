@@ -159,17 +159,19 @@ int		exe_cd(t_parse *parse, t_cmd *cmd, t_info *info, t_pipe *pipe);
 int		exe_echo(t_parse *parse, t_cmd *cmd, t_info *info, t_pipe *pipe);
 int		exe_env(t_parse *parse, t_cmd *cmd, t_info *info, t_pipe *pipe);
 int		exe_exit(t_parse *parse, t_cmd *cmd, t_info *info, t_pipe *pipe);
-// int		exe_export(t_parse *parse, t_cmd *cmd, t_info *info, t_pipe *pipe);
+int		exe_export(t_parse *parse, t_cmd *cmd, t_info *info, t_pipe *pipe);
+t_node	*get_if_env_exist(t_list *env_list, const char *s);
+int 	check_valid(char *str);
 int		exe_pwd(t_parse *parse, t_cmd *cmd, t_info *info, t_pipe *pipe);
 int		exe_unset(t_parse *parse, t_cmd *cmd, t_info *info, t_pipe *pipe);
 
 // parsing
 void tokenize_line(t_parse *parse);
 
-// quoter
-void merge_quoted_tokens(char **tokens_str);
-void merge_tokens(char **tokens_str, int *i, int *j, int *quoter_type);
-void check_toggle_quote_type(char **tokens_str, int i, int *quoter_type);
+// // quoter
+// void merge_quoted_tokens(char **tokens_str);
+// void merge_tokens(char **tokens_str, int *i, int *j, int *quoter_type);
+// void check_toggle_quote_type(char **tokens_str, int i, int *quoter_type);
 
 // parsing/quoter_util.c
 void merge_and_free_tokens(char **dest, char *src);
