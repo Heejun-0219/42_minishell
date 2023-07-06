@@ -1,7 +1,7 @@
 NAME	=	minishell
 
 cc 		= 	cc
-CFLAGS	=	-Wall -Wextra -Werror
+CFLAGS	=	
 RM		=	rm -rf
 
 # READLINE_FLAGS		:= $(shell brew info readline | grep export | awk -F '"' '{print $$2}' | tr '\n' ' ')
@@ -23,20 +23,21 @@ SRCS		=	srcs/main.c							\
 				srcs/lst/ft_lstinit.c				\
 				srcs/lst/ft_lstdelone.c				\
 				srcs/lst/ft_lstpush_back.c			\
+				srcs/parsing/parsing.c				\
+				srcs/parsing/quoter_utils.c			\
+				srcs/parsing/quoter.c				\
 				srcs/make_cmd_info/make_cmd_info.c	\
 				srcs/make_cmd_info/make_pipe.c		\
+				srcs/builtin/builtin.c				\
 				srcs/exe_cmd/exe_cmd.c				\
 				srcs/exe_cmd/here_doc.c				\
 				srcs/builtin/exe_cd.c				\
 				srcs/builtin/exe_echo.c				\
 				srcs/builtin/exe_env.c				\
 				srcs/builtin/exe_exit.c				\
-				srcs/builtin/exe_export.c			\
 				srcs/builtin/exe_pwd.c				\
 				srcs/builtin/exe_unset.c			\
-				srcs/builtin/builtin.c				\
-				srcs/parsing/parsing.c				\
-				srcs/parsing/parsing_utils.c		\
+				# srcs/builtin/builtin.c				\
 
 OBJS 		= $(SRCS:.c=.o)
 
@@ -46,7 +47,6 @@ all		: $(NAME)
 $(NAME)	: $(OBJS) $(INCLUDES)
 	$(MAKE) -C $(LIBFT_DIR) all
 	$(CC) $(CFLAGS) $(OBJS) $(LIBFT) $(READLINE_FLAGS) -lreadline -o $(NAME)
-
 
 %.o		: %.c
 			$(CC) $(CFLAGS) -g -c $< -o $@ -I$(INCLUDES) $(READLINE_INCLUDE)
