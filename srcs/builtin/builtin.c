@@ -20,19 +20,19 @@ int	check_builtin(t_cmd *cmd, t_pipe *pipe)
 		return (FALSE);
 	if (pipe->cmd_path == NULL)
 		return (FALSE);
-	if (ft_strncmp(pipe->cmd[0], "echo", 5) == TRUE)
+	if (ft_strncmp(pipe->cmd[0], "echo", 5) == SUCCESS)
 		return (TRUE);
-	if (ft_strncmp(pipe->cmd[0], "cd", 3) == TRUE)
+	if (ft_strncmp(pipe->cmd[0], "cd", 3) == SUCCESS)
 		return (TRUE);
-	if (ft_strncmp(pipe->cmd[0], "pwd", 4) == TRUE)
+	if (ft_strncmp(pipe->cmd[0], "pwd", 4) == SUCCESS)
 		return (TRUE);
-	if (ft_strncmp(pipe->cmd[0], "export", 7) == TRUE)
+	if (ft_strncmp(pipe->cmd[0], "export", 7) == SUCCESS)
 		return (TRUE);
-	if (ft_strncmp(pipe->cmd[0], "unset", 6) == TRUE)
+	if (ft_strncmp(pipe->cmd[0], "unset", 6) == SUCCESS)
 		return (TRUE);
-	if (ft_strncmp(pipe->cmd[0], "env", 4) == TRUE)
+	if (ft_strncmp(pipe->cmd[0], "env", 4) == SUCCESS)
 		return (TRUE);
-	if (ft_strncmp(pipe->cmd[0], "exit", 5) == TRUE)
+	if (ft_strncmp(pipe->cmd[0], "exit", 5) == SUCCESS)
 		return (TRUE);
 	return (FALSE);
 }
@@ -40,19 +40,19 @@ int	check_builtin(t_cmd *cmd, t_pipe *pipe)
 int	exe_builtin(t_parse *parse, t_cmd *cmd, t_info *info, t_pipe *pipe)
 {
 	pipe->builtin = TRUE;
-	if (ft_strncmp(pipe->cmd[0], "cd", 3) == TRUE)
+	if (ft_strncmp(pipe->cmd[0], "cd", 3) == SUCCESS)
 		return (exe_cd(pipe));
-	if (ft_strncmp(pipe->cmd[0], "echo", 5) == TRUE)
+	if (ft_strncmp(pipe->cmd[0], "echo", 5) == SUCCESS)
 		return (exe_echo(parse, cmd, info, pipe));
-	if (ft_strncmp(pipe->cmd[0], "env", 4) == TRUE)
+	if (ft_strncmp(pipe->cmd[0], "env", 4) == SUCCESS)
 		return (exe_env(parse, cmd, info, pipe));
-	if (ft_strncmp(pipe->cmd[0], "exit", 5) == TRUE)
+	if (ft_strncmp(pipe->cmd[0], "exit", 5) == SUCCESS)
 		return (exe_exit(parse, cmd, info, pipe));
-	if (ft_strncmp(pipe->cmd[0], "export", 7) == TRUE)
+	if (ft_strncmp(pipe->cmd[0], "export", 7) == SUCCESS)
 		return (exe_export(parse, cmd, info, pipe));
-	if (ft_strncmp(pipe->cmd[0], "pwd", 4) == TRUE)
+	if (ft_strncmp(pipe->cmd[0], "pwd", 4) == SUCCESS)
 		return (exe_pwd());
-	if (ft_strncmp(pipe->cmd[0], "unset", 6) == TRUE)
+	if (ft_strncmp(pipe->cmd[0], "unset", 6) == SUCCESS)
 		return (exe_unset(parse, cmd, info, pipe));
 	return (SUCCESS);
 }
