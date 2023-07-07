@@ -14,7 +14,7 @@ char	*get_env_val(char *key, t_info *info)
 	while (node)
 	{
 		env_val = node->content;
-		if (ft_strncmp(key, env_val, ft_strlen(key)) == 0)
+		if (ft_strncmp(env_val, key, ft_strlen(key)) == 0)
 			return (env_val);
 		if (node->next == NULL)
 			break ;
@@ -95,46 +95,41 @@ static int  change_child_exit_code(t_token *token, int *index)
 }
 
 static int change_env(t_info *info, t_token *token, \
-    int *string_index, char *target)
+    int *string_index, t_token *target)
 {
-    int     start_index;
     int     len;
     char    *env_val;
 
-    start_index = *string_index;
+    target->token_index = (size_t) *string_index;
     while (ft_isalnum(token->s[*string_index + 1]) \
         || token->s[*string_index + 1] == '_' \
         || token->s[*string_index + 1] == '-')
         (*string_index)++;
-    len = *string_index - start_index;
+    len = *string_index - (int) target->token_index;
     env_val = (char *) malloc(sizeof(char) * (len + 1));
     if (env_val == NULL)
         return (ft_error("malloc error\n", FAILURE));
-    ft_strlcpy(env_val, &token->s[start_index + 1], len + 1);
-    printf("env_val : %s\n", env_val);
-    target = ft_strjoin(env_val, "=");
-    if (target == NULL)
+    ft_strlcpy(env_val, &token->s[target->token_index + 1], len + 1);
+    target->s = ft_strjoin(env_val, "=");
+    if (target->s == NULL)
     {
         free(env_val);
         return (ft_error("malloc error\n", FAILURE));
     }
-    printf("target : %s\n", target);
     free(env_val);
-    printf("get_env_val : %s\n", get_env_val(target, info));
-    if (get_env_val(target, info) != NULL)
+    if (get_env_val(target->s, info) != NULL)        
         return (TRUE);
-    free(target);
+    free(target->s);
     return (FALSE);
 }
 
-static int  add_env(t_token *token, t_info *info, int *string_index, char *target)
+static int  add_env(t_token *token, t_info *info, int *string_index, t_token *target)
 {
     char    *env_val;
     char    *tmp;
-    char    *tmp2;
 
-    token->s[*string_index] = '\0';
-    env_val = ft_strjoin(token->s, get_env_val(target, info));
+    token->s[target->token_index] = '\0';
+    env_val = ft_strjoin(token->s, ft_split(get_env_val(target->s, info), '=')[1]);
     if (env_val == NULL)
         return (ft_error("change env error\n", FAILURE));
     tmp = ft_strjoin(env_val, &token->s[*string_index + 1]);
@@ -143,44 +138,43 @@ static int  add_env(t_token *token, t_info *info, int *string_index, char *targe
         free(env_val);
         return (ft_error("change env error\n", FAILURE));
     }
-    tmp2 = ft_strjoin(tmp, &token->s[*string_index + ft_strlen(target)]);
-    if (tmp2 == NULL)
-    {
-        free(env_val);
-        free(tmp);
-        return (ft_error("change env error\n", FAILURE));
-    }
-    printf("tmp2 : %s\n", tmp2);
-    free(tmp);
     free(token->s);
     free(env_val);
-    free(target);
-    token->s = tmp2;
+    free(target->s);
+    token->s = tmp;
     return (SUCCESS);
 }
 
 static int  is_env(t_info *info, t_token *token, int *string_index)
 {
-    size_t  index;
-    char    *target;
+    t_token *tmp;
+    int     env_len;
+    int     i;
 
-    index = 0;
-    target = NULL;
+    env_len = 0;
+    i = 0;
+    tmp = (t_token *) malloc(sizeof(t_token));
     if (token->s[*string_index] == '$' && \
         ft_isalpha(token->s[*string_index + 1]))
     {
-        if (change_env(info, token, string_index, target) == TRUE)
+        if (change_env(info, token, string_index, tmp) == TRUE)
         {
-            if (add_env(token, info, string_index, target) == FAILURE)
+            env_len = (int)ft_strlen(tmp->s);
+            i = ft_strlen(ft_split(get_env_val(tmp->s, info), '=')[1]);
+            if (add_env(token, info, string_index, tmp) == FAILURE)
+            {
+                free(tmp);
+                free(tmp->s);
                 return (FAILURE);
-            *string_index += ft_strlen(target) - 1;
+            }
+            *string_index = (int)tmp->token_index + i - 1;
         }
         else 
         {
-            ft_strlcpy(&token->s[*string_index], \
+            ft_strlcpy(&token->s[tmp->token_index], \
                 &token->s[*string_index + 1], \
                 ft_strlen(token->s) + 1);
-            *string_index -= index + 1;
+            *string_index -= env_len + 1;
         }
     }
     else if (token->s[*string_index] == '$' && \
@@ -200,33 +194,35 @@ static int  is_env(t_info *info, t_token *token, int *string_index)
         if (change_abs(info, token, *string_index) == FAILURE)
             return (FAILURE);
     }
+    free(tmp);
     return (SUCCESS);
 }
 
 int if_env_change(t_info *info, t_parse *parse)
 {
-    size_t	token_index;
     int	    string_index;
     t_token	*token;
 
-    token_index = 0;
-    while (token_index < parse->token_count)
+    token = (t_token *) malloc(sizeof(t_token));
+    token->token_index = 0;
+    while (token->token_index < parse->token_count)
     {
-        token = &parse->tokens[token_index];
+        token = &parse->tokens[token->token_index];
         string_index = 0;
         while (token->s[string_index])
         {
             if (check_here(token->s[string_index], \
                 token->s[string_index + 1]) == TRUE)
             {
-                token_index++;
+                token->token_index++;
                 break ;
             }
             if (is_env(info, token, &string_index) == FAILURE)
                 return (FAILURE);
             string_index++;
         }
-        token_index++;
+        token->token_index++;
     }
+    token = NULL;
     return (SUCCESS);
 }

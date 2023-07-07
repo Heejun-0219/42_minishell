@@ -43,9 +43,9 @@ void	set_key(t_parse *parse, t_pipe *pipe, size_t index)
 
 int	set_pipe(t_parse *parse, t_pipe *pipe, size_t index)
 {
-	if (malloc_cmd(parse, pipe) == FAILURE)
+	if (malloc_cmd(parse, pipe, index) == FAILURE)
 		return (FAILURE);
-	if (malloc_re(parse, pipe) == FAILURE)
+	if (malloc_re(parse, pipe, index) == FAILURE)
 		return (FAILURE);
 	while (index < parse->token_count)
 	{

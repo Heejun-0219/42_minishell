@@ -12,12 +12,12 @@
 
 #include "minishell.h"
 
-int	malloc_cmd(t_parse *parse, t_pipe *pipe)
+int	malloc_cmd(t_parse *parse, t_pipe *pipe, size_t index)
 {
 	size_t	i;
 	size_t	token_count;
 
-	i = 0;
+	i = index;
 	token_count = 0;
 	while (i < parse->token_count)
 	{
@@ -29,18 +29,18 @@ int	malloc_cmd(t_parse *parse, t_pipe *pipe)
 			token_count++;
 		i++;
 	}
-	pipe->cmd = (char **)malloc(sizeof(char *) * (token_count + 1));
+	pipe->cmd = (char **)ft_calloc(token_count + 1, sizeof(char *));
 	if (pipe->cmd == NULL)
 		return (ft_error("malloc error\n", FAILURE));
 	return (SUCCESS);
 }
 
-int	malloc_re(t_parse *parse, t_pipe *pipe)
+int	malloc_re(t_parse *parse, t_pipe *pipe, size_t index)
 {
 	size_t	i;
 	size_t	re_count;
 
-	i = 0;
+	i = index;
 	re_count = 0;
 	while (i < parse->token_count)
 	{
@@ -50,7 +50,7 @@ int	malloc_re(t_parse *parse, t_pipe *pipe)
 			re_count++;
 		i++;
 	}
-	pipe->redirect = (t_redirect *)malloc(sizeof(t_redirect) * (re_count + 1));
+	pipe->redirect = (t_redirect *)ft_calloc(re_count + 1, sizeof(t_redirect));
 	if (pipe->redirect == NULL)
 		return (ft_error("malloc error\n", FAILURE));
 	return (SUCCESS);
@@ -64,7 +64,7 @@ void	get_exe_count(t_parse *parse, t_cmd *cmd)
 	cmd->pipe_count = 1;
 	while (i < parse->token_count)
 	{
-		if (parse->tokens[i].type == KEY)
+		if (parse->tokens[i].type == PIPE)
 			cmd->pipe_count++;
 		i++;
 	}
@@ -76,7 +76,7 @@ int	get_path_env(t_parse *parse, t_cmd *cmd, t_info *info)
 	t_node	*node;
 
 	node = info->env_list.front;
-	while (node && ft_strncmp(node->content, "PATH=", 5))
+	while (node && ft_strncmp(node->content, "PATH=", 5) != 0)
 		node = node->next;
 	if (node == NULL)
 	{
@@ -85,9 +85,7 @@ int	get_path_env(t_parse *parse, t_cmd *cmd, t_info *info)
 			return (ft_error("malloc error\n", FAILURE));
 		return (SUCCESS);
 	}
-	path = ft_strdup(node->content + 5);
-	if (path == NULL)
-		return (ft_error("malloc error\n", FAILURE));
+	path = node->content + 5;
 	cmd->envp = ft_split(path, ':');
 	if (cmd->envp == NULL)
 	{
