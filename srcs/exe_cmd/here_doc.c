@@ -52,24 +52,23 @@ void	tmp_heredoc(t_redirect *redirect)
 
 void	heredoc_child(t_cmd *cmd)
 {
-	size_t		i;
 	t_redirect	*redirect;
 	t_pipe		*pipe;
 
 	signal(SIGINT, sig_heredoc_child);
-	i = 0;
-	while (i < cmd->pipe_count)
+	cmd->pipe_index = 0;
+	while (cmd->pipe_index < cmd->pipe_count)
 	{
-		pipe = &cmd->pipe[i];
+		pipe = &cmd->pipe[cmd->pipe_index];
 		pipe->redirect_index = 0;
-		while (pipe->redirect[pipe->redirect_index].type != 0)
+		while (pipe->redirect[pipe->redirect_index].val != 0)
 		{
 			redirect = &pipe->redirect[pipe->redirect_index];
 			if (redirect->type == HEREDOC)
 				tmp_heredoc(redirect);
 			pipe->redirect_index++;
 		}
-		i++;
+		cmd->pipe_index++;
 	}
 	exit(EXIT_SUCCESS);
 }

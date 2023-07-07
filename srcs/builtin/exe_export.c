@@ -16,7 +16,7 @@ int	check_valid(char *str)
 {
 	size_t	i;
 
-	i = 1;
+	i = 0;
 	if (ft_isalpha(str[0]) == FALSE && str[0] != '_')
 	{
 		return (FALSE);

@@ -160,8 +160,8 @@ int		make_pipe(t_parse *parse, t_cmd *cmd);
 int		set_pipe(t_parse *parse, t_pipe *pipe, size_t index);
 int		set_re(t_parse *parse, t_pipe *pipe, size_t index);
 void	set_key(t_parse *parse, t_pipe *pipe, size_t index);
-int		malloc_re(t_parse *parse, t_pipe *pipe);
-int		malloc_cmd(t_parse *parse, t_pipe *pipe);
+int		malloc_re(t_parse *parse, t_pipe *pipe, size_t index);
+int		malloc_cmd(t_parse *parse, t_pipe *pipe, size_t index);
 
 int		exe_cmd(t_parse *parse, t_cmd *cmd, t_info *info);
 int		wait_mini(t_cmd *cmd);

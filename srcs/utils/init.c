@@ -60,10 +60,7 @@ void	init_pipe(t_pipe *pipe)
 	pipe->cmd_index = 0;
 	pipe->redirect = NULL;
 	pipe->redirect_index = 0;
-	pipe->pid = FALSE;
 	pipe->is_pipe = FALSE;
-	pipe->pipe_fd[0] = FAILURE;
-	pipe->pipe_fd[1] = FAILURE;
 	pipe->in_fd = FAILURE;
 	pipe->out_fd = FAILURE;
 	pipe->builtin = FALSE;
