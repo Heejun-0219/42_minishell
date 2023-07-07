@@ -19,7 +19,8 @@ LIBFT_INC	=	-L$(LIBFT_DIR) -lft
 
 SRCS		=	srcs/main.c							\
 				srcs/utils/init.c					\
-				srcs/utils/error_free.c				\
+				srcs/utils/error.c					\
+				srcs/utils/free.c					\
 				srcs/utils/sig.c					\
 				srcs/lst/ft_lstclear.c				\
 				srcs/lst/ft_lstinit.c				\
@@ -29,6 +30,7 @@ SRCS		=	srcs/main.c							\
 				srcs/parsing/quoter_utils.c			\
 				srcs/make_cmd_info/make_cmd_info.c	\
 				srcs/make_cmd_info/change_env.c		\
+				srcs/make_cmd_info/special_env.c	\
 				srcs/make_cmd_info/make_pipe.c		\
 				srcs/builtin/builtin.c				\
 				srcs/exe_cmd/exe_cmd.c				\

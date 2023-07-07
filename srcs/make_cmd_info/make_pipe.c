@@ -12,6 +12,11 @@
 
 #include "minishell.h"
 
+int  check_here(char s1, char s2)
+{
+    return (s1 == '<' && s2 == '<');
+}
+
 int	set_re(t_parse *parse, t_pipe *pipe, size_t index)
 {
 	size_t	i;
@@ -56,9 +61,7 @@ int	set_pipe(t_parse *parse, t_pipe *pipe, size_t index)
 			break ;
 		}
 		if (parse->tokens[index].type == KEY)
-		{
 			set_key(parse, pipe, index);
-		}
 		if (parse->tokens[index].type == REDIRECT)
 		{
 			if (set_re(parse, pipe, index) == FAILURE)

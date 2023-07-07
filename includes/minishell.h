@@ -68,6 +68,22 @@ typedef struct s_token
 	size_t			token_index;
 }	t_token;
 
+typedef struct s_cha_env
+{
+	t_token			*token;
+	size_t			token_index;
+	size_t			string_index;
+	char 			*exit_code;
+	char			*tmp1;
+	char			*tmp2;
+	size_t			start;
+	size_t			env_len;
+	char			*env;
+	char			*target;
+	size_t			target_len;
+}	t_cha_env;
+
+
 typedef struct s_parse
 {
 	char			*line;
@@ -132,6 +148,7 @@ t_list	ft_lst_init(void);
 
 int		ft_perror(int error);
 int		ft_error(char *m, int error);
+
 void	free_mini(t_parse *parse, t_cmd *cmd);
 void	free_tokens(t_parse *parse, size_t token_size);
 void	free_cmd(t_cmd *cmd, size_t pipe_i);
@@ -148,6 +165,9 @@ void	init_env_list(t_info *info, char **env);
 char	*get_env_val(char *key, t_info *info);
 int		if_env_change(t_info *info, t_parse *parse);
 
+int change_special_env(t_info *info, t_cha_env *cv);
+int  change_abs(t_info *info, t_cha_env *cv);
+
 int		make_cmd_info(t_parse *parse, t_cmd *cmd, t_info *info);
 void	init_pipe(t_pipe *pipe);
 int		init_cmd(t_parse *parse, t_cmd *cmd, t_info *info);
@@ -158,6 +178,7 @@ char	*get_env_val(char *key, t_info *info);
 
 int		make_pipe(t_parse *parse, t_cmd *cmd);
 int		set_pipe(t_parse *parse, t_pipe *pipe, size_t index);
+int  check_here(char s1, char s2);
 int		set_re(t_parse *parse, t_pipe *pipe, size_t index);
 void	set_key(t_parse *parse, t_pipe *pipe, size_t index);
 int		malloc_re(t_parse *parse, t_pipe *pipe, size_t index);
