@@ -43,7 +43,8 @@ SRCS	= 	ft_atoi.c\
 			ft_toupper.c\
 			ft_malloc.c\
 			ft_realloc.c\
-			ft_not.c
+			ft_not.c	\
+			ft_count_char.c
 
 OBJS	=	$(SRCS:.c=.o)
 
