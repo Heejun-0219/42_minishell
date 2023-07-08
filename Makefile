@@ -46,7 +46,7 @@ SRCS		=	srcs/main.c							\
 				srcs/parsing/parsing.c				\
 				srcs/parsing/parsing_utils.c		\
 				srcs/parsing/quoter.c				\
-				srcs/parsing/quoter_utils.c
+				srcs/parsing/quoter_utils.c			
 
 OBJS 		= $(SRCS:.c=.o)
 
