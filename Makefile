@@ -35,6 +35,7 @@ SRCS		=	srcs/main.c							\
 				srcs/builtin/builtin.c				\
 				srcs/exe_cmd/exe_cmd.c				\
 				srcs/exe_cmd/here_doc.c				\
+				srcs/exe_cmd/exe_child.c			\
 				srcs/builtin/exe_cd.c				\
 				srcs/builtin/exe_echo.c				\
 				srcs/builtin/exe_env.c				\

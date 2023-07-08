@@ -59,20 +59,6 @@ static int	close_pipe(t_cmd *cmd, t_pipe *pipe)
 	return (SUCCESS);
 }
 
-void exe_child(t_info *info, t_parse *parse, t_cmd *cmd, t_pipe *pipe)
-{
-	signal(SIGINT, SIG_DFL);
-	signal(SIGQUIT, SIG_DFL);
-	if (check_builtin(info, parse, cmd, pipe) == FAILURE) // + check_cmd
-	{
-
-	}
-	else
-	{
-		
-	}
-}
-
 static int exe_pipe(t_info *info, t_parse *parse, t_cmd *cmd, t_pipe *pipe)
 {
 	pipe->pid = fork();

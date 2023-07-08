@@ -187,6 +187,8 @@ void	set_key(t_parse *parse, t_pipe *pipe, size_t index);
 int		malloc_re(t_parse *parse, t_pipe *pipe, size_t index);
 int		malloc_cmd(t_parse *parse, t_pipe *pipe, size_t index);
 
+void exe_child(t_info *info, t_parse *parse, t_cmd *cmd, t_pipe *pipe);
+
 int		exe_cmd(t_parse *parse, t_cmd *cmd, t_info *info);
 int		wait_mini(t_cmd *cmd);
 
