@@ -6,7 +6,7 @@
 /*   By: mi <mi@student.42seoul.kr>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 15:18:56 by mi                #+#    #+#             */
-/*   Updated: 2023/07/08 16:24:58 by mi               ###   ########.fr       */
+/*   Updated: 2023/07/09 06:29:07 by mi               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,14 +24,15 @@ int	end_of_quoter_check(char **str, int *merge_str_len, int i, char quoter)
 	i++;
 	while (1)
 	{
-		merge_count++;
-		*merge_str_len += strlen(str[i++]);
 		if (str[i] == NULL)
 			return (-1);
+		merge_count++;
+		*merge_str_len += strlen(str[i]);
 		if (ft_strchr(str[i], quoter) != NULL && str[i] != NULL)
 			break ;
+		i++;
 	}
-	return (merge_count + 1);
+	return (merge_count);
 }
 
 char	*merge_string(char **strs, int start, int merge_len, int merge_count)
@@ -88,7 +89,7 @@ int	rearange_strs(char **strs, int start, int num_strs, int merge_count)
 	int		src_index;
 
 	i = 0;
-	while (i < num_strs - merge_count - 1)
+	while (i < num_strs - (merge_count + start + 1))
 	{
 		src_index = start + i + merge_count + 1;
 		size = strlen(strs[src_index]) + 1;
@@ -108,7 +109,8 @@ void extra_strs_set_null(char **strs, int new, int old)
 	i = new;
 	while (i < old)
 	{
-		strs[i] = NULL;
+		if (strs[i] != NULL && strcmp(strs[i], "") == 0)
+			strs[i] = NULL;
 		i++;
 	}
 }
