@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: heejunki <heejunki@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: mi <mi@student.42seoul.kr>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/06 14:25:04 by heejunki          #+#    #+#             */
-/*   Updated: 2023/07/06 16:48:43 by heejunki         ###   ########.fr       */
+/*   Updated: 2023/07/08 15:10:38 by mi               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -211,20 +211,5 @@ t_node	*get_if_env_exist(t_list *env_list, const char *s);
 int		check_valid(char *str);
 int		exe_pwd(void);
 int		exe_unset(t_info *info, t_pipe *pipe);
-
-// parsing
-void	tokenize_line(t_parse *parse);
-
-// // quoter
-// void merge_quoted_tokens(char **tokens_str);
-// void merge_tokens(char **tokens_str, int *i, int *j, int *quoter_type);
-// void check_toggle_quote_type(char **tokens_str, int i, int *quoter_type);
-
-// parsing/quoter_util.c
-void	merge_and_free_tokens(char **dest, char *src);
-int		ends_with_quote(char *token);
-size_t	get_array_size(char **array);
-int		is_end_of_quote_scope(char *token, int inside_double, \
-	int inside_single);
 
 #endif
