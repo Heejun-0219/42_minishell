@@ -6,7 +6,7 @@
 /*   By: mi <mi@student.42seoul.kr>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 13:52:32 by heejunki          #+#    #+#             */
-/*   Updated: 2023/07/08 17:40:21 by mi               ###   ########.fr       */
+/*   Updated: 2023/07/08 16:08:58 by mi               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,5 @@ void	*ft_malloc(size_t size);
 void	*ft_realloc(void *ptr, size_t size);
 void	ft_not(int *value);
 int		ft_count_char(char *str, char c);
-int		ft_strcmp(char *str1, char *str2);
 
 #endif
