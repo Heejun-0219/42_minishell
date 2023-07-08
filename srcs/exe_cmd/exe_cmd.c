@@ -14,26 +14,25 @@
 
 int	wait_mini(t_cmd *cmd)
 {
-	size_t	i;
 	int		status;
 	pid_t	pid;
 
-	i = 0;
 	pid = cmd->pipe[cmd->pipe_count - 1].pid;
-	while (i < cmd->pipe_count)
+	cmd->pipe_index = 0;
+	while (cmd->pipe_index < cmd->pipe_count)
 	{
 		cmd->pid = waitpid(-1, &status, 0);
 		if (cmd->pid == FAILURE)
 			return (ft_perror(errno));
 		if (pid == cmd->pid)
 		{
-			if (WIFSIGNALED(status))
+			if (WIFSIGNALED(status) == TRUE)
 				g_exit_code = 128 + WTERMSIG(status);
 			else
 				g_exit_code = WEXITSTATUS(status);
 		}
 		g_exit_code = WEXITSTATUS(status);
-		i++;
+		cmd->pipe_index++;
 	}
 	unlink("/tmp/whine");
 	return (SUCCESS);

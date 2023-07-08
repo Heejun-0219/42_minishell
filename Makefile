@@ -1,13 +1,13 @@
 NAME	=	minishell
 
 cc 		= 	cc
-CFLAGS	=	-Wall -Wextra -Werror -g # -fsanitize=address
+CFLAGS	=	-Wall -Wextra -Werror -g -fsanitize=address
 RM		=	rm -rf
 
-# READLINE_FLAGS		:= $(shell brew info readline | grep export | awk -F '"' '{print $$2}' | tr '\n' ' ')
-# READLINE_INCLUDE	:= $(shell brew info readline | grep CPPFLAGS | awk -F '"' '{print $$2}')
-READLINE_FLAGS		= -L/opt/homebrew/opt/readline/lib
-READLINE_INCLUDE	= -I/opt/homebrew/opt/readline/include
+READLINE_FLAGS		:= $(shell brew info readline | grep export | awk -F '"' '{print $$2}' | tr '\n' ' ')
+READLINE_INCLUDE	:= $(shell brew info readline | grep CPPFLAGS | awk -F '"' '{print $$2}')
+# READLINE_FLAGS		= -L/opt/homebrew/opt/readline/lib
+# READLINE_INCLUDE	= -I/opt/homebrew/opt/readline/include
 # READLINE_FLAGS		= -L$(HOME)/.brew/opt/readline/lib
 # READLINE_INCLUDE	= -I$(HOME)/.brew/opt/readline/include
 
@@ -34,6 +34,8 @@ SRCS		=	srcs/main.c							\
 				srcs/exe_cmd/exe_cmd.c				\
 				srcs/exe_cmd/here_doc.c				\
 				srcs/exe_cmd/exe_child.c			\
+				srcs/exe_cmd/set_fd.c				\
+				srcs/exe_cmd/re_set_fd.c			\
 				srcs/builtin/exe_cd.c				\
 				srcs/builtin/exe_echo.c				\
 				srcs/builtin/exe_env.c				\
@@ -44,7 +46,7 @@ SRCS		=	srcs/main.c							\
 				srcs/parsing/parsing.c				\
 				srcs/parsing/parsing_utils.c		\
 				srcs/parsing/quoter.c				\
-				srcs/parsing/quoter_utils.c			\
+				srcs/parsing/quoter_utils.c
 
 OBJS 		= $(SRCS:.c=.o)
 

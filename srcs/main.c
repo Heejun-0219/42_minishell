@@ -76,8 +76,7 @@ int	main(int ac, char **av, char **env)
 		tokenize_line(&parse);
 		parse.line_index = line_index++;
 		parse_exe(&parse, &cmd, &info);
-		// free(parse.line);
-		
+		free(parse.line);
 	}
 	return (SUCCESS);
 }

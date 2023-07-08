@@ -58,6 +58,36 @@ static int check_access_cmd(t_cmd *cmd, t_pipe *pipe)
 	return (FAILURE);
 }
 
+static char **set_envp(t_list *envp_list)
+{
+	char	**envp;
+	size_t	count;
+	t_node	*node;
+
+	count = 0;
+	node = envp_list->front;
+	while (node->next != NULL)
+	{
+		count++;
+		node = node->next;
+		printf("node->content: %s\n", (char *)node->content);
+	}
+	printf("count: %zu\n", count);
+	envp = (char **)malloc(sizeof(char *) * (count + 1));
+	if (envp == NULL)
+		exit(ft_error("envp malloc failed\n", EXIT_FAILURE));
+	count = 0;
+	node = envp_list->front;
+	while (node != NULL)
+	{
+		envp[count] = (char *)node->content;
+		node = node->next;
+		count++;
+	}
+	envp[count] = NULL;
+	return (envp);
+}
+
 void exe_child(t_info *info, t_parse *parse, t_cmd *cmd, t_pipe *pipe)
 {
 	signal(SIGINT, SIG_DFL);
@@ -71,12 +101,12 @@ void exe_child(t_info *info, t_parse *parse, t_cmd *cmd, t_pipe *pipe)
 	}
 	else
 	{
-		// file descriptor 설정
+		set_fd(cmd, pipe);
+		if (pipe->cmd_path == NULL)
+			exit(EXIT_SUCCESS);
 		if (check_builtin(pipe) == TRUE)
 			exe_builtin(parse, cmd, info, pipe);
 		else
-			// 실행 
-			exit(0);
-		exit(0);		
+			execve(pipe->cmd_path, pipe->cmd, set_envp(&info->env_list));
 	}
 }
