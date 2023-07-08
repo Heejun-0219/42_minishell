@@ -6,7 +6,7 @@
 /*   By: mi <mi@student.42seoul.kr>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 15:18:56 by mi                #+#    #+#             */
-/*   Updated: 2023/07/08 16:13:16 by mi               ###   ########.fr       */
+/*   Updated: 2023/07/08 16:24:58 by mi               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	end_of_quoter_check(char **str, int *merge_str_len, int i, char quoter)
 	merge_count = 0;
 	if (str[i] == NULL)
 		return (-1);
-	if (ft_count_char(str[i], quoter) <= 2)
+	if (ft_count_char(str[i], quoter) >= 2)
 		return (0);
 	i++;
 	while (1)

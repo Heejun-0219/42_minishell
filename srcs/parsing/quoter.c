@@ -6,7 +6,7 @@
 /*   By: mi <mi@student.42seoul.kr>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 15:14:05 by mi                #+#    #+#             */
-/*   Updated: 2023/07/08 16:14:52 by mi               ###   ########.fr       */
+/*   Updated: 2023/07/08 16:16:56 by mi               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int	single_quoter_process(char **strs, int start, int num_strs)
 	int	merge_str_len;
 
 	merge_str_len = strlen(strs[start]);
-	merge_count = end_of_quoter_check(strs, &merge_str_len, start + 1, '\'');
+	merge_count = end_of_quoter_check(strs, &merge_str_len, start, '\'');
 	if (merge_count == -1)
 		return (-1);
 	if (merge_count == 0)
