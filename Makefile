@@ -1,13 +1,13 @@
 NAME	=	minishell
 
 cc 		= 	cc
-CFLAGS	=	-Wall -Wextra -Werror -g -fsanitize=address
+CFLAGS	=	-Wall -Wextra -Werror -g # -fsanitize=address
 RM		=	rm -rf
 
-READLINE_FLAGS		:= $(shell brew info readline | grep export | awk -F '"' '{print $$2}' | tr '\n' ' ')
-READLINE_INCLUDE	:= $(shell brew info readline | grep CPPFLAGS | awk -F '"' '{print $$2}')
-# READLINE_FLAGS		= -L/opt/homebrew/opt/readline/lib
-# READLINE_INCLUDE	= -I/opt/homebrew/opt/readline/include
+# READLINE_FLAGS		:= $(shell brew info readline | grep export | awk -F '"' '{print $$2}' | tr '\n' ' ')
+# READLINE_INCLUDE	:= $(shell brew info readline | grep CPPFLAGS | awk -F '"' '{print $$2}')
+READLINE_FLAGS		= -L/opt/homebrew/opt/readline/lib
+READLINE_INCLUDE	= -I/opt/homebrew/opt/readline/include
 # READLINE_FLAGS		= -L$(HOME)/.brew/opt/readline/lib
 # READLINE_INCLUDE	= -I$(HOME)/.brew/opt/readline/include
 
@@ -26,8 +26,6 @@ SRCS		=	srcs/main.c							\
 				srcs/lst/ft_lstinit.c				\
 				srcs/lst/ft_lstdelone.c				\
 				srcs/lst/ft_lstpush_back.c			\
-				srcs/parsing/parsing.c				\
-				srcs/parsing/quoter_utils.c			\
 				srcs/make_cmd_info/make_cmd_info.c	\
 				srcs/make_cmd_info/change_env.c		\
 				srcs/make_cmd_info/special_env.c	\
@@ -42,7 +40,11 @@ SRCS		=	srcs/main.c							\
 				srcs/builtin/exe_exit.c				\
 				srcs/builtin/exe_export.c			\
 				srcs/builtin/exe_pwd.c				\
-				srcs/builtin/exe_unset.c			
+				srcs/builtin/exe_unset.c			\
+				srcs/parsing/parsing.c				\
+				srcs/parsing/parsing_utils.c		\
+				srcs/parsing/quoter.c				\
+				srcs/parsing/quoter_utils.c			\
 
 OBJS 		= $(SRCS:.c=.o)
 

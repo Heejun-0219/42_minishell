@@ -5,68 +5,110 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: mi <mi@student.42seoul.kr>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/05 02:24:10 by mi                #+#    #+#             */
-/*   Updated: 2023/07/06 14:03:52 by mi               ###   ########.fr       */
+/*   Created: 2023/07/08 15:18:56 by mi                #+#    #+#             */
+/*   Updated: 2023/07/08 16:24:58 by mi               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-// 문자열을 병합하고 메모리를 해제
-void merge_and_free_tokens(char **dest, char *src)
+int	end_of_quoter_check(char **str, int *merge_str_len, int i, char quoter)
 {
-	strcat(*dest, " ");
-	strcat(*dest, src);
-	if (src != NULL)
-		free(src);
+	int	merge_count;
+
+	merge_count = 0;
+	if (str[i] == NULL)
+		return (-1);
+	if (ft_count_char(str[i], quoter) >= 2)
+		return (0);
+	i++;
+	while (1)
+	{
+		merge_count++;
+		*merge_str_len += strlen(str[i++]);
+		if (str[i] == NULL)
+			return (-1);
+		if (ft_strchr(str[i], quoter) != NULL && str[i] != NULL)
+			break ;
+	}
+	return (merge_count + 1);
 }
 
-// 문자열이 따옴표(", ')로 끝나는지 검사
-int ends_with_quote(char *token)
+char	*merge_string(char **strs, int start, int merge_len, int merge_count)
 {
-	int result;
-	
-	result = 0;
-	if (token != NULL && token[strlen(token) - 1] == '\"')
-		result = 1;
-	if (token != NULL && token[strlen(token) - 1] == '\'')
-		result = 1;
-	return (result);
+	char	*merge_str;
+	int		i;
+	int		total_len;
+
+	i = 0;
+	total_len = strlen(strs[start]) + merge_len + merge_count + 1;
+	merge_str = (char *)malloc(total_len);
+	strcat(merge_str, strs[start]);
+	free(strs[start]);
+	while (i < merge_count)
+	{
+		strcat(merge_str, " ");
+		strcat(merge_str, strs[start + i + 1]);
+		free(strs[start + i + 1]);
+		i++;
+	}
+	return (merge_str);
 }
 
-// 문자열 배열의 크기를 반환
-size_t get_array_size(char **array)
+void	del_quoter(char *str, char quoter)
 {
-	size_t count = 0;
-	while (array[count] != NULL)
-		count++;
-	return count;
+	int	i;
+	int	j;
+	int	len;
+
+	i = 0;
+	j = 0;
+	len = strlen(str);
+	while (i < len)
+	{
+		if (str[i] == quoter)
+		{
+			j = i;
+			while (j < len - 1)
+			{
+				str[j] = str[j + 1];
+				j++;
+			}
+			len--;
+		}
+		i++;
+	}
+	str[j] = '\0';
 }
 
-// 토큰이 따옴표로 끝나는 경우, 해당 따옴표 내부에 있는지 확인
-int is_end_of_quote_scope(char *token, int inside_double, int inside_single)
+int	rearange_strs(char **strs, int start, int num_strs, int merge_count)
 {
-	if (!ends_with_quote(token))
-		return 0;
+	size_t	size;
+	int		i;
+	int		src_index;
 
-	if (token[strlen(token) - 1] == '\"' && inside_double)
-		return 1;
-
-	if (token[strlen(token) - 1] == '\'' && inside_single)
-		return 1;
-
-	return 0;
+	i = 0;
+	while (i < num_strs - merge_count - 1)
+	{
+		src_index = start + i + merge_count + 1;
+		size = strlen(strs[src_index]) + 1;
+		strs[start + i + 1] = malloc(size);
+		ft_memmove(strs[start + i + 1], strs[src_index], size);
+		free(strs[src_index]);
+		i++;
+	}
+	strs[start + i + 1] = NULL;
+	return (start + i + 1);
 }
-// int is_end_of_quote_scope(char *token, int *quoter_type)
-// {
-// 	if (!ends_with_quote(token))
-// 		return 0;
 
-// 	if (token[strlen(token) - 1] == '\"' && quoter_type[1])
-// 		return 1;
+void extra_strs_set_null(char **strs, int new, int old)
+{
+	int i;
 
-// 	if (token[strlen(token) - 1] == '\'' && quoter_type[1])
-// 		return 1;
-
-// 	return 0;
-// }
+	i = new;
+	while (i < old)
+	{
+		strs[i] = NULL;
+		i++;
+	}
+}

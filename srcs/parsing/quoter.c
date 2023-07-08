@@ -1,94 +1,78 @@
-// /* ************************************************************************** */
-// /*                                                                            */
-// /*                                                        :::      ::::::::   */
-// /*   quoter.c                                           :+:      :+:    :+:   */
-// /*                                                    +:+ +:+         +:+     */
-// /*   By: mi <mi@student.42seoul.kr>                 +#+  +:+       +#+        */
-// /*                                                +#+#+#+#+#+   +#+           */
-// /*   Created: 2023/07/06 03:25:28 by mi                #+#    #+#             */
-// /*   Updated: 2023/07/06 04:00:23 by mi               ###   ########.fr       */
-// /*                                                                            */
-// /* ************************************************************************** */
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   quoter.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mi <mi@student.42seoul.kr>                 +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/07/08 15:14:05 by mi                #+#    #+#             */
+/*   Updated: 2023/07/08 16:16:56 by mi               ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
+#include "minishell.h"
 
-// #include "minishell.h"
+static int handling_quoter_type(char **strs, int i, int num_strs)
+{
+	if (ft_strchr(strs[i], '\'') != NULL)
+	{
+		num_strs = single_quoter_process(strs, i, num_strs);
+		del_quoter(strs[i], '\'');
+		i = num_strs;
+	}
+	else if (ft_strchr(strs[i], '\"') != NULL)
+	{
+		num_strs = double_quoter_process(strs, i, num_strs);
+		del_quoter(strs[i], '\"');
+		i = num_strs;
+	}
+	return (i);
+}
 
-// // void check_toggle_quote_type(char **tokens_str, int i, int *doub, int *single)
-// // void check_toggle_quote_type(char **tokens_str, int i, int *quoter_type)
-// // {
-// // 	if (tokens_str[i][0] == '\"' && !(*single))
-// // 	if (tokens_str[i][0] == '\"' && !(quoter_type[1]))
-// // 		*doub = !(*doub);
-// // 	if (tokens_str[i][0] == '\'' && !(*doub))
-// // 		*single = !(*single);
-// // }
-// void check_toggle_quote_type(char **tokens_str, int i, int *quoter_type)
-// {
-// 	if (tokens_str[i][0] == '\"' && !(quoter_type[1]))
-// 		quoter_type[0] = !(quoter_type[0]);
-// 	if (tokens_str[i][0] == '\'' && !(quoter_type[0]))
-// 		quoter_type[1] = !(quoter_type[1]);
-// }
+int	single_quoter_process(char **strs, int start, int num_strs)
+{
+	int	merge_count;
+	int	merge_str_len;
 
-// // void merge_tokens(char **tokens_str, int *i, int *j, int *doub, int *single)
-// // {
-// // 	size_t array_size;
+	merge_str_len = strlen(strs[start]);
+	merge_count = end_of_quoter_check(strs, &merge_str_len, start, '\'');
+	if (merge_count == -1)
+		return (-1);
+	if (merge_count == 0)
+		return (start);
+	strs[start] = merge_string(strs, start, merge_str_len, merge_count);
+	return (rearange_strs(strs, start, num_strs, merge_count));
+}
 
-// // 	if (*doub || *single)
-// // 	{
-// // 		(*j) = (*i) + 1;
-// // 		while (tokens_str[*j] != NULL && !is_end_of_quote_scope(tokens_str[*j], *doub, *single))
-// // 			merge_and_free_tokens(&tokens_str[*i], tokens_str[(*j)++]);
-// // 		if (is_end_of_quote_scope(tokens_str[*j], *doub, *single))
-// // 		{
-// // 			merge_and_free_tokens(&tokens_str[*i], tokens_str[*j]);
-// // 			*doub = ft_not(*doub); 
-// // 			*single = ft_not(*single);
-// // 		}
-// // 		array_size = sizeof(char *) * (get_array_size(tokens_str) - *j);
-// // 		memmove(&tokens_str[*i + 1], &tokens_str[*j + 1], array_size);
-// // 	}
-// // }
+int	double_quoter_process(char **strs, int start, int num_strs)
+{
+	int	merge_count;
+	int	merge_str_len;
 
-// void merge_tokens(char **tokens_str, int *i, int *j, int *quoter_type)
-// {
-// 	size_t array_size;
+	merge_str_len = strlen(strs[start]);
+	merge_count = end_of_quoter_check(strs, &merge_str_len, start, '\"');
+	if (merge_count == -1)
+		return (-1);
+	if (merge_count == 0)
+		return (start);
+	strs[start] = merge_string(strs, start, merge_str_len, merge_count);
+	return (rearange_strs(strs, start, num_strs, merge_count));
+}
 
-// 	if (quoter_type[0] || quoter_type[1])
-// 	{
-// 		(*j) = (*i) + 1;
-// 		while (tokens_str[*j] != NULL && !is_end_of_quote_scope(tokens_str[*j], quoter_type)){
-// 			merge_and_free_tokens(&tokens_str[*i], tokens_str[*j]);
-// 			(*j)++;
-// 		}
-// 		if (is_end_of_quote_scope(tokens_str[*j], quoter_type))
-// 		{
-// 			merge_and_free_tokens(&tokens_str[*i], tokens_str[*j]);
-// 			ft_not(&(quoter_type[0]));
-// 			ft_not(&(quoter_type[1]));
-// 		}
-// 		array_size = sizeof(char *) * (get_array_size(tokens_str) - *j);
-// 		memmove(&tokens_str[*i + 1], &tokens_str[*j + 1], array_size);
-// 	}
-// }
+void	merge_quoted_tokens(char **strs, int num_strs)
+{
+	int	i;
 
-// void merge_quoted_tokens(char **tokens_str)
-// {
-// 	int i;
-// 	int j;
-// 	int doub;
-// 	int single;
-// 	int *quoter_type;
-
-// 	i = 0;
-// 	quoter_type = (int *) ft_malloc(sizeof(int) * 2);
-// 	quoter_type[0] = 0;
-// 	quoter_type[1] = 0;
-// 	while (tokens_str[i] != NULL)
-// 	{
-// 		check_toggle_quote_type(tokens_str, i, quoter_type);
-// 		merge_tokens(tokens_str, &i, &j, quoter_type);
-// 		i++;
-// 	}
-// 	free(quoter_type);
-// }
+	i = 0;
+	while (strs[i] != NULL)
+	{
+		i = handling_quoter_type(strs, i, num_strs);
+		if (i == -1)
+		{
+			printf("Error : Quoter is not closed\n");
+			exit(1);
+		}
+		else
+			i++;
+	}
+}

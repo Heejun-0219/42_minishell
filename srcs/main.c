@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: heejunki <heejunki@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: mi <mi@student.42seoul.kr>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/06 14:26:58 by heejunki          #+#    #+#             */
-/*   Updated: 2023/07/06 16:22:23 by heejunki         ###   ########.fr       */
+/*   Updated: 2023/07/08 15:54:07 by mi               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,8 @@ int	main(int ac, char **av, char **env)
 		tokenize_line(&parse);
 		parse.line_index = line_index++;
 		parse_exe(&parse, &cmd, &info);
-		free(parse.line);
+		// free(parse.line);
+		
 	}
 	return (SUCCESS);
 }

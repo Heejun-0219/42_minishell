@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: heejunki <heejunki@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: mi <mi@student.42seoul.kr>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/06 14:25:04 by heejunki          #+#    #+#             */
-/*   Updated: 2023/07/06 16:48:43 by heejunki         ###   ########.fr       */
+/*   Updated: 2023/07/08 15:56:17 by mi               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -212,19 +212,22 @@ int		check_valid(char *str);
 int		exe_pwd(void);
 int		exe_unset(t_info *info, t_pipe *pipe);
 
-// parsing
+// parsing.c
 void	tokenize_line(t_parse *parse);
 
-// // quoter
-// void merge_quoted_tokens(char **tokens_str);
-// void merge_tokens(char **tokens_str, int *i, int *j, int *quoter_type);
-// void check_toggle_quote_type(char **tokens_str, int i, int *quoter_type);
+// parsing_utils.c
+int		count_strs(char **strs);
 
-// parsing/quoter_util.c
-void	merge_and_free_tokens(char **dest, char *src);
-int		ends_with_quote(char *token);
-size_t	get_array_size(char **array);
-int		is_end_of_quote_scope(char *token, int inside_double, \
-	int inside_single);
+// quoter.c
+void	merge_quoted_tokens(char **strs, int num_strs);
+int		single_quoter_process(char **strs, int start, int num_strs);
+int		double_quoter_process(char **strs, int start, int num_strs);
+
+// quoter_utils.c
+int		end_of_quoter_check(char **str, int *merge_str_len, int i, char quoter);
+char	*merge_string(char **strs, int start, int merge_len, int merge_count);
+int		rearange_strs(char **strs, int start, int num_strs, int merge_count);
+void	del_quoter(char *str, char quoter);
+void	extra_strs_set_null(char **strs, int new, int old);
 
 #endif
