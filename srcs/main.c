@@ -32,8 +32,6 @@ static int memory_parse(t_parse *parse, t_info *info)
 
 static void	parse_exe(t_parse *parse, t_cmd *cmd, t_info *info)
 {
-	// parse | info 환경변수 확인? 
-
 	if (make_cmd_info(parse, cmd, info) == FAILURE)
 		return ;
 	for (size_t i = 0; i < parse->token_count; i++)
@@ -76,8 +74,7 @@ int	main(int ac, char **av, char **env)
 		tokenize_line(&parse);
 		parse.line_index = line_index++;
 		parse_exe(&parse, &cmd, &info);
-		// free(parse.line);
-		
+		free(parse.line);
 	}
 	return (SUCCESS);
 }

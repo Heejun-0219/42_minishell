@@ -6,7 +6,7 @@
 /*   By: mi <mi@student.42seoul.kr>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 15:18:56 by mi                #+#    #+#             */
-/*   Updated: 2023/07/08 17:55:46 by mi               ###   ########.fr       */
+/*   Updated: 2023/07/08 16:24:58 by mi               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,32 +15,23 @@
 int	end_of_quoter_check(char **str, int *merge_str_len, int i, char quoter)
 {
 	int	merge_count;
-	int check;
 
 	merge_count = 0;
-	check = 0;
 	if (str[i] == NULL)
 		return (-1);
 	if (ft_count_char(str[i], quoter) >= 2)
 		return (0);
 	i++;
-	while (str[i] != NULL)
+	while (1)
 	{
 		merge_count++;
-		*merge_str_len += strlen(str[i]);
-		printf("end_of_quoter check: %s\n", str[i]);
+		*merge_str_len += strlen(str[i++]);
 		if (str[i] == NULL)
 			return (-1);
 		if (ft_strchr(str[i], quoter) != NULL && str[i] != NULL)
-		{
-			check = 1;
 			break ;
-		}
-		i++;
 	}
-	if (check == 0)
-		return (-1);
-	return (merge_count);
+	return (merge_count + 1);
 }
 
 char	*merge_string(char **strs, int start, int merge_len, int merge_count)
@@ -97,7 +88,7 @@ int	rearange_strs(char **strs, int start, int num_strs, int merge_count)
 	int		src_index;
 
 	i = 0;
-	while (i < num_strs - (start + merge_count + 1))
+	while (i < num_strs - merge_count - 1)
 	{
 		src_index = start + i + merge_count + 1;
 		size = strlen(strs[src_index]) + 1;
@@ -117,7 +108,6 @@ void extra_strs_set_null(char **strs, int new, int old)
 	i = new;
 	while (i < old)
 	{
-		if (strs[i] != NULL && ft_strncmp(strs[i], "\0", 1) == 0)
 		strs[i] = NULL;
 		i++;
 	}
