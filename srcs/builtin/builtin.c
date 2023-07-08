@@ -35,8 +35,6 @@ int	check_builtin(t_pipe *pipe)
 
 int	check_builtin_parent(t_cmd *cmd, t_pipe *pipe)
 {
-	if (cmd->pipe[cmd->pipe_index].cmd == NULL)
-		return (FALSE);
 	if (cmd->pipe_index != FALSE || pipe->is_pipe == TRUE)
 		return (FALSE);
 	if (pipe->cmd_path == NULL)

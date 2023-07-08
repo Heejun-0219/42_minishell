@@ -53,9 +53,9 @@ static void	exit_no_option(t_parse *parse, t_cmd *cmd, \
 	if (cmd->pipe[cmd->pipe_index].cmd[1] == NULL)
 	{
 		ft_lstclear(&info->env_list);
-		free_mini(parse, cmd);
 		if (pipe->builtin == TRUE)
 			printf("exit\n");
+		free_mini(parse, cmd);
 		exit(EXIT_SUCCESS);
 	}
 }
@@ -65,6 +65,14 @@ int	exe_exit(t_parse *parse, t_cmd *cmd, t_info *info, t_pipe *pipe)
 	int	exit_val;
 
 	exit_no_option(parse, cmd, info, pipe);
+	if (cmd->pipe[cmd->pipe_index].cmd[2] != NULL)
+	{
+		printf("minishell: exit: too many arguments\n");
+		g_exit_code = 1;
+		if (pipe->builtin == TRUE)
+			return (SUCCESS);
+		exit(1);
+	}
 	exit_option(cmd);
 	exit_val = ft_atoi(cmd->pipe[cmd->pipe_index].cmd[1]);
 	ft_lstclear(&info->env_list);

@@ -45,12 +45,12 @@ static int	close_pipe(t_cmd *cmd, t_pipe *pipe)
 	if (cmd->pre_pipe_fd != -1)
 	{
 		if (close(cmd->pre_pipe_fd) == FAILURE)
-			return (ft_perror(errno));
+			return (ft_perror(FAILURE));
 	}
 	if (pipe->is_pipe == TRUE)
 	{
 		if (close(pipe->pipe_fd[OUT]) == FAILURE)
-			return (ft_perror(errno));
+			return (ft_perror(FAILURE));
 		cmd->pre_pipe_fd = pipe->pipe_fd[IN];
 	}
 	else
@@ -88,7 +88,7 @@ int	exe_cmd(t_parse *parse, t_cmd *cmd, t_info *info)
 		if (tmp_pipe->is_pipe == TRUE)
 		{
 			if (pipe(tmp_pipe->pipe_fd) == FAILURE)
-				return (ft_perror(errno));
+				return (ft_perror(FAILURE));
 		}
 		if (exe_pipe(info, parse, cmd, tmp_pipe) == FAILURE)
 		    return (FAILURE);

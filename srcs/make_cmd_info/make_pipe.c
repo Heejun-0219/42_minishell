@@ -46,29 +46,29 @@ void	set_key(t_parse *parse, t_pipe *pipe, size_t index)
 	pipe->cmd_index++;
 }
 
-int	set_pipe(t_parse *parse, t_pipe *pipe, size_t index)
+int	set_pipe(t_parse *parse, t_pipe *pipe, size_t *index)
 {
-	if (malloc_cmd(parse, pipe, index) == FAILURE)
+	if (malloc_cmd(parse, pipe, *index) == FAILURE)
 		return (FAILURE);
-	if (malloc_re(parse, pipe, index) == FAILURE)
+	if (malloc_re(parse, pipe, *index) == FAILURE)
 		return (FAILURE);
-	while (index < parse->token_count)
+	while (*index < parse->token_count)
 	{
-		if (parse->tokens[index].type == PIPE)
+		if (parse->tokens[*index].type == PIPE)
 		{
 			pipe->is_pipe = TRUE;
-			index++;
+			(*index)++;
 			break ;
 		}
-		if (parse->tokens[index].type == KEY)
-			set_key(parse, pipe, index);
-		if (parse->tokens[index].type == REDIRECT)
+		if (parse->tokens[*index].type == KEY)
+			set_key(parse, pipe, *index);
+		if (parse->tokens[*index].type == REDIRECT)
 		{
-			if (set_re(parse, pipe, index) == FAILURE)
+			if (set_re(parse, pipe, *index) == FAILURE)
 				return (FAILURE);
-			index++;
+			(*index)++;
 		}
-		index++;
+		(*index)++;
 	}
 	return (SUCCESS);
 }
@@ -85,7 +85,7 @@ int	make_pipe(t_parse *parse, t_cmd *cmd)
 	{
 		pipe = &cmd->pipe[i];
 		init_pipe(pipe);
-		if (set_pipe(parse, pipe, j) == FAILURE)
+		if (set_pipe(parse, pipe, &j) == FAILURE)
 		{
 			free_cmd(cmd, i);
 			return (FAILURE);
