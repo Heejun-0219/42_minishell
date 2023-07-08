@@ -39,7 +39,10 @@ static void	parse_exe(t_parse *parse, t_cmd *cmd, t_info *info)
 	for (size_t i = 0; i < parse->token_count; i++)
 		printf("token[%zu] = %s\n", i, parse->tokens[i].s);
 	if (exe_cmd(parse, cmd, info) == FAILURE)
+	{
+		free_mini(parse, cmd);
 		return ;
+	}
 	if (memory_parse(parse, info) == FAILURE)
 		return ;
 	free_mini(parse, cmd);

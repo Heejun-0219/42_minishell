@@ -107,7 +107,6 @@ int if_env_change(t_info *info, t_parse *parse)
         cha_env->string_index = 0;
         while (cha_env->token->s[cha_env->string_index])
         {
-            printf("%c\n", cha_env->token->s[cha_env->string_index]);
             if (check_here(cha_env->token->s[cha_env->string_index], \
             cha_env->token->s[cha_env->string_index + 1]) == TRUE)
             {

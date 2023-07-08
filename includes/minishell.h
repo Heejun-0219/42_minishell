@@ -36,6 +36,8 @@
 # define ERROR 1
 # define TRUE 1
 # define FALSE 0
+# define IN 0
+# define OUT 1
 # define PROMPT "minishell$ "
 
 extern int	g_exit_code;
@@ -158,6 +160,7 @@ void	sig_handler(int signo);
 void	init_sig(t_info *info);
 void	sig_heredoc_parent(int signo);
 void	sig_heredoc_child(int signo);
+void	sig_parent(int signo);
 
 void	init_info(t_info *info, int ac, char **av, char **env);
 void	init_env_list(t_info *info, char **env);

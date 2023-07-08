@@ -43,3 +43,20 @@ void	sig_heredoc_parent(int signo)
 	(void)signo;
 	write(STDOUT_FILENO, "\n", 1);
 }
+
+void	sig_parent(int signo)
+{
+	if (signo == SIGINT)
+	{
+		write(STDOUT_FILENO, "\n", 1);
+		rl_on_new_line();
+		rl_replace_line("", 1);
+		rl_redisplay();
+		g_exit_code = 1;
+	}
+	else if (signo == SIGQUIT)
+	{
+		write(STDOUT_FILENO, "Quit: 3\n", 8);
+		g_exit_code = 131;
+	}
+}

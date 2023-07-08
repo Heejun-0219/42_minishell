@@ -3,8 +3,9 @@
 static int change_question(t_info *info, t_cha_env *cv)
 {
     if (info->ac < 2)
-        return (FAILURE);
-    cv->tmp1 = ft_strjoin(info->av[1], &cv->token->s[cv->string_index + 2]);
+        cv->tmp1 = ft_strdup("himBH");
+    else
+        cv->tmp1 = ft_strjoin(info->av[1], &cv->token->s[cv->string_index + 2]);
     if (cv->tmp1 == NULL)
         return (FAILURE);
     free(cv->token->s);

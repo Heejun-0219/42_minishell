@@ -39,15 +39,61 @@ int	wait_mini(t_cmd *cmd)
 	return (SUCCESS);
 }
 
+static int	close_pipe(t_cmd *cmd, t_pipe *pipe)
+{
+	signal(SIGINT, sig_parent);
+	signal(SIGQUIT, sig_parent);
+	if (cmd->pre_pipe_fd != -1)
+	{
+		if (close(cmd->pre_pipe_fd) == FAILURE)
+			return (ft_perror(errno));
+	}
+	if (pipe->is_pipe == TRUE)
+	{
+		if (close(pipe->pipe_fd[OUT]) == FAILURE)
+			return (ft_perror(errno));
+		cmd->pre_pipe_fd = pipe->pipe_fd[IN];
+	}
+	else
+		cmd->pre_pipe_fd = -1;
+	return (SUCCESS);
+}
+
+void exe_child(t_info *info, t_parse *parse, t_cmd *cmd, t_pipe *pipe)
+{
+	signal(SIGINT, SIG_DFL);
+	signal(SIGQUIT, SIG_DFL);
+	if (check_builtin(info, parse, cmd, pipe) == FAILURE) // + check_cmd
+	{
+
+	}
+	else
+	{
+		
+	}
+}
+
+static int exe_pipe(t_info *info, t_parse *parse, t_cmd *cmd, t_pipe *pipe)
+{
+	pipe->pid = fork();
+	if (pipe->pid == FAILURE)
+		return (ft_perror(errno));
+	else if (pipe->pid == 0)
+		exe_child(info, parse, cmd, pipe);
+	else 
+	{
+		if (close_pipe(cmd, pipe) == FAILURE)
+			return (FAILURE);
+	}
+	return (SUCCESS);
+}
+
 int	exe_cmd(t_parse *parse, t_cmd *cmd, t_info *info)
 {
 	t_pipe	*tmp_pipe;
 
 	if (is_heredoc(cmd) == FAILURE)
-	{
-		free_mini(parse, cmd);
 		return (FAILURE);
-	}
 	cmd->pipe_index = 0;
 	while (cmd->pipe_index < cmd->pipe_count)
 	{
@@ -57,16 +103,10 @@ int	exe_cmd(t_parse *parse, t_cmd *cmd, t_info *info)
 		if (tmp_pipe->is_pipe == TRUE)
 		{
 			if (pipe(tmp_pipe->pipe_fd) == FAILURE)
-			{
-				free_mini(parse, cmd);
 				return (ft_perror(errno));
-			}
 		}
-		// if (exe_pipe(parse, cmd, info, tmp_pipe) == FAILURE)
-		// {
-		//     free_mini(parse, cmd);
-		//     return (FAILURE);
-		// }
+		if (exe_pipe(info, parse, cmd, tmp_pipe) == FAILURE)
+		    return (FAILURE);
 		cmd->pipe_index++;
 	}
 	wait_mini(cmd);
