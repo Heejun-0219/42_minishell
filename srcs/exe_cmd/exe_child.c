@@ -8,12 +8,11 @@ static void check_dir(const char *path)
     if (dir != NULL)
     {
 		printf("minishell: %s: is a directory\n", path);
-		closedir(dir);
 		exit(126);
     }
 }
 
-static char *get_path(char *envp, char *cmd)
+static char *get_path(t_pipe *pipe, char *envp)
 {
 	char *tmp;
 	char *path;
@@ -21,14 +20,14 @@ static char *get_path(char *envp, char *cmd)
 	tmp = ft_strjoin(envp, "/");
 	if (tmp == NULL)
 		exit(EXIT_FAILURE);
-	path = ft_strjoin(tmp, cmd);
+	path = ft_strjoin(tmp, pipe->cmd_path);
 	if (path == NULL)
 	{
 		free(tmp);
 		exit(EXIT_FAILURE);
 	}
 	free(tmp);
-	return (path);		
+	return (path);
 }
 
 static int check_access_cmd(t_cmd *cmd, t_pipe *pipe)
@@ -39,15 +38,14 @@ static int check_access_cmd(t_cmd *cmd, t_pipe *pipe)
 	i = 0;
     path = pipe->cmd_path;
     check_dir(path);
-	if (path == NULL || access(path, F_OK) == SUCCESS)
+	if (path == NULL || access(path, X_OK) == SUCCESS)
 		return (SUCCESS);
 	if (path[0] == '\0')
 		return (FAILURE);
 	while (cmd->envp[i])
 	{
-		path = get_path(cmd->envp[i], pipe->cmd_path);
-		check_dir(path);
-		if (access(path, F_OK) == SUCCESS)
+		path = get_path(pipe, cmd->envp[i]);
+		if (access(path, X_OK) == SUCCESS)
 		{
 			pipe->cmd_path = path;
 			return (SUCCESS);
@@ -70,10 +68,8 @@ static char **set_envp(t_list *envp_list)
 	{
 		count++;
 		node = node->next;
-		printf("node->content: %s\n", (char *)node->content);
 	}
-	printf("count: %zu\n", count);
-	envp = (char **)malloc(sizeof(char *) * (count + 1));
+	envp = (char **)malloc(sizeof(char *) * (count + 2));
 	if (envp == NULL)
 		exit(ft_error("envp malloc failed\n", EXIT_FAILURE));
 	count = 0;
@@ -92,7 +88,7 @@ void exe_child(t_info *info, t_parse *parse, t_cmd *cmd, t_pipe *pipe)
 {
 	signal(SIGINT, SIG_DFL);
 	signal(SIGQUIT, SIG_DFL);
-	if (check_builtin(pipe) == FAILURE && \
+	if (check_builtin(pipe) == FALSE && \
 		check_access_cmd(cmd, pipe) == FAILURE)
 	{
 		printf("minishell: %s: command not found\n", pipe->cmd[0]);

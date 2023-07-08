@@ -14,7 +14,7 @@
 
 int	check_builtin(t_pipe *pipe)
 {
-	if (pipe->cmd == NULL)
+	if (pipe->cmd_path == NULL)
 		return (FALSE);
 	if (ft_strncmp(pipe->cmd[0], "cd", 3) == SUCCESS)
 		return (TRUE);
