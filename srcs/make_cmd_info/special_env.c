@@ -25,7 +25,7 @@ static int change_last_argument(t_cha_env *cv, t_info *info)
 
 int  change_abs(t_info *info, t_cha_env *cv)
 {
-    cv->tmp1 = ft_strjoin(get_env_val("HOME", info), &cv->token->s[cv->string_index + 1]);
+    cv->tmp1 = ft_strjoin(get_env_val("HOME=", info), &cv->token->s[cv->string_index + 1]);
     if (cv->tmp1 == NULL)
         return (FAILURE);
     cv->tmp2 = ft_split(cv->tmp1, '=')[1];
