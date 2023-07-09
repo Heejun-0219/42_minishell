@@ -182,7 +182,7 @@ char	*get_env_val(char *key, t_info *info);
 int		make_pipe(t_parse *parse, t_cmd *cmd);
 int		set_pipe(t_parse *parse, t_pipe *pipe, size_t *index);
 int  check_here(char s1, char s2);
-int		set_re(t_parse *parse, t_pipe *pipe, size_t index);
+void		set_re(t_parse *parse, t_pipe *pipe, size_t index);
 void	set_key(t_parse *parse, t_pipe *pipe, size_t index);
 int		malloc_re(t_parse *parse, t_pipe *pipe, size_t index);
 int		malloc_cmd(t_parse *parse, t_pipe *pipe, size_t index);

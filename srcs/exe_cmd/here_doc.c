@@ -12,22 +12,13 @@
 
 #include "minishell.h"
 
-static int	close_free(char *line, int fd, char *limiter)
-{
-	if (close(fd) == FAILURE)
-		exit(ft_perror(errno));
-	free(line);
-	free(limiter);
-	return (SUCCESS);
-}
-
 void	tmp_heredoc(t_redirect *redirect)
 {
 	char	*line;
 	char	*limiter;
 	int		fd;
 
-	fd = open("/tmp/whine", O_WRONLY | O_CREAT | O_TRUNC | O_APPEND, 0644);
+	fd = open("/tmp/tmp", O_CREAT | O_WRONLY | O_TRUNC | O_APPEND, 0644);
 	if (fd == FAILURE)
 		exit(ft_perror(errno));
 	limiter = ft_strjoin(redirect->val, "\n");
@@ -35,19 +26,17 @@ void	tmp_heredoc(t_redirect *redirect)
 		exit(ft_error("malloc error\n", FAILURE));
 	while (TRUE)
 	{
-		write (STDOUT_FILENO, "> ", 2);
-		line = readline("");
-		if (line == NULL)
-			exit(ft_perror(errno));
-		if (ft_strncmp(line, limiter, ft_strlen(limiter) + 1) == TRUE)
-		{
-			free(line);
+		line = readline("> ");
+		line = ft_strjoin(line, "\n");
+		if (!line || ft_strncmp(line, limiter, ft_strlen(limiter)) == SUCCESS)
 			break ;
-		}
 		write(fd, line, ft_strlen(line));
 		free(line);
 	}
-	close_free(line, fd, limiter);
+	free(line);
+	free(limiter);
+	if (close(fd) == FAILURE)
+		exit(ft_perror(errno));
 }
 
 void	heredoc_child(t_cmd *cmd)
@@ -87,7 +76,7 @@ int	is_heredoc(t_cmd *cmd)
 	if (waitpid(-1, &i, 0) == FAILURE)
 		return (ft_perror(FAILURE));
 	g_exit_code = WEXITSTATUS(i);
-	if (g_exit_code == EXIT_FAILURE)
+	if (g_exit_code != EXIT_SUCCESS)
 		return (FAILURE);
 	return (SUCCESS);
 }

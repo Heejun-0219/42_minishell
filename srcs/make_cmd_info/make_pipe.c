@@ -17,25 +17,22 @@ int  check_here(char s1, char s2)
     return (s1 == '<' && s2 == '<');
 }
 
-int	set_re(t_parse *parse, t_pipe *pipe, size_t index)
+void	set_re(t_parse *parse, t_pipe *pipe, size_t index)
 {
 	size_t	i;
 
 	i = index;
-	if (ft_strncmp(parse->tokens[i].s, ">", 2) == TRUE)
+	if (ft_strncmp(parse->tokens[i].s, ">", 2) == SUCCESS)
 		pipe->redirect[pipe->redirect_index].type = WRITE;
-	else if (ft_strncmp(parse->tokens[i].s, ">>", 3) == TRUE)
+	else if (ft_strncmp(parse->tokens[i].s, ">>", 3) == SUCCESS)
 		pipe->redirect[pipe->redirect_index].type = APPEND;
-	else if (ft_strncmp(parse->tokens[i].s, "<", 2) == TRUE)
+	else if (ft_strncmp(parse->tokens[i].s, "<", 2) == SUCCESS)
 		pipe->redirect[pipe->redirect_index].type = READ;
-	else if (ft_strncmp(parse->tokens[i].s, "<<", 3) == TRUE)
+	else if (ft_strncmp(parse->tokens[i].s, "<<", 3) == SUCCESS)
 		pipe->redirect[pipe->redirect_index].type = HEREDOC;
-	else
-		return (ft_error("syntax error near unexpected token\n", FAILURE));
 	pipe->redirect[pipe->redirect_index].val = \
 		parse->tokens[i + 1].s;
 	pipe->redirect_index++;
-	return (SUCCESS);
 }
 
 void	set_key(t_parse *parse, t_pipe *pipe, size_t index)
@@ -64,8 +61,7 @@ int	set_pipe(t_parse *parse, t_pipe *pipe, size_t *index)
 			set_key(parse, pipe, *index);
 		if (parse->tokens[*index].type == REDIRECT)
 		{
-			if (set_re(parse, pipe, *index) == FAILURE)
-				return (FAILURE);
+			set_re(parse, pipe, *index);
 			(*index)++;
 		}
 		(*index)++;

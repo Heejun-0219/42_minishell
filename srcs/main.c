@@ -46,6 +46,11 @@ static void	parse_exe(t_parse *parse, t_cmd *cmd, t_info *info)
 	free_mini(parse, cmd);
 }
 
+// \\t \t
+// "echo" asdf 
+// g_exit_code => parsing
+// ls | grep .c | grep cmd > test
+// << bash: syntax error near unexpected token `newline'
 int	main(int ac, char **av, char **env)
 {
 	t_parse	parse;
@@ -68,6 +73,7 @@ int	main(int ac, char **av, char **env)
 		if (parse.line[0] == '\0')
 		{
 			free(parse.line);
+			printf("1\n");
 			continue ;
 		}
 		add_history(parse.line);
