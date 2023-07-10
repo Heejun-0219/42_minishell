@@ -15,7 +15,8 @@ static int change_question(t_info *info, t_cha_env *cv)
 
 static int change_last_argument(t_cha_env *cv, t_info *info)
 {
-    cv->tmp1 = ft_strjoin(info->av[info->ac - 1], &cv->token->s[cv->string_index + 2]);
+    cv->tmp1 = ft_strjoin(info->last_v[info->last_c - 1], \
+        &cv->token->s[cv->string_index + 2]);
     if (cv->tmp1 == NULL)
         return (FAILURE);
     free(cv->token->s);

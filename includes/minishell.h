@@ -141,6 +141,8 @@ typedef struct s_info
 	t_list			env_list;
 	struct termios	term;
 	struct termios	term_back;
+	int				last_c;
+	char 			**last_v;
 }	t_info;
 
 void	ft_lstclear(t_list *lst);

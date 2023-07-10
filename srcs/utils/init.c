@@ -35,6 +35,8 @@ void	init_info(t_info *info, int ac, char **av, char **env)
 	info->env = env;
 	tcgetattr(STDIN_FILENO, &info->term_back);
 	init_env_list(info, env);
+	info->last_c = 0;
+	info->last_v = NULL;
 }
 
 int	init_cmd(t_parse *parse, t_cmd *cmd, t_info *info)

@@ -31,17 +31,17 @@ static int memory_parse(t_parse *parse, t_info *info)
 {
 	size_t	i;
 
-	info->ac = (int) parse->token_count;
-	info->av = (char **)malloc(sizeof(char *) * (parse->token_count + 1));
-	if (info->av == NULL)
+	info->last_c = (int) parse->token_count;
+	info->last_v = (char **)malloc(sizeof(char *) * (parse->token_count + 1));
+	if (info->last_v == NULL)
 		return (ft_error("malloc error\n", FAILURE));
 	i = 0;
 	while (i < parse->token_count)
 	{
-		info->av[i] = ft_strdup(parse->tokens[i].s);
+		info->last_v[i] = ft_strdup(parse->tokens[i].s);
 		i++;
 	}
-	info->av[parse->token_count] = NULL;
+	info->last_v[parse->token_count] = NULL;
 	return (SUCCESS);
 }
 
