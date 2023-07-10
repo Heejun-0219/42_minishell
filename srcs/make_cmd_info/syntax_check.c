@@ -102,7 +102,6 @@ int syntax_error(t_parse *parse)
 			return (FAILURE);
 		else if (parse->tokens[syn->token_index].type == PIPE)
 		{
-			printf("2\n");
 			if (check_pipe(parse, syn) == FAILURE)
 				return (FAILURE);
 		}
