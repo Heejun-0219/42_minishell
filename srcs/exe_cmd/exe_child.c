@@ -4,6 +4,11 @@ static void check_dir(const char *path)
 {
     DIR *dir;
 
+	if (path == NULL)
+    {
+        printf("Error: path is null\n");
+        exit(126);
+    }
     dir = opendir(path);
     if (dir != NULL)
     {

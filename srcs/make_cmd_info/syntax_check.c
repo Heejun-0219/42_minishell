@@ -1,20 +1,16 @@
 #include "minishell.h"
 
-void backslash_to_space(t_parse *parse)
+void backslash_to_space(t_parse *parse, size_t i)
 {
-	size_t	i;
 	size_t	j;
-	size_t	len;
 	char *tmp;
 
-	i = 0;
 	while (i < parse->token_count)
 	{
 		if (parse->tokens[i].type == KEY)
 		{
 			j = 0;
-			len = strlen(parse->tokens[i].s);
-			while (j < len)
+			while (j < strlen(parse->tokens[i].s))
 			{
 				if (parse->tokens[i].s[j] == '\\' && \
 					parse->tokens[i].s[j + 1] == '\\')
@@ -100,10 +96,8 @@ int syntax_error(t_parse *parse)
 
 	syn = (t_cha_env *)malloc(sizeof(t_cha_env));
 	syn->token_index = 0;
-	printf("1\n");
 	while (syn->token_index < parse->token_count)
 	{
-		printf("parse->tokens[syn->token_index].type : %d\n", parse->tokens[syn->token_index].type);
 		if (check_op(parse, syn) == FAILURE)
 			return (FAILURE);
 		else if (parse->tokens[syn->token_index].type == PIPE)

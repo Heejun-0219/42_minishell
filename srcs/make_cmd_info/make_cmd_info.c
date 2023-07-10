@@ -107,7 +107,7 @@ int	make_cmd_info(t_parse *parse, t_cmd *cmd, t_info *info)
 		free_tokens(parse, parse->token_count);
 		return (FAILURE);
 	}
-	backslash_to_space(parse);
+	backslash_to_space(parse, 0);
 	get_exe_count(parse, cmd);
 	if (init_cmd(parse, cmd, info) == FAILURE)
 		return (FAILURE);
