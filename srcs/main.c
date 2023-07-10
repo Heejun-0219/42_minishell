@@ -12,6 +12,21 @@
 
 #include "minishell.h"
 
+static int null_line(char *line)
+{
+	size_t index;
+
+	index = 0;
+	while (line[index] == ' ')
+		index++;
+	if (line[index] == '\0')
+	{
+		free(line);
+		return (FAILURE);
+	}
+	return (SUCCESS);
+}
+
 static int memory_parse(t_parse *parse, t_info *info)
 {
 	size_t	i;
@@ -32,6 +47,7 @@ static int memory_parse(t_parse *parse, t_info *info)
 
 static void	parse_exe(t_parse *parse, t_cmd *cmd, t_info *info)
 {
+	tokenize_line(parse);
 	if (make_cmd_info(parse, cmd, info) == FAILURE)
 		return ;
 	for (size_t i = 0; i < parse->token_count; i++)
@@ -46,23 +62,16 @@ static void	parse_exe(t_parse *parse, t_cmd *cmd, t_info *info)
 	free_mini(parse, cmd);
 }
 
-// \\t \t
-// "echo" asdf 
+// blank
 // g_exit_code => parsing
-// ls | grep .c | grep cmd > test
-// << bash: syntax error near unexpected token `newline'
-// env | export 
 // git commit -m "fix: HOME -> HOME="
-// || && ; | < > >> <<
 int	main(int ac, char **av, char **env)
 {
 	t_parse	parse;
 	t_info	info;
 	t_cmd	cmd;
-	size_t	line_index;
 
 	init_info(&info, ac, av, env);
-	line_index = 0;
 	while (TRUE)
 	{
 		init_sig(&info);
@@ -78,9 +87,9 @@ int	main(int ac, char **av, char **env)
 			free(parse.line);
 			continue ;
 		}
+		if (null_line(parse.line) == FAILURE)
+			continue;
 		add_history(parse.line);
-		tokenize_line(&parse);
-		parse.line_index = line_index++;
 		parse_exe(&parse, &cmd, &info);
 		free(parse.line);
 	}
