@@ -29,7 +29,7 @@ void backslash_to_space(t_parse *parse, size_t i)
 
 static int check_pipe(t_parse *parse, t_cha_env *syn)
 {
-	if (syn->token_index == 0 || syn->token_index == syn->token_index - 1)
+	if (syn->token_index == 0 || syn->token_index == parse->token_count - 1)
 	{
 		g_exit_code = 258;
 		return (ft_error("Syntax Error: parse error", FAILURE));
