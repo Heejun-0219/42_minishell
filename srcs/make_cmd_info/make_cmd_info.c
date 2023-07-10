@@ -97,6 +97,11 @@ int	get_path_env(t_parse *parse, t_cmd *cmd, t_info *info)
 
 int	make_cmd_info(t_parse *parse, t_cmd *cmd, t_info *info)
 {
+	if (syntax_error(parse) == FAILURE)
+	{
+		free_tokens(parse, parse->token_count);
+		return (FAILURE);
+	}
 	if (if_env_change(info, parse) == FAILURE)
 	{
 		free_tokens(parse, parse->token_count);

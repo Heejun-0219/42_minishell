@@ -80,16 +80,30 @@ static void	export_insert(t_info *info, t_pipe *pipe)
 	}
 }
 
+static void export_c(t_list *env_list, char c)
+{
+	t_node *node;
+
+	node = env_list->front;
+	while (node)
+	{
+		if (ft_strncmp(node->content, &c, ft_strlen(&c)) == SUCCESS)
+			printf("declare -x %s\n", (char *)(node->content));
+		node = node->next;
+	}
+}
+
 static void	export_no(t_list *env_list)
 {
-	t_node	*env;
+	int i;
 
-	env = env_list->front;
-	while (env)
-	{
-		printf("declare -x %s\n", (char *)(env->content));
-		env = env->next;
+	i = 0;
+	while (i < 52)
+	{	
+		export_c(env_list, "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"[i]);
+		i++;
 	}
+	export_c(env_list, '_');
 }
 
 int	exe_export(t_parse *parse, t_cmd *cmd, t_info *info, t_pipe *pipe)

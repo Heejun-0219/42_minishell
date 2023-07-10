@@ -38,7 +38,7 @@ static void re_heredoc(t_pipe *pipe)
     if (pipe->in_fd != -1)
         if (close(pipe->in_fd) == FAILURE)
             exit(ft_perror(errno));
-    pipe->in_fd = open("/tmp/tmp", O_RDONLY);
+    pipe->in_fd = open("/tmp/mini", O_RDONLY);
     if (pipe->in_fd == FAILURE)
         exit(ft_perror(1));
 }

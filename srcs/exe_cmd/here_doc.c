@@ -18,7 +18,7 @@ void	tmp_heredoc(t_redirect *redirect)
 	char	*limiter;
 	int		fd;
 
-	fd = open("/tmp/tmp", O_CREAT | O_WRONLY | O_TRUNC | O_APPEND, 0644);
+	fd = open("/tmp/mini", O_CREAT | O_WRONLY | O_TRUNC | O_APPEND, 0644);
 	if (fd == FAILURE)
 		exit(ft_perror(errno));
 	limiter = ft_strjoin(redirect->val, "\n");

@@ -34,7 +34,7 @@ int	wait_mini(t_cmd *cmd)
 		g_exit_code = WEXITSTATUS(status);
 		cmd->pipe_index++;
 	}
-	unlink("/tmp/tmp");
+	unlink("/tmp/mini");
 	return (SUCCESS);
 }
 

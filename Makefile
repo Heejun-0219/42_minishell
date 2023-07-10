@@ -27,6 +27,7 @@ SRCS		=	srcs/main.c							\
 				srcs/lst/ft_lstdelone.c				\
 				srcs/lst/ft_lstpush_back.c			\
 				srcs/make_cmd_info/make_cmd_info.c	\
+				srcs/make_cmd_info/syntax_check.c	\
 				srcs/make_cmd_info/change_env.c		\
 				srcs/make_cmd_info/special_env.c	\
 				srcs/make_cmd_info/make_pipe.c		\
