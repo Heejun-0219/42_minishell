@@ -1,5 +1,36 @@
 #include "minishell.h"
 
+void backslash_to_space(t_parse *parse)
+{
+	size_t	i;
+	size_t	j;
+	size_t	len;
+	char *tmp;
+
+	i = 0;
+	while (i < parse->token_count)
+	{
+		if (parse->tokens[i].type == KEY)
+		{
+			j = 0;
+			len = strlen(parse->tokens[i].s);
+			while (j < len)
+			{
+				if (parse->tokens[i].s[j] == '\\' && \
+					parse->tokens[i].s[j + 1] == '\\')
+					{
+						tmp = ft_strdup(parse->tokens[i].s + 1);
+						free(parse->tokens[i].s);
+						parse->tokens[i].s = tmp;
+						j++;
+					}
+				j++;
+			}
+		}
+		i++;
+	}
+}
+
 static int check_pipe(t_parse *parse, t_cha_env *syn)
 {
 	if (syn->token_index == 0 || syn->token_index == syn->token_index - 1)
