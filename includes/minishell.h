@@ -172,6 +172,7 @@ int change_special_env(t_info *info, t_cha_env *cv);
 int  change_abs(t_info *info, t_cha_env *cv);
 
 int syntax_error(t_parse *parse);
+void backslash_to_space(t_parse *parse);
 int		make_cmd_info(t_parse *parse, t_cmd *cmd, t_info *info);
 void	init_pipe(t_pipe *pipe);
 int		init_cmd(t_parse *parse, t_cmd *cmd, t_info *info);
