@@ -6,7 +6,7 @@
 /*   By: mi <mi@student.42seoul.kr>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 15:14:05 by mi                #+#    #+#             */
-/*   Updated: 2023/07/09 06:30:31 by mi               ###   ########.fr       */
+/*   Updated: 2023/07/10 16:04:42 by mi               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,8 @@ int	single_quoter_process(char **strs, int start, int num_strs)
 	merge_count = end_of_quoter_check(strs, &merge_str_len, start, '\'');
 	if (merge_count == -1)
 		return (-1);
+	if (merge_count == 0)
+		return (num_strs);
 	strs[start] = merge_string(strs, start, merge_str_len, merge_count);
 	return (rearange_strs(strs, start, num_strs, merge_count));
 }
@@ -51,6 +53,8 @@ int	double_quoter_process(char **strs, int start, int num_strs)
 	merge_count = end_of_quoter_check(strs, &merge_str_len, start, '\"');
 	if (merge_count == -1)
 		return (-1);
+	if (merge_count == 0)
+		return (num_strs);
 	strs[start] = merge_string(strs, start, merge_str_len, merge_count);
 	return (rearange_strs(strs, start, num_strs, merge_count)); // 배열의 마지막 인덱스
 }
