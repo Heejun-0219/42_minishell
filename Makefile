@@ -22,6 +22,7 @@ SRCS		=	srcs/main.c							\
 				srcs/utils/error.c					\
 				srcs/utils/free.c					\
 				srcs/utils/sig.c					\
+				srcs/utils/export_utils.c			\
 				srcs/lst/ft_lstclear.c				\
 				srcs/lst/ft_lstinit.c				\
 				srcs/lst/ft_lstdelone.c				\

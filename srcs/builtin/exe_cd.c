@@ -12,18 +12,25 @@
 
 #include "minishell.h"
 
-int	exe_cd(t_pipe *pipe)
+static int home_cd(t_pipe *pipe, t_info *info)
+{
+	if (pipe->builtin == TRUE)
+	{
+		if (chdir(ft_split(get_env_val("HOME=", info), '=')[1]) == FAILURE)
+			return (ft_perror(SUCCESS));
+		return (SUCCESS);
+	}
+	else
+		exit(EXIT_SUCCESS);
+}
+
+int	exe_cd(t_pipe *pipe, t_info *info)
 {
 	char	*path;
 
 	path = pipe->cmd[1];
 	if (path == NULL)
-	{
-		if (pipe->builtin == TRUE)
-			return (SUCCESS);
-		else
-			exit(EXIT_SUCCESS);
-	}
+		return (home_cd(pipe, info));
 	if (chdir(path) == FAILURE)
 	{
 		g_exit_code = 1;

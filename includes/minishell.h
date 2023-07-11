@@ -208,7 +208,7 @@ int		exe_builtin(t_parse *parse, t_cmd *cmd, t_info *info, t_pipe *pipe);
 int		exe_builtin_parent(t_parse *parse, t_cmd *cmd, t_info *info, \
 		t_pipe *pipe);
 
-int		exe_cd(t_pipe *pipe);
+int		exe_cd(t_pipe *pipe, t_info *info);
 int		exe_echo(t_pipe *pipe);
 int		exe_env(t_parse *parse, t_cmd *cmd, t_info *info, t_pipe *pipe);
 int		exe_exit(t_parse *parse, t_cmd *cmd, t_info *info, t_pipe *pipe);
