@@ -1,9 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   syntax_check.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: heejunki <heejunki@student.42seoul.kr>     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/07/11 15:52:35 by heejunki          #+#    #+#             */
+/*   Updated: 2023/07/11 15:54:05 by heejunki         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
-void backslash_to_space(t_parse *parse, size_t i)
+void	backslash_to_space(t_parse *parse, size_t i)
 {
 	size_t	j;
-	char *tmp;
+	char	*tmp;
 
 	while (i < parse->token_count)
 	{
@@ -14,12 +26,12 @@ void backslash_to_space(t_parse *parse, size_t i)
 			{
 				if (parse->tokens[i].s[j] == '\\' && \
 					parse->tokens[i].s[j + 1] == '\\')
-					{
-						tmp = ft_strdup(parse->tokens[i].s + 1);
-						free(parse->tokens[i].s);
-						parse->tokens[i].s = tmp;
-						j++;
-					}
+				{
+					tmp = ft_strdup(parse->tokens[i].s + 1);
+					free(parse->tokens[i].s);
+					parse->tokens[i].s = tmp;
+					j++;
+				}
 				j++;
 			}
 		}
@@ -27,7 +39,7 @@ void backslash_to_space(t_parse *parse, size_t i)
 	}
 }
 
-static int check_pipe(t_parse *parse, t_cha_env *syn)
+static int	check_pipe(t_parse *parse, t_cha_env *syn)
 {
 	if (syn->token_index == 0 || syn->token_index == parse->token_count - 1)
 	{
@@ -46,7 +58,7 @@ static int check_pipe(t_parse *parse, t_cha_env *syn)
 	return (SUCCESS);
 }
 
-static int check_op(t_parse *parse, t_cha_env *syn)
+static int	check_op(t_parse *parse, t_cha_env *syn)
 {
 	if (ft_strncmp(parse->tokens[syn->token_index].s, "||", 2) == SUCCESS)
 	{
@@ -72,7 +84,7 @@ static int check_op(t_parse *parse, t_cha_env *syn)
 	return (SUCCESS);
 }
 
-static int check_redirect(t_parse *parse, t_cha_env *syn)
+static int	check_redirect(t_parse *parse, t_cha_env *syn)
 {
 	if (syn->token_index == parse->token_count - 1)
 	{
@@ -90,9 +102,9 @@ static int check_redirect(t_parse *parse, t_cha_env *syn)
 	return (SUCCESS);
 }
 
-int syntax_error(t_parse *parse)
+int	syntax_error(t_parse *parse)
 {
-	t_cha_env *syn;
+	t_cha_env	*syn;
 
 	syn = (t_cha_env *)malloc(sizeof(t_cha_env));
 	syn->token_index = 0;

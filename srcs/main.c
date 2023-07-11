@@ -3,31 +3,30 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mi <mi@student.42seoul.kr>                 +#+  +:+       +#+        */
+/*   By: heejunki <heejunki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/06 14:26:58 by heejunki          #+#    #+#             */
-/*   Updated: 2023/07/08 15:54:07 by mi               ###   ########.fr       */
+/*   Updated: 2023/07/11 15:42:53 by heejunki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static int null_line(char *line)
+static int	null_line(char *line)
 {
-	size_t index;
+	size_t	index;
 
 	index = 0;
 	while (line[index] == ' ')
 		index++;
 	if (line[index] == '\0')
 	{
-		free(line);
 		return (FAILURE);
 	}
 	return (SUCCESS);
 }
 
-static int memory_parse(t_parse *parse, t_info *info)
+static int	memory_parse(t_parse *parse, t_info *info)
 {
 	size_t	i;
 
@@ -82,13 +81,11 @@ int	main(int ac, char **av, char **env)
 			printf("\x1b[1A\033[11Cexit\n");
 			break ;
 		}
-		if (parse.line[0] == '\0')
+		if (parse.line[0] == '\0' || null_line(parse.line) == FAILURE)
 		{
 			free(parse.line);
 			continue ;
 		}
-		if (null_line(parse.line) == FAILURE)
-			continue;
 		add_history(parse.line);
 		parse_exe(&parse, &cmd, &info);
 		free(parse.line);

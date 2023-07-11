@@ -1,26 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_count_char.c                                    :+:      :+:    :+:   */
+/*   export_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: heejunki <heejunki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/08 16:08:08 by mi                #+#    #+#             */
-/*   Updated: 2023/07/11 15:53:42 by heejunki         ###   ########.fr       */
+/*   Created: 2023/07/11 15:45:37 by heejunki          #+#    #+#             */
+/*   Updated: 2023/07/11 15:45:52 by heejunki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "minishell.h"
 
-int	ft_count_char(char *str, char c)
+void	export_c(t_list *env_list, char c)
 {
-	int	i;
-	int	count;
+	t_node	*node;
 
-	i = 0;
-	count = 0;
-	while (str[i] != '\0')
-		if (str[i++] == c)
-			count++;
-	return (count);
+	node = env_list->front;
+	while (node)
+	{
+		if (ft_strncmp(node->content, &c, ft_strlen(&c)) == SUCCESS)
+			printf("declare -x %s\n", (char *)(node->content));
+		node = node->next;
+	}
 }

@@ -6,7 +6,7 @@
 /*   By: heejunki <heejunki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/06 14:49:51 by heejunki          #+#    #+#             */
-/*   Updated: 2023/07/06 14:50:20 by heejunki         ###   ########.fr       */
+/*   Updated: 2023/07/11 15:45:34 by heejunki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,27 +80,15 @@ static void	export_insert(t_info *info, t_pipe *pipe)
 	}
 }
 
-static void export_c(t_list *env_list, char c)
-{
-	t_node *node;
-
-	node = env_list->front;
-	while (node)
-	{
-		if (ft_strncmp(node->content, &c, ft_strlen(&c)) == SUCCESS)
-			printf("declare -x %s\n", (char *)(node->content));
-		node = node->next;
-	}
-}
-
 static void	export_no(t_list *env_list)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (i < 52)
 	{	
-		export_c(env_list, "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"[i]);
+		export_c(env_list, "abcdefghijklmnopqrstuvwxyz\
+			ABCDEFGHIJKLMNOPQRSTUVWXYZ"[i]);
 		i++;
 	}
 	export_c(env_list, '_');
