@@ -61,9 +61,7 @@ static void	parse_exe(t_parse *parse, t_cmd *cmd, t_info *info)
 	free_mini(parse, cmd);
 }
 
-// blank
 // g_exit_code => parsing
-// git commit -m "fix: HOME -> HOME="
 int	main(int ac, char **av, char **env)
 {
 	t_parse	parse;

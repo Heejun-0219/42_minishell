@@ -19,7 +19,7 @@ void	export_c(t_list *env_list, char c)
 	node = env_list->front;
 	while (node)
 	{
-		if (ft_strncmp(node->content, &c, ft_strlen(&c)) == SUCCESS)
+		if (ft_strncmp(node->content, &c, 1) == SUCCESS)
 			printf("declare -x %s\n", (char *)(node->content));
 		node = node->next;
 	}

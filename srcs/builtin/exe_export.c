@@ -85,10 +85,10 @@ static void	export_no(t_list *env_list)
 	int	i;
 
 	i = 0;
-	while (i < 52)
-	{	
-		export_c(env_list, "abcdefghijklmnopqrstuvwxyz\
-			ABCDEFGHIJKLMNOPQRSTUVWXYZ"[i]);
+	while (i < 26)
+	{
+		export_c(env_list, "acegikmoqsuwyACEGIKMOQSUWY"[i]);
+		export_c(env_list, "bdfhjlnprtvxzBDFHJLNPRTVXZ"[i]);
 		i++;
 	}
 	export_c(env_list, '_');
