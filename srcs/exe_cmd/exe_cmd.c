@@ -6,7 +6,7 @@
 /*   By: heejunki <heejunki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/06 14:41:22 by heejunki          #+#    #+#             */
-/*   Updated: 2023/07/06 15:46:01 by heejunki         ###   ########.fr       */
+/*   Updated: 2023/07/11 15:48:13 by heejunki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,14 +58,14 @@ static int	close_pipe(t_cmd *cmd, t_pipe *pipe)
 	return (SUCCESS);
 }
 
-static int exe_pipe(t_info *info, t_parse *parse, t_cmd *cmd, t_pipe *pipe)
+static int	exe_pipe(t_info *info, t_parse *parse, t_cmd *cmd, t_pipe *pipe)
 {
 	pipe->pid = fork();
 	if (pipe->pid == FAILURE)
 		return (ft_perror(errno));
 	else if (pipe->pid == 0)
 		exe_child(info, parse, cmd, pipe);
-	else 
+	else
 	{
 		if (close_pipe(cmd, pipe) == FAILURE)
 			return (FAILURE);
@@ -91,7 +91,7 @@ int	exe_cmd(t_parse *parse, t_cmd *cmd, t_info *info)
 				return (ft_perror(FAILURE));
 		}
 		if (exe_pipe(info, parse, cmd, tmp_pipe) == FAILURE)
-		    return (FAILURE);
+			return (FAILURE);
 		cmd->pipe_index++;
 	}
 	wait_mini(cmd);

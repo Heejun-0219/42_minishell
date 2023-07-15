@@ -1,21 +1,38 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   exe_child.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: heejunki <heejunki@student.42seoul.kr>     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/07/11 15:46:58 by heejunki          #+#    #+#             */
+/*   Updated: 2023/07/11 15:47:35 by heejunki         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
-static void check_dir(const char *path)
+static void	check_dir(const char *path)
 {
-    DIR *dir;
+	DIR	*dir;
 
-    dir = opendir(path);
-    if (dir != NULL)
-    {
+	if (path == NULL)
+	{
+		printf("Error: path is null\n");
+		exit(126);
+	}
+	dir = opendir(path);
+	if (dir != NULL)
+	{
 		printf("minishell: %s: is a directory\n", path);
 		exit(126);
-    }
+	}
 }
 
-static char *get_path(t_pipe *pipe, char *envp)
+static char	*get_path(t_pipe *pipe, char *envp)
 {
-	char *tmp;
-	char *path;
+	char	*tmp;
+	char	*path;
 
 	tmp = ft_strjoin(envp, "/");
 	if (tmp == NULL)
@@ -30,14 +47,14 @@ static char *get_path(t_pipe *pipe, char *envp)
 	return (path);
 }
 
-static int check_access_cmd(t_cmd *cmd, t_pipe *pipe)
+static int	check_access_cmd(t_cmd *cmd, t_pipe *pipe)
 {
-	size_t    i;
-    char    *path;
+	size_t	i;
+	char	*path;
 
 	i = 0;
-    path = pipe->cmd_path;
-    check_dir(path);
+	path = pipe->cmd_path;
+	check_dir(path);
 	if (path == NULL || access(path, X_OK) == SUCCESS)
 		return (SUCCESS);
 	if (path[0] == '\0')
@@ -56,7 +73,7 @@ static int check_access_cmd(t_cmd *cmd, t_pipe *pipe)
 	return (FAILURE);
 }
 
-static char **set_envp(t_list *envp_list)
+static char	**set_envp(t_list *envp_list)
 {
 	char	**envp;
 	size_t	count;
@@ -84,7 +101,7 @@ static char **set_envp(t_list *envp_list)
 	return (envp);
 }
 
-void exe_child(t_info *info, t_parse *parse, t_cmd *cmd, t_pipe *pipe)
+void	exe_child(t_info *info, t_parse *parse, t_cmd *cmd, t_pipe *pipe)
 {
 	signal(SIGINT, SIG_DFL);
 	signal(SIGQUIT, SIG_DFL);

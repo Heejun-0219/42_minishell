@@ -3,35 +3,50 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mi <mi@student.42seoul.kr>                 +#+  +:+       +#+        */
+/*   By: heejunki <heejunki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/06 14:26:58 by heejunki          #+#    #+#             */
-/*   Updated: 2023/07/08 15:54:07 by mi               ###   ########.fr       */
+/*   Updated: 2023/07/11 15:42:53 by heejunki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static int memory_parse(t_parse *parse, t_info *info)
+static int	null_line(char *line)
+{
+	size_t	index;
+
+	index = 0;
+	while (line[index] == ' ')
+		index++;
+	if (line[index] == '\0')
+	{
+		return (FAILURE);
+	}
+	return (SUCCESS);
+}
+
+static int	memory_parse(t_parse *parse, t_info *info)
 {
 	size_t	i;
 
-	info->ac = (int) parse->token_count;
-	info->av = (char **)malloc(sizeof(char *) * (parse->token_count + 1));
-	if (info->av == NULL)
+	info->last_c = (int) parse->token_count;
+	info->last_v = (char **)malloc(sizeof(char *) * (parse->token_count + 1));
+	if (info->last_v == NULL)
 		return (ft_error("malloc error\n", FAILURE));
 	i = 0;
 	while (i < parse->token_count)
 	{
-		info->av[i] = ft_strdup(parse->tokens[i].s);
+		info->last_v[i] = ft_strdup(parse->tokens[i].s);
 		i++;
 	}
-	info->av[parse->token_count] = NULL;
+	info->last_v[parse->token_count] = NULL;
 	return (SUCCESS);
 }
 
 static void	parse_exe(t_parse *parse, t_cmd *cmd, t_info *info)
 {
+	tokenize_line(parse);
 	if (make_cmd_info(parse, cmd, info) == FAILURE)
 		return ;
 	for (size_t i = 0; i < parse->token_count; i++)
@@ -46,23 +61,14 @@ static void	parse_exe(t_parse *parse, t_cmd *cmd, t_info *info)
 	free_mini(parse, cmd);
 }
 
-// \\t \t
-// "echo" asdf 
 // g_exit_code => parsing
-// ls | grep .c | grep cmd > test
-// << bash: syntax error near unexpected token `newline'
-// env | export 
-// git commit -m "fix: HOME -> HOME="
-// || && ; | < > >> <<
 int	main(int ac, char **av, char **env)
 {
 	t_parse	parse;
 	t_info	info;
 	t_cmd	cmd;
-	size_t	line_index;
 
 	init_info(&info, ac, av, env);
-	line_index = 0;
 	while (TRUE)
 	{
 		init_sig(&info);
@@ -73,14 +79,12 @@ int	main(int ac, char **av, char **env)
 			printf("\x1b[1A\033[11Cexit\n");
 			break ;
 		}
-		if (parse.line[0] == '\0')
+		if (parse.line[0] == '\0' || null_line(parse.line) == FAILURE)
 		{
 			free(parse.line);
 			continue ;
 		}
 		add_history(parse.line);
-		tokenize_line(&parse);
-		parse.line_index = line_index++;
 		parse_exe(&parse, &cmd, &info);
 		free(parse.line);
 	}

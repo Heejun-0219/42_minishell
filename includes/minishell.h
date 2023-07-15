@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mi <mi@student.42seoul.kr>                 +#+  +:+       +#+        */
+/*   By: heejunki <heejunki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/06 14:25:04 by heejunki          #+#    #+#             */
-/*   Updated: 2023/07/08 15:56:17 by mi               ###   ########.fr       */
+/*   Updated: 2023/07/11 15:46:04 by heejunki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ typedef struct s_cha_env
 	t_token			*token;
 	size_t			token_index;
 	size_t			string_index;
-	char 			*exit_code;
+	char			*exit_code;
 	char			*tmp1;
 	char			*tmp2;
 	size_t			start;
@@ -84,7 +84,6 @@ typedef struct s_cha_env
 	char			*target;
 	size_t			target_len;
 }	t_cha_env;
-
 
 typedef struct s_parse
 {
@@ -141,6 +140,8 @@ typedef struct s_info
 	t_list			env_list;
 	struct termios	term;
 	struct termios	term_back;
+	int				last_c;
+	char			**last_v;
 }	t_info;
 
 void	ft_lstclear(t_list *lst);
@@ -168,10 +169,11 @@ void	init_env_list(t_info *info, char **env);
 char	*get_env_val(char *key, t_info *info);
 int		if_env_change(t_info *info, t_parse *parse);
 
-int change_special_env(t_info *info, t_cha_env *cv);
-int  change_abs(t_info *info, t_cha_env *cv);
+int		change_special_env(t_info *info, t_cha_env *cv);
+int		change_abs(t_info *info, t_cha_env *cv);
 
-int syntax_error(t_parse *parse);
+int		syntax_error(t_parse *parse);
+void	backslash_to_space(t_parse *parse, size_t i);
 int		make_cmd_info(t_parse *parse, t_cmd *cmd, t_info *info);
 void	init_pipe(t_pipe *pipe);
 int		init_cmd(t_parse *parse, t_cmd *cmd, t_info *info);
@@ -182,16 +184,16 @@ char	*get_env_val(char *key, t_info *info);
 
 int		make_pipe(t_parse *parse, t_cmd *cmd);
 int		set_pipe(t_parse *parse, t_pipe *pipe, size_t *index);
-int  check_here(char s1, char s2);
-void		set_re(t_parse *parse, t_pipe *pipe, size_t index);
+int		check_here(char s1, char s2);
+void	set_re(t_parse *parse, t_pipe *pipe, size_t index);
 void	set_key(t_parse *parse, t_pipe *pipe, size_t index);
 int		malloc_re(t_parse *parse, t_pipe *pipe, size_t index);
 int		malloc_cmd(t_parse *parse, t_pipe *pipe, size_t index);
 
-void exe_child(t_info *info, t_parse *parse, t_cmd *cmd, t_pipe *pipe);
+void	exe_child(t_info *info, t_parse *parse, t_cmd *cmd, t_pipe *pipe);
 
-void set_fd(t_cmd *cmd, t_pipe *pipe);
-void set_redirect_fd(t_pipe *pipe);
+void	set_fd(t_cmd *cmd, t_pipe *pipe);
+void	set_redirect_fd(t_pipe *pipe);
 
 int		exe_cmd(t_parse *parse, t_cmd *cmd, t_info *info);
 int		wait_mini(t_cmd *cmd);
@@ -206,11 +208,12 @@ int		exe_builtin(t_parse *parse, t_cmd *cmd, t_info *info, t_pipe *pipe);
 int		exe_builtin_parent(t_parse *parse, t_cmd *cmd, t_info *info, \
 		t_pipe *pipe);
 
-int		exe_cd(t_pipe *pipe);
+int		exe_cd(t_pipe *pipe, t_info *info);
 int		exe_echo(t_pipe *pipe);
 int		exe_env(t_parse *parse, t_cmd *cmd, t_info *info, t_pipe *pipe);
 int		exe_exit(t_parse *parse, t_cmd *cmd, t_info *info, t_pipe *pipe);
 int		exe_export(t_parse *parse, t_cmd *cmd, t_info *info, t_pipe *pipe);
+void	export_c(t_list *env_list, char c);
 t_node	*get_if_env_exist(t_list *env_list, const char *s);
 int		check_valid(char *str);
 int		exe_pwd(void);

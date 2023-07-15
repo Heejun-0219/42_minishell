@@ -6,15 +6,15 @@
 /*   By: heejunki <heejunki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/06 14:32:41 by heejunki          #+#    #+#             */
-/*   Updated: 2023/07/06 14:35:22 by heejunki         ###   ########.fr       */
+/*   Updated: 2023/07/11 15:51:53 by heejunki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int  check_here(char s1, char s2)
+int	check_here(char s1, char s2)
 {
-    return (s1 == '<' && s2 == '<');
+	return (s1 == '<' && s2 == '<');
 }
 
 void	set_re(t_parse *parse, t_pipe *pipe, size_t index)
