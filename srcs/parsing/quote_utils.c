@@ -1,36 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing_utils.c                                    :+:      :+:    :+:   */
+/*   quote_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mi <mi@student.42seoul.kr>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/08 15:16:42 by mi                #+#    #+#             */
-/*   Updated: 2023/07/16 02:52:15 by mi               ###   ########.fr       */
+/*   Created: 2023/07/08 15:18:56 by mi                #+#    #+#             */
+/*   Updated: 2023/07/16 02:28:47 by mi               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	count_strs(char **strs)
+char *push_str_to_endpoint(char *str, char endpoint)
 {
-	int	i;
-
-	i = 0;
-	while (strs[i] != NULL)
-		i++;
-	return (i);
+	while (*str && *str != endpoint)
+		str++;
+	if (*str == '\0')
+		return (NULL);
+	return (str + 1);
 }
-
-/*
-void parsed_constructor_free(t_parse *parse)
-{
-	if (parse->tokens != NULL)
-		free(parse->tokens);
-	if (parse->line != NULL)
-	{
-		while (parse->line[parse->line_count] != NULL)
-			free(parse->line[parse->line_count++]);
-	}
-}
-*/

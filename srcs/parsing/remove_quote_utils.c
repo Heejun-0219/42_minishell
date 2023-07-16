@@ -1,36 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing_utils.c                                    :+:      :+:    :+:   */
+/*   remove_quote_utils.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mi <mi@student.42seoul.kr>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/08 15:16:42 by mi                #+#    #+#             */
-/*   Updated: 2023/07/16 02:52:15 by mi               ###   ########.fr       */
+/*   Created: 2023/07/16 02:50:25 by mi                #+#    #+#             */
+/*   Updated: 2023/07/16 02:57:01 by mi               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	count_strs(char **strs)
+int get_strs_count(t_del_quote *head)
 {
-	int	i;
+	int count;
+	t_del_quote *current;
 
-	i = 0;
-	while (strs[i] != NULL)
-		i++;
-	return (i);
-}
-
-/*
-void parsed_constructor_free(t_parse *parse)
-{
-	if (parse->tokens != NULL)
-		free(parse->tokens);
-	if (parse->line != NULL)
+	count = 0;
+	current = head;
+	while (current)
 	{
-		while (parse->line[parse->line_count] != NULL)
-			free(parse->line[parse->line_count++]);
+		if (current->index == current->subordinate)
+			count++;
+		current = current->next;
 	}
+	return (count);
 }
-*/
