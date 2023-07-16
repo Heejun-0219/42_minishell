@@ -5,12 +5,40 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: mi <mi@student.42seoul.kr>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/16 02:32:34 by mi                #+#    #+#             */
-/*   Updated: 2023/07/16 17:29:54 by mi               ###   ########.fr       */
+/*   Created: 2023/07/16 19:27:16 by mi                #+#    #+#             */
+/*   Updated: 2023/07/16 19:50:26 by mi               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+char **dequoted_merge(t_del_quote **head)
+{
+	char **result;
+	t_del_quote *current;
+	int strs_count;
+	char *new_str;
+
+	strs_count = get_strs_count(*head);
+	result = (char **)malloc(sizeof(char *) * (strs_count + 1));
+	current = *head;
+	while (current)
+	{
+		if (current->index != -1)
+		{
+			result[current->index] = strdup(current->str);
+		}
+		else
+		{
+			new_str = ft_strjoin(result[current->subordinate], current->str);
+			free(result[current->subordinate]);
+			result[current->subordinate] = new_str;
+		}
+		current = current->next;
+	}
+	result[strs_count] = NULL;
+	return (result);
+}
 
 void split_quote(t_del_quote **head)
 {
@@ -87,39 +115,11 @@ void modify_index(t_del_quote **head)
 	}
 }
 
-char **dequoted_merge(t_del_quote **head)
-{
-	char **result;
-	t_del_quote *current;
-	int strs_count;
-	char *new_str;
-
-	strs_count = get_strs_count(*head);
-	result = (char **)malloc(sizeof(char *) * (strs_count + 1));
-	current = *head;
-	while (current)
-	{
-		if (current->index != -1)
-		{
-			result[current->index] = current->str;
-		}
-		else
-		{
-			new_str = ft_strjoin(result[current->subordinate], current->str);
-			free(result[current->subordinate]);
-			result[current->subordinate] = new_str;
-		}
-		current = current->next;
-	}
-	result[strs_count] = NULL;
-	return (result);
-}
-
 char **remove_quote(char **strs)
 {
 	t_del_quote *head;
 	char **result;
-	int i = 0;
+	int i;
 
 	i = 0;
 	copy_data_to_node(&head, strs);

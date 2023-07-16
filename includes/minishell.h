@@ -6,7 +6,7 @@
 /*   By: mi <mi@student.42seoul.kr>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/06 14:25:04 by heejunki          #+#    #+#             */
-/*   Updated: 2023/07/16 17:30:49 by mi               ###   ########.fr       */
+/*   Updated: 2023/07/16 20:13:33 by mi               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -244,40 +244,30 @@ char *check_quote_set_flag(char *str, int *flag);
 // quote_utils.c
 char *push_str_to_endpoint(char *str, char endpoint);
 
+// node_free.c
+void destroy_nodes(t_del_quote **head);
+void free_node(t_del_quote *node);
+
+// remove_quote_node.c
+void copy_data_to_node(t_del_quote **head, char **strs);
+t_del_quote *new_del_quote_node(char *str, int index, int subordinate);
+t_del_quote *copy_node(t_del_quote *node);
+
 // remove_quote.c
 char **remove_quote(char **strs);
-char **dequoted_merge(t_del_quote **head);
 void modify_index(t_del_quote **head);
 void dequote(t_del_quote **head);
 void split_quote(t_del_quote **head);
-
-// remove_quote_node.c
-t_del_quote *get_node_by_index(t_del_quote *head, int index);
-t_del_quote *get_tail(t_del_quote *head);
-int get_node_count(t_del_quote *head);
-void copy_data_to_node(t_del_quote **head, char **strs);
-t_del_quote *new_del_quote_node(char *str, int index, int subordinate);
-
-// remove_quote_utils.c
-int get_strs_count(t_del_quote *head);
-
-// remove_quote_node_utils.c
-void free_node(t_del_quote *node);
-void destroy_nodes(t_del_quote **head);
+char **dequoted_merge(t_del_quote **head);
 
 // split_quote_utils.c
+t_del_quote *new_quote_split_list(t_del_quote **head, t_del_quote *current);
+char **make_quote_split_strs(char *str);
+int quote_split_strs_count(char *str);
 void rearrange_index(t_del_quote **head);
-t_del_quote	*new_splited_word(char *str, int parent_index, int subordinate);
-int len_one_word(char *str);
 int check_one_word(char *str);
 int check_one_word_push_to_endpoint(char *str, char c);
-
-t_del_quote *new_quote_split_list(t_del_quote **head, t_del_quote *current);
-
-// merge_node.c
-t_del_quote	**merge_node(t_del_quote **head, t_del_quote **new);
-void tail_merge(t_del_quote **head, t_del_quote **new);
-void mid_merge(t_del_quote **head, t_del_quote **new);
-void head_merge(t_del_quote **head, t_del_quote **new);
+int len_one_word(char *str);
+int get_strs_count(t_del_quote *head);
 
 #endif

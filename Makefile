@@ -49,12 +49,11 @@ SRCS		=	srcs/main.c							\
 				srcs/parsing/parsing_utils.c		\
 				srcs/parsing/quote.c				\
 				srcs/parsing/quote_utils.c			\
-				srcs/parsing/merge_node.c			\
-				srcs/parsing/remove_quote_node_utils.c		\
-				srcs/parsing/remove_quote_node.c				\
-				srcs/parsing/remove_quote_utils.c			\
-				srcs/parsing/remove_quote.c					\
-				srcs/parsing/split_quote_utils.c		
+				srcs/parsing/remove_quote_node.c	\
+				srcs/parsing/remove_quote.c			\
+				srcs/parsing/split_quote_utils.c	\
+				srcs/parsing/node_free.c	\
+
 
 
 OBJS 		= $(SRCS:.c=.o)

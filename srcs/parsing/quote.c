@@ -6,7 +6,7 @@
 /*   By: mi <mi@student.42seoul.kr>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 15:14:05 by mi                #+#    #+#             */
-/*   Updated: 2023/07/16 02:53:14 by mi               ###   ########.fr       */
+/*   Updated: 2023/07/16 20:14:01 by mi               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ char *check_quote_set_flag(char *str, int *flag)
 		return (str);
 	}
 	*flag = 0;
-	return (str);
+		return (str);
 }
 
 int get_count_respect_quote(char *str, char c)
