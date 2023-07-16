@@ -1,36 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing_utils.c                                    :+:      :+:    :+:   */
+/*   node_free.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mi <mi@student.42seoul.kr>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/08 15:16:42 by mi                #+#    #+#             */
-/*   Updated: 2023/07/16 02:52:15 by mi               ###   ########.fr       */
+/*   Created: 2023/07/16 19:36:04 by mi                #+#    #+#             */
+/*   Updated: 2023/07/16 19:36:54 by mi               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	count_strs(char **strs)
+void destroy_nodes(t_del_quote **head)
 {
-	int	i;
+	t_del_quote *current;
+	t_del_quote *next;
 
-	i = 0;
-	while (strs[i] != NULL)
-		i++;
-	return (i);
-}
-
-/*
-void parsed_constructor_free(t_parse *parse)
-{
-	if (parse->tokens != NULL)
-		free(parse->tokens);
-	if (parse->line != NULL)
+	current = *head;
+	while (current)
 	{
-		while (parse->line[parse->line_count] != NULL)
-			free(parse->line[parse->line_count++]);
+		next = current->next;
+		free_node(current);
+		current = next;
 	}
 }
-*/
+
+void free_node(t_del_quote *node)
+{
+	if (*(node->str) != '\0')
+		free(node->str);
+	free(node);
+}

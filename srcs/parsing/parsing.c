@@ -6,13 +6,13 @@
 /*   By: mi <mi@student.42seoul.kr>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 15:12:11 by mi                #+#    #+#             */
-/*   Updated: 2023/07/08 15:25:37 by mi               ###   ########.fr       */
+/*   Updated: 2023/07/16 03:05:35 by mi               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static t_token	set_token(char *token_str, int index)
+t_token	set_token(char *token_str, int index)
 {
 	t_token	new_token;
 
@@ -37,15 +37,19 @@ void	tokenize_line(t_parse *parse)
 
 	num_tokens = 0;
 	i = 0;
-	tokens_str = ft_split(parse->line, ' ');
+	
+	tokens_str = split_respect_quote(parse->line, ' ');
+	tokens_str = remove_quote(tokens_str);
+	// tokens_str = ft_split(parse->line, ' ');
 	for (int i = 0; tokens_str[i] != NULL; i++)
 		printf("%s\n", tokens_str[i]);
-	num_tokens = count_strs(tokens_str);
-	merge_quoted_tokens(tokens_str, num_tokens);
-	num_tokens = count_strs(tokens_str);
-	for (int i = 0; tokens_str[i] != NULL; i++)
-		printf("%s\n", tokens_str[i]);
-	printf("num_tokens : %zu\n", num_tokens);
+	// num_tokens = count_strs(tokens_str);
+	// merge_quoted_tokens(tokens_str, num_tokens);
+	// num_tokens = count_strs(tokens_str);
+	// for (int i = 0; tokens_str[i] != NULL; i++)
+	// 	printf("%s\n", tokens_str[i]);
+	// printf("num_tokens : %zu\n", num_tokens);
+	
 	parse->tokens = ft_malloc(sizeof(t_token) * (num_tokens));
 	parse->token_count = num_tokens;
 	while (i < num_tokens)

@@ -4,10 +4,10 @@ cc 		= 	cc
 CFLAGS	=	-Wall -Wextra -Werror -g -fsanitize=address
 RM		=	rm -rf
 
-READLINE_FLAGS		:= $(shell brew info readline | grep export | awk -F '"' '{print $$2}' | tr '\n' ' ')
-READLINE_INCLUDE	:= $(shell brew info readline | grep CPPFLAGS | awk -F '"' '{print $$2}')
-# READLINE_FLAGS		= -L/opt/homebrew/opt/readline/lib
-# READLINE_INCLUDE	= -I/opt/homebrew/opt/readline/include
+# READLINE_FLAGS		:= $(shell brew info readline | grep export | awk -F '"' '{print $$2}' | tr '\n' ' ')
+# READLINE_INCLUDE	:= $(shell brew info readline | grep CPPFLAGS | awk -F '"' '{print $$2}')
+READLINE_FLAGS		= -L/opt/homebrew/opt/readline/lib
+READLINE_INCLUDE	= -I/opt/homebrew/opt/readline/include
 # READLINE_FLAGS		= -L$(HOME)/.brew/opt/readline/lib
 # READLINE_INCLUDE	= -I$(HOME)/.brew/opt/readline/include
 
@@ -47,8 +47,14 @@ SRCS		=	srcs/main.c							\
 				srcs/builtin/exe_unset.c			\
 				srcs/parsing/parsing.c				\
 				srcs/parsing/parsing_utils.c		\
-				srcs/parsing/quoter.c				\
-				srcs/parsing/quoter_utils.c
+				srcs/parsing/quote.c				\
+				srcs/parsing/quote_utils.c			\
+				srcs/parsing/remove_quote_node.c	\
+				srcs/parsing/remove_quote.c			\
+				srcs/parsing/split_quote_utils.c	\
+				srcs/parsing/node_free.c	\
+
+
 
 OBJS 		= $(SRCS:.c=.o)
 
