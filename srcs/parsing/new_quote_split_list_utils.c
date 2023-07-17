@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   new_quote_split_list.c                             :+:      :+:    :+:   */
+/*   new_quote_split_list_utils.c                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mi <mi@student.42seoul.kr>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/17 22:34:08 by mi                #+#    #+#             */
-/*   Updated: 2023/07/17 22:55:18 by mi               ###   ########.fr       */
+/*   Updated: 2023/07/17 23:20:56 by mi               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,22 +75,36 @@ t_quote *next_list_copy(t_quote *head_cur, t_quote *new_list)
 	return (new_list);
 }
 
-//? 이전코드
-t_quote *new_quote_split_list(t_quote **head, t_quote *current)
+char **make_quote_split_strs(char *str)
 {
-	char **splited_str;
-	t_quote *new_list = NULL;
-	t_quote *new_start = NULL;
-	t_quote *head_cur;
-	int i = 0;
+	int strs_count;
+	char **result;
+	int i;
+	int word_len;
 
-	splited_str = make_quote_split_strs(current->str);
-	new_list = prev_list_copy(head, current->index, &new_start);
-	new_list = strs_to_list(splited_str, current, new_list, &new_start);
-	new_list = next_list_copy(current->next, new_list);
-	destroy_nodes(head);
-	while (splited_str[i])
-		free(splited_str[i++]);
-	free(splited_str);
-	return new_start;
+	strs_count = quote_split_strs_count(str);
+	result = (char **)malloc(sizeof(char *) * (strs_count + 1));
+	i = 0;
+	result[strs_count] = NULL;
+	while (i < strs_count)
+	{
+		if (*str == '\'')
+		{
+			result[i] = ft_substr(str, 0, ft_strchr(str + 1, '\'') - str + 1);
+			str = ft_strchr(str + 1, '\'') + 1;
+		}
+		else if (*str == '\"')
+		{
+			result[i] = ft_substr(str, 0, ft_strchr(str + 1, '\"') - str + 1);
+			str = ft_strchr(str + 1, '\"') + 1;
+		}
+		else
+		{
+			word_len = len_one_word(str);
+			result[i] = ft_substr(str, 0, word_len);
+			str += word_len;
+		}
+		i++;
+	}
+	return result;
 }

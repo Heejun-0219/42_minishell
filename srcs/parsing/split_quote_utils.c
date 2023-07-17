@@ -6,40 +6,11 @@
 /*   By: mi <mi@student.42seoul.kr>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/16 19:30:50 by mi                #+#    #+#             */
-/*   Updated: 2023/07/17 22:44:01 by mi               ###   ########.fr       */
+/*   Updated: 2023/07/17 23:26:46 by mi               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-int	len_one_word(char *str)
-{
-	int	len;
-
-	len = 0;
-	if (str[len] == '\'')
-	{
-		len++;
-		while (str[len] && str[len] != '\'')
-			len++;
-		if (str[len] == '\'')
-			len++;
-	}
-	else if (str[len] == '\"')
-	{
-		len++;
-		while (str[len] && str[len] != '\"')
-			len++;
-		if (str[len] == '\"')
-			len++;
-	}
-	else
-	{
-		while (str[len] && (str[len] != '\'' && str[len] != '\"'))
-			len++;
-	}
-	return (len);
-}
 
 int	check_one_word_push_to_endpoint(char *str, char c)
 {
@@ -88,71 +59,22 @@ void rearrange_index(t_quote **head)
 	}
 }
 
-int quote_split_strs_count(char *str)
+t_quote *new_quote_split_list(t_quote **head, t_quote *current)
 {
-	int count;
-	int len;
+	char **splited_str;
+	t_quote *new_list = NULL;
+	t_quote *new_start = NULL;
+	t_quote *head_cur;
+	int i = 0;
 
-	count = 0;
-	len = 0;
-	while (str[len])
-	{
-		if (str[len] == '\'')
-		{
-			len++;
-			while (str[len] && str[len] != '\'')
-				len++;
-			if (str[len] == '\'')
-				len++;
-		}
-		else if (str[len] == '\"')
-		{
-			len++;
-			while (str[len] && str[len] != '\"')
-				len++;
-			if (str[len] == '\"')
-				len++;
-		}
-		else
-		{
-			while (str[len] && (str[len] != '\'' && str[len] != '\"'))
-				len++;
-		}
-		count++;
-	}
-	return (count);
+	splited_str = make_quote_split_strs(current->str);
+	new_list = prev_list_copy(head, current->index, &new_start);
+	new_list = strs_to_list(splited_str, current, new_list, &new_start);
+	new_list = next_list_copy(current->next, new_list);
+	destroy_nodes(head);
+	while (splited_str[i])
+		free(splited_str[i++]);
+	free(splited_str);
+	return new_start;
 }
 
-char **make_quote_split_strs(char *str)
-{
-	int strs_count;
-	char **result;
-	int i;
-	int word_len;
-
-	strs_count = quote_split_strs_count(str);
-	result = (char **)malloc(sizeof(char *) * (strs_count + 1));
-	i = 0;
-	result[strs_count] = NULL;
-	while (i < strs_count)
-	{
-		if (*str == '\'')
-		{
-			result[i] = ft_substr(str, 0, ft_strchr(str + 1, '\'') - str + 1);
-			str = ft_strchr(str + 1, '\'') + 1;
-		}
-		else if (*str == '\"')
-		{
-			result[i] = ft_substr(str, 0, ft_strchr(str + 1, '\"') - str + 1);
-			str = ft_strchr(str + 1, '\"') + 1;
-		}
-		else
-		{
-			word_len = len_one_word(str);
-			result[i] = ft_substr(str, 0, word_len);
-			str += word_len;
-		}
-		i++;
-	}
-	return result;
-}

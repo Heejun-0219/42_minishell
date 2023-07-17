@@ -45,14 +45,17 @@ SRCS		=	srcs/main.c							\
 				srcs/builtin/exe_export.c			\
 				srcs/builtin/exe_pwd.c				\
 				srcs/builtin/exe_unset.c			\
-				srcs/parsing/parsing.c				\
+				srcs/parsing/dequoted_merge_utils.c	\		
+				srcs/parsing/make_quote_split_strs_utils.c	\
+				srcs/parsing/new_quote_split_list_utils.c	\
+				srcs/parsing/node_free.c			\
 				srcs/parsing/parsing_utils.c		\
-				srcs/parsing/quote.c				\
+				srcs/parsing/parsing.c				\
 				srcs/parsing/quote_utils.c			\
+				srcs/parsing/quote.c				\
 				srcs/parsing/remove_quote_node.c	\
 				srcs/parsing/remove_quote.c			\
-				srcs/parsing/split_quote_utils.c	\
-				srcs/parsing/node_free.c	\
+				srcs/parsing/split_quote_utils.c
 
 
 
