@@ -6,7 +6,7 @@
 /*   By: mi <mi@student.42seoul.kr>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/16 19:27:16 by mi                #+#    #+#             */
-/*   Updated: 2023/07/17 21:47:00 by mi               ###   ########.fr       */
+/*   Updated: 2023/07/17 21:49:44 by mi               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 
 char		**dequoted_merge(t_quote **head)
 {
-	char		**result;
+	char	**result;
 	t_quote	*current;
-	int			strs_count;
-	char		*new_str;
+	int		strs_count;
+	char	*new_str;
 
 	strs_count = get_strs_count(*head);
 	result = (char **)malloc(sizeof(char *) * (strs_count + 1));
@@ -42,7 +42,7 @@ char		**dequoted_merge(t_quote **head)
 
 void	split_quote(t_quote **head)
 {
-	int			flag;
+	int		flag;
 	t_quote	*current;
 	t_quote	*new;
 
@@ -70,9 +70,9 @@ void	split_quote(t_quote **head)
 void	dequote(t_quote **head)
 {
 	t_quote	*current;
-	char		*str;
-	char		*new_str;
-	int			len;
+	char	*str;
+	char	*new_str;
+	int		len;
 
 	current = *head;
 	while (current)
@@ -93,8 +93,8 @@ void	dequote(t_quote **head)
 void	modify_index(t_quote **head)
 {
 	t_quote	*current;
-	int			index;
-	int			new_subordinate;
+	int		index;
+	int		new_subordinate;
 
 	current = *head;
 	index = 0;
@@ -118,8 +118,8 @@ void	modify_index(t_quote **head)
 char	**remove_quote(char **strs)
 {
 	t_quote	*head;
-	char		**result;
-	int			i;
+	char	**result;
+	int		i;
 
 	i = 0;
 	copy_data_to_node(&head, strs);

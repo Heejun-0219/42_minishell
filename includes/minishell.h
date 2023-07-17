@@ -6,7 +6,7 @@
 /*   By: mi <mi@student.42seoul.kr>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/06 14:25:04 by heejunki          #+#    #+#             */
-/*   Updated: 2023/07/17 21:47:00 by mi               ###   ########.fr       */
+/*   Updated: 2023/07/17 21:50:43 by mi               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,12 +93,12 @@ typedef struct s_parse
 	t_token *tokens;
 } t_parse;
 
-typedef struct s_del_quote
+typedef struct s_quote
 {
 	char *str;
 	int index;
 	int subordinate;
-	struct s_del_quote *next;
+	struct s_quote *next;
 } t_quote;
 
 typedef enum e_redirect_type
@@ -250,7 +250,7 @@ void free_node(t_quote *node);
 
 // remove_quote_node.c
 void copy_data_to_node(t_quote **head, char **strs);
-t_quote *new_del_quote_node(char *str, int index, int subordinate);
+t_quote *new_quote_node(char *str, int index, int subordinate);
 t_quote *copy_node(t_quote *node);
 
 // remove_quote.c

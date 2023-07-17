@@ -6,7 +6,7 @@
 /*   By: mi <mi@student.42seoul.kr>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/16 19:29:08 by mi                #+#    #+#             */
-/*   Updated: 2023/07/17 21:47:00 by mi               ###   ########.fr       */
+/*   Updated: 2023/07/17 21:49:53 by mi               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	copy_data_to_node(t_quote **head, char **strs)
 {
-	int			i;
+	int		i;
 	t_quote	*new;
 	t_quote	*current;
 
@@ -22,7 +22,7 @@ void	copy_data_to_node(t_quote **head, char **strs)
 	current = *head;
 	while (strs[i] && strs[i][0] != '\0')
 	{
-		new = new_del_quote_node(strs[i], i, -1);
+		new = new_quote_node(strs[i], i, -1);
 		if (i == 0)
 		{
 			*head = new;
@@ -37,7 +37,7 @@ void	copy_data_to_node(t_quote **head, char **strs)
 	}
 }
 
-t_quote	*new_del_quote_node(char *str, int index, int subordinate)
+t_quote	*new_quote_node(char *str, int index, int subordinate)
 {
 	t_quote	*new;
 
