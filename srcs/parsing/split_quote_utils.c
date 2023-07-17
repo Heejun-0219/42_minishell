@@ -6,15 +6,15 @@
 /*   By: mi <mi@student.42seoul.kr>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/16 19:30:50 by mi                #+#    #+#             */
-/*   Updated: 2023/07/16 19:43:15 by mi               ###   ########.fr       */
+/*   Updated: 2023/07/17 22:44:01 by mi               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int len_one_word(char *str)
+int	len_one_word(char *str)
 {
-	int len;
+	int	len;
 
 	len = 0;
 	if (str[len] == '\'')
@@ -41,7 +41,7 @@ int len_one_word(char *str)
 	return (len);
 }
 
-int check_one_word_push_to_endpoint(char *str, char c)
+int	check_one_word_push_to_endpoint(char *str, char c)
 {
 	str++;
 	while (*str && *str != c)
@@ -73,9 +73,9 @@ int check_one_word(char *str)
 	}
 }
 
-void rearrange_index(t_del_quote **head)
+void rearrange_index(t_quote **head)
 {
-	t_del_quote *current;
+	t_quote *current;
 	int index;
 
 	current = *head;
@@ -155,84 +155,4 @@ char **make_quote_split_strs(char *str)
 		i++;
 	}
 	return result;
-}
-
-t_del_quote *new_quote_split_list(t_del_quote **head, t_del_quote *current)
-{
-	char **splited_str;
-	t_del_quote *new_list = NULL;
-	t_del_quote *new_start = NULL;
-	t_del_quote *head_cur;
-	int i = 0;
-
-	splited_str = make_quote_split_strs(current->str);
-	head_cur = *head;
-
-	while (i < current->index)
-	{
-		if (i == 0)
-		{
-			new_list = copy_node(head_cur);
-			new_start = new_list;
-		}
-		else
-		{
-			new_list->next = copy_node(head_cur);
-			new_list = new_list->next;
-		}
-		head_cur = head_cur->next;
-		i++;
-	}
-
-	i = 0;
-	while (splited_str[i])
-	{
-		if (new_list == NULL)
-		{
-			new_list = new_del_quote_node(splited_str[i], current->index, current->index);
-			new_start = new_list;
-		}
-		else
-		{
-			new_list->next = new_del_quote_node(splited_str[i], current->index + i, current->index);
-			new_list = new_list->next;
-		}
-		i++;
-	}
-
-	head_cur = current->next;
-	while (head_cur)
-	{
-		new_list->next = copy_node(head_cur);
-		new_list = new_list->next;
-		new_list->index = -1;
-		head_cur = head_cur->next;
-	}
-
-	destroy_nodes(head);
-
-	// free splited_str
-	for (i = 0; splited_str[i]; i++)
-	{
-		free(splited_str[i]);
-	}
-	free(splited_str);
-
-	return new_start;
-}
-
-int get_strs_count(t_del_quote *head)
-{
-	int count;
-	t_del_quote *current;
-
-	count = 0;
-	current = head;
-	while (current)
-	{
-		if (current->index == current->subordinate)
-			count++;
-		current = current->next;
-	}
-	return (count);
 }
