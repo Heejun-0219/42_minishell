@@ -6,7 +6,7 @@
 /*   By: mi <mi@student.42seoul.kr>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 15:16:42 by mi                #+#    #+#             */
-/*   Updated: 2023/07/16 02:52:15 by mi               ###   ########.fr       */
+/*   Updated: 2023/07/17 21:19:44 by mi               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,16 +21,3 @@ int	count_strs(char **strs)
 		i++;
 	return (i);
 }
-
-/*
-void parsed_constructor_free(t_parse *parse)
-{
-	if (parse->tokens != NULL)
-		free(parse->tokens);
-	if (parse->line != NULL)
-	{
-		while (parse->line[parse->line_count] != NULL)
-			free(parse->line[parse->line_count++]);
-	}
-}
-*/

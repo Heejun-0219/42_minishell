@@ -6,16 +6,16 @@
 /*   By: mi <mi@student.42seoul.kr>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/16 19:36:04 by mi                #+#    #+#             */
-/*   Updated: 2023/07/16 19:36:54 by mi               ###   ########.fr       */
+/*   Updated: 2023/07/17 21:47:00 by mi               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void destroy_nodes(t_del_quote **head)
+void	destroy_nodes(t_quote **head)
 {
-	t_del_quote *current;
-	t_del_quote *next;
+	t_quote	*current;
+	t_quote	*next;
 
 	current = *head;
 	while (current)
@@ -26,7 +26,7 @@ void destroy_nodes(t_del_quote **head)
 	}
 }
 
-void free_node(t_del_quote *node)
+void	free_node(t_quote *node)
 {
 	if (*(node->str) != '\0')
 		free(node->str);

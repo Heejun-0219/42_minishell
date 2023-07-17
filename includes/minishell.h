@@ -6,7 +6,7 @@
 /*   By: mi <mi@student.42seoul.kr>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/06 14:25:04 by heejunki          #+#    #+#             */
-/*   Updated: 2023/07/16 20:13:33 by mi               ###   ########.fr       */
+/*   Updated: 2023/07/17 21:47:00 by mi               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ typedef struct s_del_quote
 	int index;
 	int subordinate;
 	struct s_del_quote *next;
-} t_del_quote;
+} t_quote;
 
 typedef enum e_redirect_type
 {
@@ -245,29 +245,29 @@ char *check_quote_set_flag(char *str, int *flag);
 char *push_str_to_endpoint(char *str, char endpoint);
 
 // node_free.c
-void destroy_nodes(t_del_quote **head);
-void free_node(t_del_quote *node);
+void destroy_nodes(t_quote **head);
+void free_node(t_quote *node);
 
 // remove_quote_node.c
-void copy_data_to_node(t_del_quote **head, char **strs);
-t_del_quote *new_del_quote_node(char *str, int index, int subordinate);
-t_del_quote *copy_node(t_del_quote *node);
+void copy_data_to_node(t_quote **head, char **strs);
+t_quote *new_del_quote_node(char *str, int index, int subordinate);
+t_quote *copy_node(t_quote *node);
 
 // remove_quote.c
 char **remove_quote(char **strs);
-void modify_index(t_del_quote **head);
-void dequote(t_del_quote **head);
-void split_quote(t_del_quote **head);
-char **dequoted_merge(t_del_quote **head);
+void modify_index(t_quote **head);
+void dequote(t_quote **head);
+void split_quote(t_quote **head);
+char **dequoted_merge(t_quote **head);
 
 // split_quote_utils.c
-t_del_quote *new_quote_split_list(t_del_quote **head, t_del_quote *current);
+t_quote *new_quote_split_list(t_quote **head, t_quote *current);
 char **make_quote_split_strs(char *str);
 int quote_split_strs_count(char *str);
-void rearrange_index(t_del_quote **head);
+void rearrange_index(t_quote **head);
 int check_one_word(char *str);
 int check_one_word_push_to_endpoint(char *str, char c);
 int len_one_word(char *str);
-int get_strs_count(t_del_quote *head);
+int get_strs_count(t_quote *head);
 
 #endif
