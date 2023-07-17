@@ -6,13 +6,13 @@
 /*   By: mi <mi@student.42seoul.kr>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/16 19:27:16 by mi                #+#    #+#             */
-/*   Updated: 2023/07/17 23:25:51 by mi               ###   ########.fr       */
+/*   Updated: 2023/07/18 00:24:44 by mi               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char		**dequoted_merge(t_quote **head)
+char	**dequoted_merge(t_quote **head)
 {
 	char	**result;
 	t_quote	*current;

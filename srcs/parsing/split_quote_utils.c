@@ -6,7 +6,7 @@
 /*   By: mi <mi@student.42seoul.kr>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/16 19:30:50 by mi                #+#    #+#             */
-/*   Updated: 2023/07/17 23:26:46 by mi               ###   ########.fr       */
+/*   Updated: 2023/07/17 23:34:55 by mi               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,11 @@ int	check_one_word_push_to_endpoint(char *str, char c)
 	else
 		return (-1);
 	if (*str == '\0')
-		return 1;
+		return (1);
 	return (0);
 }
 
-int check_one_word(char *str)
+int	check_one_word(char *str)
 {
 	if (*str == '\'')
 		return (check_one_word_push_to_endpoint(str, '\''));
@@ -44,10 +44,10 @@ int check_one_word(char *str)
 	}
 }
 
-void rearrange_index(t_quote **head)
+void	rearrange_index(t_quote **head)
 {
-	t_quote *current;
-	int index;
+	t_quote	*current;
+	int		index;
 
 	current = *head;
 	index = 0;
@@ -59,14 +59,16 @@ void rearrange_index(t_quote **head)
 	}
 }
 
-t_quote *new_quote_split_list(t_quote **head, t_quote *current)
+t_quote	*new_quote_split_list(t_quote **head, t_quote *current)
 {
-	char **splited_str;
-	t_quote *new_list = NULL;
-	t_quote *new_start = NULL;
-	t_quote *head_cur;
-	int i = 0;
+	char	**splited_str;
+	t_quote	*new_list;
+	t_quote	*new_start;
+	t_quote	*head_cur;
+	int		i;
 
+	i = 0;
+	new_start = NULL;
 	splited_str = make_quote_split_strs(current->str);
 	new_list = prev_list_copy(head, current->index, &new_start);
 	new_list = strs_to_list(splited_str, current, new_list, &new_start);
@@ -75,6 +77,5 @@ t_quote *new_quote_split_list(t_quote **head, t_quote *current)
 	while (splited_str[i])
 		free(splited_str[i++]);
 	free(splited_str);
-	return new_start;
+	return (new_start);
 }
-

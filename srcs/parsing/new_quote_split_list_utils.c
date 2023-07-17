@@ -6,17 +6,17 @@
 /*   By: mi <mi@student.42seoul.kr>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/17 22:34:08 by mi                #+#    #+#             */
-/*   Updated: 2023/07/17 23:20:56 by mi               ###   ########.fr       */
+/*   Updated: 2023/07/18 00:24:01 by mi               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_quote *prev_list_copy(t_quote **head, int index, t_quote **new)
+t_quote	*prev_list_copy(t_quote **head, int index, t_quote **new)
 {
-	t_quote *head_cur;
-	t_quote *new_list;
-	int i;
+	t_quote	*head_cur;
+	t_quote	*new_list;
+	int		i;
 
 	new_list = NULL;
 	head_cur = *head;
@@ -39,10 +39,10 @@ t_quote *prev_list_copy(t_quote **head, int index, t_quote **new)
 	return (new_list);
 }
 
-t_quote *strs_to_list(char **strs, t_quote *cur, t_quote *list, t_quote **new)
+t_quote	*strs_to_list(char **strs, t_quote *cur, t_quote *list, t_quote **new)
 {
-	int i;
-	int index;
+	int	i;
+	int	index;
 
 	i = 0;
 	index = cur->index;
@@ -63,7 +63,7 @@ t_quote *strs_to_list(char **strs, t_quote *cur, t_quote *list, t_quote **new)
 	return (list);
 }
 
-t_quote *next_list_copy(t_quote *head_cur, t_quote *new_list)
+t_quote	*next_list_copy(t_quote *head_cur, t_quote *new_list)
 {
 	while (head_cur)
 	{
@@ -75,12 +75,12 @@ t_quote *next_list_copy(t_quote *head_cur, t_quote *new_list)
 	return (new_list);
 }
 
-char **make_quote_split_strs(char *str)
+char	**make_quote_split_strs(char *str)
 {
-	int strs_count;
-	char **result;
-	int i;
-	int word_len;
+	int		strs_count;
+	char	**result;
+	int		i;
+	int		word_len;
 
 	strs_count = quote_split_strs_count(str);
 	result = (char **)malloc(sizeof(char *) * (strs_count + 1));
@@ -89,15 +89,9 @@ char **make_quote_split_strs(char *str)
 	while (i < strs_count)
 	{
 		if (*str == '\'')
-		{
-			result[i] = ft_substr(str, 0, ft_strchr(str + 1, '\'') - str + 1);
-			str = ft_strchr(str + 1, '\'') + 1;
-		}
+			str = put_splited_str_spilt_strs(result, str, i, '\'');
 		else if (*str == '\"')
-		{
-			result[i] = ft_substr(str, 0, ft_strchr(str + 1, '\"') - str + 1);
-			str = ft_strchr(str + 1, '\"') + 1;
-		}
+			str = put_splited_str_spilt_strs(result, str, i, '\"');
 		else
 		{
 			word_len = len_one_word(str);
@@ -106,5 +100,5 @@ char **make_quote_split_strs(char *str)
 		}
 		i++;
 	}
-	return result;
+	return (result);
 }

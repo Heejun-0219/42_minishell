@@ -6,7 +6,7 @@
 /*   By: mi <mi@student.42seoul.kr>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/06 14:25:04 by heejunki          #+#    #+#             */
-/*   Updated: 2023/07/17 23:27:35 by mi               ###   ########.fr       */
+/*   Updated: 2023/07/18 00:23:05 by mi               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -239,6 +239,7 @@ char **make_quote_split_strs(char *str);
 // make_quote_split_strs_utils.c
 int quote_split_strs_count(char *str);
 int len_one_word(char *str);
+char *put_splited_str_spilt_strs(char **result, char *str, int i, char quote);
 
 // node_free.c
 void free_node(t_quote *node);
