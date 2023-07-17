@@ -6,18 +6,18 @@
 /*   By: mi <mi@student.42seoul.kr>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/16 19:27:16 by mi                #+#    #+#             */
-/*   Updated: 2023/07/16 19:50:26 by mi               ###   ########.fr       */
+/*   Updated: 2023/07/18 00:24:44 by mi               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char **dequoted_merge(t_del_quote **head)
+char	**dequoted_merge(t_quote **head)
 {
-	char **result;
-	t_del_quote *current;
-	int strs_count;
-	char *new_str;
+	char	**result;
+	t_quote	*current;
+	int		strs_count;
+	char	*new_str;
 
 	strs_count = get_strs_count(*head);
 	result = (char **)malloc(sizeof(char *) * (strs_count + 1));
@@ -40,17 +40,17 @@ char **dequoted_merge(t_del_quote **head)
 	return (result);
 }
 
-void split_quote(t_del_quote **head)
+void	split_quote(t_quote **head)
 {
-	int flag;
-	t_del_quote *current;
-	t_del_quote *new;
+	int		flag;
+	t_quote	*current;
+	t_quote	*new;
 
 	current = *head;
 	while (current)
 	{
 		flag = check_one_word(current->str);
-		if (flag == 0) // 한 단어가 아닌 경우
+		if (flag == 0)
 		{
 			new = new_quote_split_list(head, current);
 			*head = new;
@@ -59,20 +59,20 @@ void split_quote(t_del_quote **head)
 				current = current->next;
 			rearrange_index(head);
 		}
-		else if (flag == 1) // 한 단어인 경우
+		else if (flag == 1)
 		{
 			current->subordinate = current->index;
 		}
-		current = current->next; // Update current node to the next node saved before
+		current = current->next;
 	}
 }
 
-void dequote(t_del_quote **head)
+void	dequote(t_quote **head)
 {
-	t_del_quote *current;
-	char *str;
-	char *new_str;
-	int len;
+	t_quote	*current;
+	char	*str;
+	char	*new_str;
+	int		len;
 
 	current = *head;
 	while (current)
@@ -90,11 +90,11 @@ void dequote(t_del_quote **head)
 	}
 }
 
-void modify_index(t_del_quote **head)
+void	modify_index(t_quote **head)
 {
-	t_del_quote *current;
-	int index;
-	int new_subordinate;
+	t_quote	*current;
+	int		index;
+	int		new_subordinate;
 
 	current = *head;
 	index = 0;
@@ -115,11 +115,11 @@ void modify_index(t_del_quote **head)
 	}
 }
 
-char **remove_quote(char **strs)
+char	**remove_quote(char **strs)
 {
-	t_del_quote *head;
-	char **result;
-	int i;
+	t_quote	*head;
+	char	**result;
+	int		i;
 
 	i = 0;
 	copy_data_to_node(&head, strs);

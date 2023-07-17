@@ -1,22 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   quote_utils.c                                      :+:      :+:    :+:   */
+/*   dequoted_merge_utils.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mi <mi@student.42seoul.kr>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/08 15:18:56 by mi                #+#    #+#             */
-/*   Updated: 2023/07/17 23:22:51 by mi               ###   ########.fr       */
+/*   Created: 2023/07/17 22:43:52 by mi                #+#    #+#             */
+/*   Updated: 2023/07/17 23:32:47 by mi               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	*push_str_to_endpoint(char *str, char endpoint)
+int	get_strs_count(t_quote *head)
 {
-	while (*str && *str != endpoint)
-		str++;
-	if (*str == '\0')
-		return (NULL);
-	return (str + 1);
+	int		count;
+	t_quote	*current;
+
+	count = 0;
+	current = head;
+	while (current)
+	{
+		if (current->index == current->subordinate)
+			count++;
+		current = current->next;
+	}
+	return (count);
 }

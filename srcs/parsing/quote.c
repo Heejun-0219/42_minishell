@@ -6,13 +6,13 @@
 /*   By: mi <mi@student.42seoul.kr>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 15:14:05 by mi                #+#    #+#             */
-/*   Updated: 2023/07/17 07:14:13 by mi               ###   ########.fr       */
+/*   Updated: 2023/07/17 23:24:00 by mi               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char *check_quote_set_flag(char *str, int *flag)
+char	*check_quote_set_flag(char *str, int *flag)
 {
 	if (*str == '\'')
 		str = push_str_to_endpoint(++str, '\'');
@@ -27,34 +27,10 @@ char *check_quote_set_flag(char *str, int *flag)
 	return (str);
 }
 
-// int get_count_respect_quote(char *str, char c)
-// {
-// 	int count;
-// 	int flag;
-
-// 	count = 0;
-// 	while (*str)
-// 	{
-// 		if (*str != c)
-// 		{
-// 			count++;
-// 			flag = 1;
-// 			str = check_quote_set_flag(str, &flag);
-// 			if (str == NULL)
-// 				return (-1);
-// 			if (flag)
-// 				while (*str && *str != c)
-// 					str++;
-// 		}
-// 		else
-// 			str++;
-// 	}
-// 	return (count);
-// }
-int get_count_respect_quote(char *str, char c)
+int	get_count_respect_quote(char *str, char c)
 {
-	int count;
-	int flag;
+	int	count;
+	int	flag;
 
 	count = 0;
 	while (*str)
@@ -76,13 +52,12 @@ int get_count_respect_quote(char *str, char c)
 		else
 			str++;
 	}
-	printf("count: %d\n", count);
 	return (count);
 }
 
-int len_respect_quote(char *str, char c)
+int	len_respect_quote(char *str, char c)
 {
-	int len;
+	int	len;
 
 	len = 0;
 	while (str[len] && str[len] != c)
@@ -108,11 +83,11 @@ int len_respect_quote(char *str, char c)
 	return (len);
 }
 
-char **alloc_split_dismiss_quote(char **result, char *str, char c, int count)
+char	**alloc_split_dismiss_quote(char **result, char *str, char c, int count)
 {
-	int str_index;
-	int result_index;
-	int len;
+	int	str_index;
+	int	result_index;
+	int	len;
 
 	result[count] = NULL;
 	str_index = 0;
@@ -129,10 +104,10 @@ char **alloc_split_dismiss_quote(char **result, char *str, char c, int count)
 	return (result);
 }
 
-char **split_respect_quote(char *str, char c)
+char	**split_respect_quote(char *str, char c)
 {
-	char **result;
-	int count;
+	char	**result;
+	int		count;
 
 	count = get_count_respect_quote(str, c);
 	if (count == -1)
