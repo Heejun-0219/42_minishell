@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   change_env.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: heejunki <heejunki@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: mi <mi@student.42seoul.kr>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 15:50:47 by heejunki          #+#    #+#             */
-/*   Updated: 2023/07/20 23:04:23 by heejunki         ###   ########.fr       */
+/*   Updated: 2023/07/20 23:47:07 by mi               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,10 +122,7 @@ int	if_env_change(t_info *info, char **line, size_t token_count)
 		{
 			if (check_here(cha_env->token->s[cha_env->string_index], \
 			cha_env->token->s[cha_env->string_index + 1]) == TRUE)
-			{
-				cha_env->token_index++;
 				break ;
-			}
 			if (is_env(info, cha_env) == FAILURE)
 				return (FAILURE);
 			cha_env->string_index++;
