@@ -6,7 +6,7 @@
 /*   By: mi <mi@student.42seoul.kr>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/06 14:25:04 by heejunki          #+#    #+#             */
-/*   Updated: 2023/07/20 23:28:22 by mi               ###   ########.fr       */
+/*   Updated: 2023/07/21 00:14:33 by mi               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -163,6 +163,7 @@ int		ft_error(char *m, int error);
 void	free_mini(t_parse *parse, t_cmd *cmd);
 void	free_tokens(t_parse *parse, size_t token_size);
 void	free_cmd(t_cmd *cmd, size_t pipe_i);
+void	free_2d(char **str);
 int		ft_error(char *m, int error);
 
 void	sig_handler(int signo);
