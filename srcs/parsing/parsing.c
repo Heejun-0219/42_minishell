@@ -6,7 +6,7 @@
 /*   By: mi <mi@student.42seoul.kr>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 15:12:11 by mi                #+#    #+#             */
-/*   Updated: 2023/07/21 00:04:34 by mi               ###   ########.fr       */
+/*   Updated: 2023/07/20 23:51:05 by mi               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,11 +49,11 @@ char	*add_space(char *input)
 
 	j = 0;
 	input_length = ft_strlen(input);
-	output = ft_malloc((2 * input_length + 1) * sizeof(char));
+	output = malloc((2 * input_length + 1) * sizeof(char));
 	if (output == NULL)
 		return (NULL);
 	process_characters(input, output, &j, input_length);
-	output = ft_realloc(output, (j + 1) * sizeof(char));
+	output = realloc(output, (j + 1) * sizeof(char));
 	output[j] = '\0';
 	free(input);
 	return (output);
@@ -65,11 +65,11 @@ t_token	set_token(char *token_str, int index)
 
 	new_token.s = token_str;
 	new_token.token_index = index;
-	if (ft_strcmp(token_str, "|") == 0)
+	if (strcmp(token_str, "|") == 0)
 		new_token.type = PIPE;
-	else if (ft_strcmp(token_str, ">") == 0 || ft_strcmp(token_str, ">>") == 0)
+	else if (strcmp(token_str, ">") == 0 || strcmp(token_str, ">>") == 0)
 		new_token.type = REDIRECT;
-	else if (ft_strcmp(token_str, "<") == 0 || ft_strcmp(token_str, "<<") == 0)
+	else if (strcmp(token_str, "<") == 0 || strcmp(token_str, "<<") == 0)
 		new_token.type = REDIRECT;
 	else
 		new_token.type = KEY;

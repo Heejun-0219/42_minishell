@@ -6,7 +6,7 @@
 /*   By: heejunki <heejunki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 15:51:58 by heejunki          #+#    #+#             */
-/*   Updated: 2023/07/11 15:52:31 by heejunki         ###   ########.fr       */
+/*   Updated: 2023/07/21 00:32:21 by heejunki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,13 +38,17 @@ static int	change_last_argument(t_cha_env *cv, t_info *info)
 
 int	change_abs(t_info *info, t_cha_env *cv)
 {
+	char	**str;
+
 	cv->tmp1 = ft_strjoin(get_env_val("HOME=", info), \
 		&cv->token->s[cv->string_index + 1]);
 	if (cv->tmp1 == NULL)
 		return (FAILURE);
-	cv->tmp2 = ft_split(cv->tmp1, '=')[1];
+	str = ft_split(cv->tmp1, '=');
+	cv->tmp2 = ft_strdup(str[1]);
 	free(cv->token->s);
 	free(cv->tmp1);
+	free_2d(str);
 	cv->token->s = cv->tmp2;
 	return (SUCCESS);
 }
