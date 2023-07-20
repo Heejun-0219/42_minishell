@@ -6,7 +6,7 @@
 /*   By: mi <mi@student.42seoul.kr>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/16 19:30:50 by mi                #+#    #+#             */
-/*   Updated: 2023/07/17 23:34:55 by mi               ###   ########.fr       */
+/*   Updated: 2023/07/20 16:34:39 by mi               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,6 @@ t_quote	*new_quote_split_list(t_quote **head, t_quote *current)
 	char	**splited_str;
 	t_quote	*new_list;
 	t_quote	*new_start;
-	t_quote	*head_cur;
 	int		i;
 
 	i = 0;

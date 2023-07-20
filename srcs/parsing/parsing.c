@@ -6,7 +6,7 @@
 /*   By: mi <mi@student.42seoul.kr>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 15:12:11 by mi                #+#    #+#             */
-/*   Updated: 2023/07/17 23:22:33 by mi               ###   ########.fr       */
+/*   Updated: 2023/07/20 16:42:04 by mi               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ void	tokenize_line(t_parse *parse)
 	i = 0;
 	tokens_str = split_respect_quote(parse->line, ' ');
 	tokens_str = remove_quote(tokens_str);
+	num_tokens = count_strs(tokens_str);
 	for (int i = 0; tokens_str[i] != NULL; i++)
 		printf("%s\n", tokens_str[i]);
 	parse->tokens = ft_malloc(sizeof(t_token) * (num_tokens));
