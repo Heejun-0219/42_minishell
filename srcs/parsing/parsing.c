@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mi <mi@student.42seoul.kr>                 +#+  +:+       +#+        */
+/*   By: heejunki <heejunki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 15:12:11 by mi                #+#    #+#             */
-/*   Updated: 2023/07/20 23:04:31 by mi               ###   ########.fr       */
+/*   Updated: 2023/07/20 23:07:54 by heejunki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,11 +77,11 @@ int	tokenize_line(t_info *info, t_parse *parse)
 
 	num_tokens = 0;
 	i = 0;
-	parse->line = add_space(parse->line);	
+	parse->line = add_space(parse->line);
 	tokens_str = split_respect_quote(parse->line, ' ');
 	if (tokens_str == NULL)
 		return (-1);
-	if_env_change(info, tokens_str);
+	if_env_change(info, tokens_str, count_strs(tokens_str));
 	tokens_str = remove_quote(tokens_str);
 	num_tokens = count_strs(tokens_str);
 	for (int i = 0; tokens_str[i] != NULL; i++)

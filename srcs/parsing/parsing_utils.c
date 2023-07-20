@@ -3,18 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mi <mi@student.42seoul.kr>                 +#+  +:+       +#+        */
+/*   By: heejunki <heejunki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 15:16:42 by mi                #+#    #+#             */
-/*   Updated: 2023/07/17 23:22:03 by mi               ###   ########.fr       */
+/*   Updated: 2023/07/20 22:52:39 by heejunki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	count_strs(char **strs)
+size_t	count_strs(char **strs)
 {
-	int	i;
+	size_t	i;
 
 	i = 0;
 	while (strs[i] != NULL)

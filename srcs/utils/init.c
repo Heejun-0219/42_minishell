@@ -6,13 +6,26 @@
 /*   By: heejunki <heejunki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/06 14:28:26 by heejunki          #+#    #+#             */
-/*   Updated: 2023/07/20 15:28:24 by heejunki         ###   ########.fr       */
+/*   Updated: 2023/07/20 23:04:29 by heejunki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 int	g_exit_code;
+
+int	token_to_cha(t_cha_env *cha_env, char *line)
+{
+	t_token	*token;
+
+	token = (t_token *) malloc(sizeof(t_token));
+	if (token == NULL)
+		return (ft_error("malloc error\n", FAILURE));
+	token->s = line;
+	cha_env->token = token;
+	cha_env->string_index = 0;
+	return (SUCCESS);
+}
 
 void	init_env_list(t_info *info, char **env)
 {

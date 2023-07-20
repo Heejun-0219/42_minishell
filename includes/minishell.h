@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mi <mi@student.42seoul.kr>                 +#+  +:+       +#+        */
+/*   By: heejunki <heejunki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/06 14:25:04 by heejunki          #+#    #+#             */
-/*   Updated: 2023/07/20 22:48:06 by mi               ###   ########.fr       */
+/*   Updated: 2023/07/20 23:07:22 by heejunki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -171,11 +171,12 @@ void	sig_heredoc_parent(int signo);
 void	sig_heredoc_child(int signo);
 void	sig_parent(int signo);
 
+int		token_to_cha(t_cha_env *cha_env, char *line);
 void	init_info(t_info *info, int ac, char **av, char **env);
 void	init_env_list(t_info *info, char **env);
 
 char	*get_env_val(char *key, t_info *info);
-int		if_env_change(t_info *info, char **line);
+int		if_env_change(t_info *info, char **line, size_t token_count);
 
 int		change_special_env(t_info *info, t_cha_env *cv);
 int		change_abs(t_info *info, t_cha_env *cv);
@@ -249,10 +250,10 @@ void	destroy_nodes(t_quote **head);
 // parsing.c
 char	*add_space(char *input);
 t_token	set_token(char *token_str, int index);
-int		tokenize_line(t_info *info, t_parse *parse);
+void	tokenize_line(t_info *info, t_parse *parse);
 
 // parsing_utils.c
-int		count_strs(char **strs);
+size_t	count_strs(char **strs);
 
 // quote.c
 char	**split_respect_quote(char *str, char c);

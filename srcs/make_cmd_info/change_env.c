@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   change_env.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mi <mi@student.42seoul.kr>                 +#+  +:+       +#+        */
+/*   By: heejunki <heejunki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 15:50:47 by heejunki          #+#    #+#             */
-/*   Updated: 2023/07/20 22:39:43 by mi               ###   ########.fr       */
+/*   Updated: 2023/07/20 23:04:23 by heejunki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,23 +108,16 @@ static int	is_env(t_info *info, t_cha_env *cv)
 	return (SUCCESS);
 }
 
-int	if_env_change(t_info *info, char **line)
+int	if_env_change(t_info *info, char **line, size_t token_count)
 {
 	t_cha_env	*cha_env;
-	size_t		token_count;
-	t_token		*token;
 
 	cha_env = (t_cha_env *) malloc(sizeof(t_cha_env));
 	cha_env->token_index = 0;
-	token_count = count_strs(line);
 	while (cha_env->token_index < token_count)
 	{
-		token = (t_token *) malloc(sizeof(t_token));
-		if (token == NULL)
-			return (ft_error("malloc error\n", FAILURE));
-		token->s = line[cha_env->token_index];
-		cha_env->token = token;
-		cha_env->string_index = 0;
+		if (token_to_cha(cha_env, line[cha_env->token_index]) == FAILURE)
+			return (FAILURE);
 		while (cha_env->token->s[cha_env->string_index])
 		{
 			if (check_here(cha_env->token->s[cha_env->string_index], \
@@ -137,7 +130,6 @@ int	if_env_change(t_info *info, char **line)
 				return (FAILURE);
 			cha_env->string_index++;
 		}
-		printf("env: %s\n", cha_env->token->s);
 		line[cha_env->token_index] = cha_env->token->s;
 		cha_env->token_index++;
 	}

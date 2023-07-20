@@ -6,7 +6,7 @@
 /*   By: heejunki <heejunki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/06 14:30:54 by heejunki          #+#    #+#             */
-/*   Updated: 2023/07/06 14:33:39 by heejunki         ###   ########.fr       */
+/*   Updated: 2023/07/20 22:50:13 by heejunki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,11 +102,6 @@ int	make_cmd_info(t_parse *parse, t_cmd *cmd, t_info *info)
 		free_tokens(parse, parse->token_count);
 		return (FAILURE);
 	}
-	// if (if_env_change(info, parse) == FAILURE)
-	// {
-	// 	free_tokens(parse, parse->token_count);
-	// 	return (FAILURE);
-	// }
 	backslash_to_space(parse, 0);
 	get_exe_count(parse, cmd);
 	if (init_cmd(parse, cmd, info) == FAILURE)
