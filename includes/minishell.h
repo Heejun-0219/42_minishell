@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: heejunki <heejunki@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: mi <mi@student.42seoul.kr>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/06 14:25:04 by heejunki          #+#    #+#             */
-/*   Updated: 2023/07/20 15:28:24 by heejunki         ###   ########.fr       */
+/*   Updated: 2023/07/20 17:47:39 by mi               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -247,7 +247,8 @@ void	free_node(t_quote *node);
 void	destroy_nodes(t_quote **head);
 
 // parsing.c
-t_token	set_token(char *token_str, int index);
+char *add_space(char *input);
+t_token set_token(char *token_str, int index);
 void	tokenize_line(t_parse *parse);
 
 // parsing_utils.c
