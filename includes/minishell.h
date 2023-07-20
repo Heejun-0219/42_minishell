@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mi <mi@student.42seoul.kr>                 +#+  +:+       +#+        */
+/*   By: heejunki <heejunki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/06 14:25:04 by heejunki          #+#    #+#             */
-/*   Updated: 2023/07/18 00:23:05 by mi               ###   ########.fr       */
+/*   Updated: 2023/07/20 14:34:29 by heejunki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,27 +79,27 @@ typedef struct s_cha_env
 	char			*tmp1;
 	char			*tmp2;
 	size_t			start;
-	size_t env_len;
-	char *env;
-	char *target;
-	size_t target_len;
-} t_cha_env;
+	size_t			env_len;
+	char			*env;
+	char			*target;
+	size_t			target_len;
+}	t_cha_env;
 
 typedef struct s_parse
 {
-	char *line;
-	size_t line_index;
-	size_t token_count;
-	t_token *tokens;
-} t_parse;
+	char	*line;
+	size_t	line_index;
+	size_t	token_count;
+	t_token	*tokens;
+}	t_parse;
 
 typedef struct s_quote
 {
-	char *str;
-	int index;
-	int subordinate;
-	struct s_quote *next;
-} t_quote;
+	char			*str;
+	int				index;
+	int				subordinate;
+	struct s_quote	*next;
+}	t_quote;
 
 typedef enum e_redirect_type
 {
@@ -228,57 +228,58 @@ int		exe_pwd(void);
 int		exe_unset(t_info *info, t_pipe *pipe);
 
 // dequoted_merge_utils.c
-int get_strs_count(t_quote *head);
+int		get_strs_count(t_quote *head);
 
 // new_quote_split_list_utils.c
-t_quote *prev_list_copy(t_quote **head, int index, t_quote **new);
-t_quote *strs_to_list(char **strs, t_quote *cur, t_quote *list, t_quote **new);
-t_quote *next_list_copy(t_quote *head_cur, t_quote *new_list);
-char **make_quote_split_strs(char *str);
+t_quote	*prev_list_copy(t_quote **head, int index, t_quote **new);
+t_quote	*strs_to_list(char **strs, t_quote *cur, t_quote *list, t_quote **new);
+t_quote	*next_list_copy(t_quote *head_cur, t_quote *new_list);
+char	**make_quote_split_strs(char *str);
 
 // make_quote_split_strs_utils.c
-int quote_split_strs_count(char *str);
-int len_one_word(char *str);
-char *put_splited_str_spilt_strs(char **result, char *str, int i, char quote);
+int		quote_split_strs_count(char *str);
+int		len_one_word(char *str);
+char	*put_splited_str_spilt_strs(char **result, char *str, \
+	int i, char quote);
 
 // node_free.c
-void free_node(t_quote *node);
-void destroy_nodes(t_quote **head);
+void	free_node(t_quote *node);
+void	destroy_nodes(t_quote **head);
 
 // parsing.c
-t_token set_token(char *token_str, int index);
-void tokenize_line(t_parse *parse);
+t_token	set_token(char *token_str, int index);
+void	tokenize_line(t_parse *parse);
 
 // parsing_utils.c
-int count_strs(char **strs);
+int		count_strs(char **strs);
 
 // quote.c
-char **split_respect_quote(char *str, char c);
-char **alloc_split_dismiss_quote(char **result, char *str, char c, int count);
-int len_respect_quote(char *str, char c);
-int get_count_respect_quote(char *str, char c);
-char *check_quote_set_flag(char *str, int *flag);
+char	**split_respect_quote(char *str, char c);
+char	**alloc_split_dismiss_quote(char **result, char *str, \
+	char c, int count);
+int		len_respect_quote(char *str, char c);
+int		get_count_respect_quote(char *str, char c);
+char	*check_quote_set_flag(char *str, int *flag);
 
 // quote_utils.c
-char *push_str_to_endpoint(char *str, char endpoint);
+char	*push_str_to_endpoint(char *str, char endpoint);
 
 // remove_quote_node.c
-t_quote *copy_node(t_quote *node);
-t_quote *new_quote_node(char *str, int index, int subordinate);
-void copy_data_to_node(t_quote **head, char **strs);
+t_quote	*copy_node(t_quote *node);
+t_quote	*new_quote_node(char *str, int index, int subordinate);
+void	copy_data_to_node(t_quote **head, char **strs);
 
 // remove_quote.c
-char **remove_quote(char **strs);
-void modify_index(t_quote **head);
-void dequote(t_quote **head);
-void split_quote(t_quote **head);
-char **dequoted_merge(t_quote **head);
+char	**remove_quote(char **strs);
+void	modify_index(t_quote **head);
+void	dequote(t_quote **head);
+void	split_quote(t_quote **head);
+char	**dequoted_merge(t_quote **head);
 
 // split_quote_utils.c
-t_quote *new_quote_split_list(t_quote **head, t_quote *current);
-void rearrange_index(t_quote **head);
-int check_one_word(char *str);
-int check_one_word_push_to_endpoint(char *str, char c);
-
+t_quote	*new_quote_split_list(t_quote **head, t_quote *current);
+void	rearrange_index(t_quote **head);
+int		check_one_word(char *str);
+int		check_one_word_push_to_endpoint(char *str, char c);
 
 #endif

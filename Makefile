@@ -6,10 +6,10 @@ RM		=	rm -rf
 
 # READLINE_FLAGS		:= $(shell brew info readline | grep export | awk -F '"' '{print $$2}' | tr '\n' ' ')
 # READLINE_INCLUDE	:= $(shell brew info readline | grep CPPFLAGS | awk -F '"' '{print $$2}')
-READLINE_FLAGS		= -L/opt/homebrew/opt/readline/lib
-READLINE_INCLUDE	= -I/opt/homebrew/opt/readline/include
-# READLINE_FLAGS		= -L$(HOME)/.brew/opt/readline/lib
-# READLINE_INCLUDE	= -I$(HOME)/.brew/opt/readline/include
+# READLINE_FLAGS		= -L/opt/homebrew/opt/readline/lib
+# READLINE_INCLUDE	= -I/opt/homebrew/opt/readline/include
+READLINE_FLAGS		= -L$(HOME)/.brew/opt/readline/lib
+READLINE_INCLUDE	= -I$(HOME)/.brew/opt/readline/include
 
 INCLUDES	=	includes/
 LIBFT_DIR	=	srcs/Libft
@@ -45,7 +45,7 @@ SRCS		=	srcs/main.c							\
 				srcs/builtin/exe_export.c			\
 				srcs/builtin/exe_pwd.c				\
 				srcs/builtin/exe_unset.c			\
-				srcs/parsing/dequoted_merge_utils.c	\		
+				srcs/parsing/dequoted_merge_utils.c	\
 				srcs/parsing/make_quote_split_strs_utils.c	\
 				srcs/parsing/new_quote_split_list_utils.c	\
 				srcs/parsing/node_free.c			\

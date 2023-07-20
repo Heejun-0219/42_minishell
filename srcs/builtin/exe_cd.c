@@ -6,13 +6,13 @@
 /*   By: heejunki <heejunki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/06 14:46:33 by heejunki          #+#    #+#             */
-/*   Updated: 2023/07/06 16:59:06 by heejunki         ###   ########.fr       */
+/*   Updated: 2023/07/20 14:34:42 by heejunki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static int home_cd(t_pipe *pipe, t_info *info)
+static int	home_cd(t_pipe *pipe, t_info *info)
 {
 	if (pipe->builtin == TRUE)
 	{
