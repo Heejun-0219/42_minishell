@@ -6,7 +6,7 @@
 /*   By: mi <mi@student.42seoul.kr>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 15:12:11 by mi                #+#    #+#             */
-/*   Updated: 2023/07/20 17:45:10 by mi               ###   ########.fr       */
+/*   Updated: 2023/07/20 22:59:21 by mi               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ t_token	set_token(char *token_str, int index)
 	return (new_token);
 }
 
-void	tokenize_line(t_info *info, t_parse *parse)
+int	tokenize_line(t_info *info, t_parse *parse)
 {
 	char	**tokens_str;
 	size_t	num_tokens;
@@ -77,8 +77,10 @@ void	tokenize_line(t_info *info, t_parse *parse)
 
 	num_tokens = 0;
 	i = 0;
-	parse->line = add_space(parse->line);
+	parse->line = add_space(parse->line);	
 	tokens_str = split_respect_quote(parse->line, ' ');
+	if (tokens_str == NULL)
+		return (-1);
 	if_env_change(info, tokens_str);
 	tokens_str = remove_quote(tokens_str);
 	num_tokens = count_strs(tokens_str);
@@ -91,4 +93,5 @@ void	tokenize_line(t_info *info, t_parse *parse)
 		parse->tokens[i] = set_token(tokens_str[i], i);
 		i++;
 	}
+	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: mi <mi@student.42seoul.kr>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/06 14:25:04 by heejunki          #+#    #+#             */
-/*   Updated: 2023/07/20 17:47:39 by mi               ###   ########.fr       */
+/*   Updated: 2023/07/20 22:48:06 by mi               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -247,9 +247,9 @@ void	free_node(t_quote *node);
 void	destroy_nodes(t_quote **head);
 
 // parsing.c
-char *add_space(char *input);
-t_token set_token(char *token_str, int index);
-void	tokenize_line(t_info *info, t_parse *parse);
+char	*add_space(char *input);
+t_token	set_token(char *token_str, int index);
+int		tokenize_line(t_info *info, t_parse *parse);
 
 // parsing_utils.c
 int		count_strs(char **strs);
