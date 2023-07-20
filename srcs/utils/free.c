@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mi <mi@student.42seoul.kr>                 +#+  +:+       +#+        */
+/*   By: heejunki <heejunki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 15:43:14 by heejunki          #+#    #+#             */
-/*   Updated: 2023/07/21 00:17:14 by mi               ###   ########.fr       */
+/*   Updated: 2023/07/21 00:47:33 by heejunki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,4 +63,13 @@ void	free_2d(char **str)
 		i++;
 	}
 	free(str);
+}
+
+int	free_env_for_norm(t_cha_env *cv, char **str)
+{
+	free_2d(str);
+	free(cv->target);
+	free(cv->env);
+	free(cv->tmp1);
+	return (ft_error("change env error\n", FAILURE));
 }

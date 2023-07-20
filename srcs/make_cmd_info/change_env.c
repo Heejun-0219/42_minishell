@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   change_env.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mi <mi@student.42seoul.kr>                 +#+  +:+       +#+        */
+/*   By: heejunki <heejunki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 15:50:47 by heejunki          #+#    #+#             */
-/*   Updated: 2023/07/21 00:16:41 by mi               ###   ########.fr       */
+/*   Updated: 2023/07/21 00:23:36 by heejunki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ static int	change_env(t_info *info, t_cha_env *cv)
 static int	add_env(t_info *info, t_cha_env *cv)
 {
 	char	**str;
-	
+
 	cv->token->s[cv->start] = '\0';
 	str = ft_split(get_env_val(cv->env, info), '=');
 	cv->env_len = ft_strlen(str[1]);
@@ -72,13 +72,7 @@ static int	add_env(t_info *info, t_cha_env *cv)
 	}
 	cv->tmp2 = ft_strjoin(cv->tmp1, &cv->token->s[cv->string_index + 1]);
 	if (cv->tmp2 == NULL)
-	{
-		free_2d(str);
-		free(cv->target);
-		free(cv->env);
-		free(cv->tmp1);
-		return (ft_error("change env error\n", FAILURE));
-	}
+		return (free_env_for_norm(cv, str));
 	free(cv->env);
 	free(cv->tmp1);
 	free_2d(str);
