@@ -6,7 +6,7 @@
 /*   By: mi <mi@student.42seoul.kr>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/16 19:27:16 by mi                #+#    #+#             */
-/*   Updated: 2023/07/18 00:24:44 by mi               ###   ########.fr       */
+/*   Updated: 2023/07/20 18:55:57 by mi               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,10 @@ void	dequote(t_quote **head)
 	current = *head;
 	while (current)
 	{
+		if (ft_strrchr(current->str, '$') && (current->next->str[0] == '\"' || current->next->str[0] == '\'')){
+			str = ft_strrchr(current->str, '$');
+			*str = '\0';
+		}
 		if (current->str[0] == '\'' || current->str[0] == '\"')
 		{
 			str = current->str;
