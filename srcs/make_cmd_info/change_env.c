@@ -6,7 +6,7 @@
 /*   By: mi <mi@student.42seoul.kr>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 15:50:47 by heejunki          #+#    #+#             */
-/*   Updated: 2023/07/20 23:47:07 by mi               ###   ########.fr       */
+/*   Updated: 2023/07/21 00:16:41 by mi               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,12 +57,15 @@ static int	change_env(t_info *info, t_cha_env *cv)
 
 static int	add_env(t_info *info, t_cha_env *cv)
 {
+	char	**str;
+	
 	cv->token->s[cv->start] = '\0';
-	cv->env_len = ft_strlen(ft_split(get_env_val(cv->env, info), '=')[1]);
-	cv->tmp1 = ft_strjoin(cv->token->s, \
-		ft_split(get_env_val(cv->env, info), '=')[1]);
+	str = ft_split(get_env_val(cv->env, info), '=');
+	cv->env_len = ft_strlen(str[1]);
+	cv->tmp1 = ft_strjoin(cv->token->s, str[1]);
 	if (cv->tmp1 == NULL)
 	{
+		free_2d(str);
 		free(cv->target);
 		free(cv->env);
 		return (ft_error("change env error\n", FAILURE));
@@ -70,6 +73,7 @@ static int	add_env(t_info *info, t_cha_env *cv)
 	cv->tmp2 = ft_strjoin(cv->tmp1, &cv->token->s[cv->string_index + 1]);
 	if (cv->tmp2 == NULL)
 	{
+		free_2d(str);
 		free(cv->target);
 		free(cv->env);
 		free(cv->tmp1);
@@ -77,6 +81,7 @@ static int	add_env(t_info *info, t_cha_env *cv)
 	}
 	free(cv->env);
 	free(cv->tmp1);
+	free_2d(str);
 	cv->token->s = cv->tmp2;
 	return (SUCCESS);
 }

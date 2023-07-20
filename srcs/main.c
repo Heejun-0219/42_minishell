@@ -6,7 +6,7 @@
 /*   By: mi <mi@student.42seoul.kr>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/06 14:26:58 by heejunki          #+#    #+#             */
-/*   Updated: 2023/07/20 23:53:33 by mi               ###   ########.fr       */
+/*   Updated: 2023/07/21 00:09:06 by mi               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,12 +63,18 @@ static void	parse_exe(t_parse *parse, t_cmd *cmd, t_info *info)
 	free_mini(parse, cmd);
 }
 
+void f()
+{
+	system("leaks minishell");
+}
+
 int	main(int ac, char **av, char **env)
 {
 	t_parse	parse;
 	t_info	info;
 	t_cmd	cmd;
 
+	atexit(f);
 	init_info(&info, ac, av, env);
 	while (TRUE)
 	{
