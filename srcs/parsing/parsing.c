@@ -6,11 +6,51 @@
 /*   By: mi <mi@student.42seoul.kr>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 15:12:11 by mi                #+#    #+#             */
-/*   Updated: 2023/07/20 16:42:04 by mi               ###   ########.fr       */
+/*   Updated: 2023/07/20 17:45:10 by mi               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+char *add_space(char *input)
+{
+	int input_length = strlen(input);
+	int i, j = 0;
+	int in_quotes = 0;
+	char *output = malloc((2 * input_length + 1) * sizeof(char)); // initial allocation
+	if (output == NULL)
+	{
+		printf("Memory allocation failed\n");
+		return NULL;
+	}
+
+	for (i = 0; i < input_length; i++)
+	{
+		if (input[i] == '"' || input[i] == '\'')
+		{
+			in_quotes = !in_quotes; // toggle quote state
+		}
+		if (!in_quotes && (input[i] == '<' || input[i] == '>' || input[i] == '|'))
+		{
+			output[j++] = ' ';
+			output[j++] = input[i];
+			if (i + 1 < input_length && input[i] == input[i + 1])
+			{ // check if next character is the same
+				output[j++] = input[i];
+				i++; // skip next character
+			}
+			output[j++] = ' ';
+		}
+		else
+		{
+			output[j++] = input[i];
+		}
+	}
+	output = realloc(output, (j + 1) * sizeof(char)); // realloc for null terminator
+	output[j] = '\0';							  // Don't forget to null-terminate the new string
+	free(input);
+	return output;
+}
 
 t_token	set_token(char *token_str, int index)
 {
@@ -37,6 +77,7 @@ void	tokenize_line(t_parse *parse)
 
 	num_tokens = 0;
 	i = 0;
+	parse->line = add_space(parse->line);
 	tokens_str = split_respect_quote(parse->line, ' ');
 	tokens_str = remove_quote(tokens_str);
 	num_tokens = count_strs(tokens_str);

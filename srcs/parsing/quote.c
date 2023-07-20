@@ -6,7 +6,7 @@
 /*   By: mi <mi@student.42seoul.kr>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 15:14:05 by mi                #+#    #+#             */
-/*   Updated: 2023/07/17 23:24:00 by mi               ###   ########.fr       */
+/*   Updated: 2023/07/20 17:36:05 by mi               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,29 @@ int	get_count_respect_quote(char *str, char c)
 				if (str == NULL)
 					return (-1);
 				if (flag)
+				{
 					while (*str && *str != c)
-						str++;
+					{
+						if (*str == '\'')
+						{
+							str++;
+							while (*str && *str != '\'')
+								str++;
+							if (*str && *str == '\'')
+								str++;
+						}
+						else if (*str == '\"')
+						{
+							str++;
+							while (*str && *str != '\"')
+								str++;
+							if (*str && *str == '\"')
+								str++;
+						}
+						else
+							str++;
+					}
+				}
 			}
 		}
 		else
