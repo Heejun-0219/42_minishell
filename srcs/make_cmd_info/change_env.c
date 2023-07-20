@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   change_env.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: heejunki <heejunki@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: mi <mi@student.42seoul.kr>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 15:50:47 by heejunki          #+#    #+#             */
-/*   Updated: 2023/07/11 15:51:34 by heejunki         ###   ########.fr       */
+/*   Updated: 2023/07/20 22:39:43 by mi               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ char	*get_env_val(char *key, t_info *info)
 	while (node)
 	{
 		env_val = node->content;
-		if (ft_strncmp(env_val, key, ft_strlen(key) + 1) == 0)
+		if (ft_strncmp(env_val, key, ft_strlen(key)) == 0)
 			return (env_val);
 		if (node->next == NULL)
 			break ;
@@ -138,6 +138,7 @@ int	if_env_change(t_info *info, char **line)
 			cha_env->string_index++;
 		}
 		printf("env: %s\n", cha_env->token->s);
+		line[cha_env->token_index] = cha_env->token->s;
 		cha_env->token_index++;
 	}
 	return (SUCCESS);
