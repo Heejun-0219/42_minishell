@@ -175,7 +175,7 @@ void	init_info(t_info *info, int ac, char **av, char **env);
 void	init_env_list(t_info *info, char **env);
 
 char	*get_env_val(char *key, t_info *info);
-int		if_env_change(t_info *info, t_parse *parse);
+int		if_env_change(t_info *info, char **line);
 
 int		change_special_env(t_info *info, t_cha_env *cv);
 int		change_abs(t_info *info, t_cha_env *cv);
@@ -249,7 +249,7 @@ void	destroy_nodes(t_quote **head);
 // parsing.c
 char *add_space(char *input);
 t_token set_token(char *token_str, int index);
-void	tokenize_line(t_parse *parse);
+void	tokenize_line(t_info *info, t_parse *parse);
 
 // parsing_utils.c
 int		count_strs(char **strs);

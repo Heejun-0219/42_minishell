@@ -21,7 +21,7 @@ char	*get_env_val(char *key, t_info *info)
 	while (node)
 	{
 		env_val = node->content;
-		if (ft_strncmp(env_val, key, ft_strlen(key)) == 0)
+		if (ft_strncmp(env_val, key, ft_strlen(key) + 1) == 0)
 			return (env_val);
 		if (node->next == NULL)
 			break ;
@@ -108,15 +108,22 @@ static int	is_env(t_info *info, t_cha_env *cv)
 	return (SUCCESS);
 }
 
-int	if_env_change(t_info *info, t_parse *parse)
+int	if_env_change(t_info *info, char **line)
 {
 	t_cha_env	*cha_env;
+	size_t		token_count;
+	t_token		*token;
 
 	cha_env = (t_cha_env *) malloc(sizeof(t_cha_env));
 	cha_env->token_index = 0;
-	while (cha_env->token_index < parse->token_count)
+	token_count = count_strs(line);
+	while (cha_env->token_index < token_count)
 	{
-		cha_env->token = &parse->tokens[cha_env->token_index];
+		token = (t_token *) malloc(sizeof(t_token));
+		if (token == NULL)
+			return (ft_error("malloc error\n", FAILURE));
+		token->s = line[cha_env->token_index];
+		cha_env->token = token;
 		cha_env->string_index = 0;
 		while (cha_env->token->s[cha_env->string_index])
 		{
@@ -130,6 +137,7 @@ int	if_env_change(t_info *info, t_parse *parse)
 				return (FAILURE);
 			cha_env->string_index++;
 		}
+		printf("env: %s\n", cha_env->token->s);
 		cha_env->token_index++;
 	}
 	return (SUCCESS);

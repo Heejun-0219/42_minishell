@@ -69,7 +69,7 @@ t_token	set_token(char *token_str, int index)
 	return (new_token);
 }
 
-void	tokenize_line(t_parse *parse)
+void	tokenize_line(t_info *info, t_parse *parse)
 {
 	char	**tokens_str;
 	size_t	num_tokens;
@@ -79,6 +79,7 @@ void	tokenize_line(t_parse *parse)
 	i = 0;
 	parse->line = add_space(parse->line);
 	tokens_str = split_respect_quote(parse->line, ' ');
+	if_env_change(info, tokens_str);
 	tokens_str = remove_quote(tokens_str);
 	num_tokens = count_strs(tokens_str);
 	for (int i = 0; tokens_str[i] != NULL; i++)

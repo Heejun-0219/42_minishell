@@ -46,7 +46,7 @@ static int	memory_parse(t_parse *parse, t_info *info)
 
 static void	parse_exe(t_parse *parse, t_cmd *cmd, t_info *info)
 {
-	tokenize_line(parse);
+	tokenize_line(info, parse);
 	if (make_cmd_info(parse, cmd, info) == FAILURE)
 		return ;
 	for (size_t i = 0; i < parse->token_count; i++)
