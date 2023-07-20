@@ -6,7 +6,7 @@
 /*   By: mi <mi@student.42seoul.kr>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/16 19:27:16 by mi                #+#    #+#             */
-/*   Updated: 2023/07/20 22:37:17 by mi               ###   ########.fr       */
+/*   Updated: 2023/07/20 23:10:46 by mi               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,9 @@ void	dequote(t_quote **head)
 	current = *head;
 	while (current)
 	{
-		if (current->next && ft_strrchr(current->str, '$') && (current->next->str[0] == '\"' || current->next->str[0] == '\'')){
+		if (current->next && ft_strrchr(current->str, '$') && \
+			(current->next->str[0] == '\"' || current->next->str[0] == '\''))
+		{
 			str = ft_strrchr(current->str, '$');
 			*str = '\0';
 		}
@@ -128,7 +130,7 @@ char	**remove_quote(char **strs)
 	i = 0;
 	copy_data_to_node(&head, strs);
 	split_quote(&head);
-	dequote(&head); // ""
+	dequote(&head);
 	modify_index(&head);
 	result = dequoted_merge(&head);
 	destroy_nodes(&head);

@@ -6,7 +6,7 @@
 /*   By: mi <mi@student.42seoul.kr>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/06 14:26:58 by heejunki          #+#    #+#             */
-/*   Updated: 2023/07/20 22:57:27 by mi               ###   ########.fr       */
+/*   Updated: 2023/07/20 23:26:09 by mi               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,16 +46,13 @@ static int	memory_parse(t_parse *parse, t_info *info)
 
 static void	parse_exe(t_parse *parse, t_cmd *cmd, t_info *info)
 {
-	int tmp;
-	
+	int	tmp;
+
 	tmp = tokenize_line(info, parse);
-	if (tmp == -1){
-		return;
-	}
+	if (tmp == -1)
+		return ;
 	if (make_cmd_info(parse, cmd, info) == FAILURE)
 		return ;
-	for (size_t i = 0; i < parse->token_count; i++)
-		printf("token[%zu] = %s\n", i, parse->tokens[i].s);
 	if (exe_cmd(parse, cmd, info) == FAILURE)
 	{
 		free_mini(parse, cmd);
@@ -66,7 +63,6 @@ static void	parse_exe(t_parse *parse, t_cmd *cmd, t_info *info)
 	free_mini(parse, cmd);
 }
 
-// g_exit_code => parsing
 int	main(int ac, char **av, char **env)
 {
 	t_parse	parse;
