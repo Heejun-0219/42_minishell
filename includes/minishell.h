@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mi <mi@student.42seoul.kr>                 +#+  +:+       +#+        */
+/*   By: heejunki <heejunki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/06 14:25:04 by heejunki          #+#    #+#             */
-/*   Updated: 2023/07/21 00:14:33 by mi               ###   ########.fr       */
+/*   Updated: 2023/07/21 00:22:43 by heejunki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -159,6 +159,7 @@ t_list	ft_lst_init(void);
 
 int		ft_perror(int error);
 int		ft_error(char *m, int error);
+int		free_env_for_norm(t_cha_env *cv, char **str);
 
 void	free_mini(t_parse *parse, t_cmd *cmd);
 void	free_tokens(t_parse *parse, size_t token_size);

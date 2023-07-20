@@ -6,7 +6,7 @@
 /*   By: heejunki <heejunki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/06 14:49:51 by heejunki          #+#    #+#             */
-/*   Updated: 2023/07/20 15:28:24 by heejunki         ###   ########.fr       */
+/*   Updated: 2023/07/21 00:25:16 by heejunki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,21 +35,22 @@ int	check_valid(char *str)
 t_node	*get_if_env_exist(t_list *env_list, const char *s)
 {
 	t_node	*node;
-	char	*front;
+	char	**front;
 
-	front = ft_split(s, '=')[0];
+	front = ft_split(s, '=');
 	node = env_list->front;
 	while (node)
 	{
-		if (ft_strncmp(node->content, front, ft_strlen(front) + 1) == 0 \
-			|| ft_strncmp(node->content, front, ft_strlen(front) + 1) == '=')
+		if (ft_strncmp(node->content, front[0], ft_strlen(front[0]) + 1) == 0 \
+			|| ft_strncmp(node->content, front[0], ft_strlen(front[0]) + 1) == \
+			'=')
 		{
-			free(front);
+			free_2d(front);
 			return (node);
 		}
 		node = node->next;
 	}
-	free(front);
+	free_2d(front);
 	return (NULL);
 }
 
