@@ -6,7 +6,7 @@
 /*   By: mi <mi@student.42seoul.kr>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 15:14:05 by mi                #+#    #+#             */
-/*   Updated: 2023/07/20 23:28:55 by mi               ###   ########.fr       */
+/*   Updated: 2023/07/20 23:59:48 by mi               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ char	**alloc_split_dismiss_quote(char **result, char *str, char c, int count)
 	while (result_index < count && str[str_index])
 	{
 		len = len_respect_quote(str + str_index, c);
-		result[result_index] = strndup(str + str_index, len);
+		result[result_index] = ft_strndup(str + str_index, len);
 		str_index += len;
 		result_index++;
 		while (str[str_index] && str[str_index] == c)
@@ -111,7 +111,7 @@ char	**split_respect_quote(char *str, char c)
 	count = get_count_respect_quote(str, c);
 	if (count == -1)
 		return (NULL);
-	result = (char **)malloc(sizeof(char *) * (count + 1));
+	result = (char **)ft_malloc(sizeof(char *) * (count + 1));
 	if (result == NULL)
 		return (NULL);
 	result = alloc_split_dismiss_quote(result, str, c, count);

@@ -6,7 +6,7 @@
 /*   By: mi <mi@student.42seoul.kr>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/16 19:29:08 by mi                #+#    #+#             */
-/*   Updated: 2023/07/17 23:25:07 by mi               ###   ########.fr       */
+/*   Updated: 2023/07/20 23:59:35 by mi               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,8 @@ t_quote	*new_quote_node(char *str, int index, int subordinate)
 {
 	t_quote	*new;
 
-	new = (t_quote *)malloc(sizeof(t_quote));
-	new->str = strdup(str);
+	new = (t_quote *)ft_malloc(sizeof(t_quote));
+	new->str = ft_strdup(str);
 	new->index = index;
 	new->subordinate = subordinate;
 	new->next = NULL;
@@ -53,8 +53,8 @@ t_quote	*copy_node(t_quote *node)
 {
 	t_quote	*new;
 
-	new = (t_quote *)malloc(sizeof(t_quote));
-	new->str = strdup(node->str);
+	new = (t_quote *)ft_malloc(sizeof(t_quote));
+	new->str = ft_strdup(node->str);
 	new->index = node->index;
 	new->subordinate = node->subordinate;
 	new->next = NULL;
