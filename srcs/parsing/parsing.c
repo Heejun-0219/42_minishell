@@ -6,7 +6,7 @@
 /*   By: mi <mi@student.42seoul.kr>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 15:12:11 by mi                #+#    #+#             */
-/*   Updated: 2023/07/20 23:24:28 by mi               ###   ########.fr       */
+/*   Updated: 2023/07/20 23:51:05 by mi               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,10 @@ int	tokenize_line(t_info *info, t_parse *parse)
 	parse->line = add_space(parse->line);
 	tokens_str = split_respect_quote(parse->line, ' ');
 	if (tokens_str == NULL)
+	{
+		printf("minishell: syntax error\n");
 		return (-1);
+	}
 	if_env_change(info, tokens_str, count_strs(tokens_str));
 	tokens_str = remove_quote(tokens_str);
 	num_tokens = count_strs(tokens_str);
