@@ -3,53 +3,60 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: heejunki <heejunki@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: mi <mi@student.42seoul.kr>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 15:12:11 by mi                #+#    #+#             */
-/*   Updated: 2023/07/20 23:07:54 by heejunki         ###   ########.fr       */
+/*   Updated: 2023/07/20 23:24:28 by mi               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char *add_space(char *input)
+void	process_characters(char *input, char *output, int *j, int input_length)
 {
-	int input_length = strlen(input);
-	int i, j = 0;
-	int in_quotes = 0;
-	char *output = malloc((2 * input_length + 1) * sizeof(char)); // initial allocation
-	if (output == NULL)
-	{
-		printf("Memory allocation failed\n");
-		return NULL;
-	}
+	int	i;
+	int	in_quotes;
 
-	for (i = 0; i < input_length; i++)
+	i = 0;
+	in_quotes = 0;
+	while (i < input_length)
 	{
 		if (input[i] == '"' || input[i] == '\'')
+			in_quotes = !in_quotes;
+		if (!in_quotes && (input[i] == '<' || input[i] == '>' || \
+		input[i] == '|'))
 		{
-			in_quotes = !in_quotes; // toggle quote state
-		}
-		if (!in_quotes && (input[i] == '<' || input[i] == '>' || input[i] == '|'))
-		{
-			output[j++] = ' ';
-			output[j++] = input[i];
+			output[(*j)++] = ' ';
+			output[(*j)++] = input[i];
 			if (i + 1 < input_length && input[i] == input[i + 1])
-			{ // check if next character is the same
-				output[j++] = input[i];
-				i++; // skip next character
+			{
+				output[(*j)++] = input[i];
+				i++;
 			}
-			output[j++] = ' ';
+			output[(*j)++] = ' ';
 		}
 		else
-		{
-			output[j++] = input[i];
-		}
+			output[(*j)++] = input[i];
+		i++;
 	}
-	output = realloc(output, (j + 1) * sizeof(char)); // realloc for null terminator
-	output[j] = '\0';							  // Don't forget to null-terminate the new string
+}
+
+char	*add_space(char *input)
+{
+	int		input_length;
+	int		j;
+	char	*output;
+
+	j = 0;
+	input_length = ft_strlen(input);
+	output = malloc((2 * input_length + 1) * sizeof(char));
+	if (output == NULL)
+		return (NULL);
+	process_characters(input, output, &j, input_length);
+	output = realloc(output, (j + 1) * sizeof(char));
+	output[j] = '\0';
 	free(input);
-	return output;
+	return (output);
 }
 
 t_token	set_token(char *token_str, int index)
@@ -84,8 +91,6 @@ int	tokenize_line(t_info *info, t_parse *parse)
 	if_env_change(info, tokens_str, count_strs(tokens_str));
 	tokens_str = remove_quote(tokens_str);
 	num_tokens = count_strs(tokens_str);
-	for (int i = 0; tokens_str[i] != NULL; i++)
-		printf("%s\n", tokens_str[i]);
 	parse->tokens = ft_malloc(sizeof(t_token) * (num_tokens));
 	parse->token_count = num_tokens;
 	while (i < num_tokens)

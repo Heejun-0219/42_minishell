@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: heejunki <heejunki@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: mi <mi@student.42seoul.kr>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/06 14:25:04 by heejunki          #+#    #+#             */
-/*   Updated: 2023/07/20 23:07:22 by heejunki         ###   ########.fr       */
+/*   Updated: 2023/07/20 23:28:22 by mi               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -250,7 +250,7 @@ void	destroy_nodes(t_quote **head);
 // parsing.c
 char	*add_space(char *input);
 t_token	set_token(char *token_str, int index);
-void	tokenize_line(t_info *info, t_parse *parse);
+int		tokenize_line(t_info *info, t_parse *parse);
 
 // parsing_utils.c
 size_t	count_strs(char **strs);
@@ -265,6 +265,7 @@ char	*check_quote_set_flag(char *str, int *flag);
 
 // quote_utils.c
 char	*push_str_to_endpoint(char *str, char endpoint);
+char	*process_quote(char *str, char c);
 
 // remove_quote_node.c
 t_quote	*copy_node(t_quote *node);
