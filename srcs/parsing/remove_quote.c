@@ -6,7 +6,7 @@
 /*   By: mi <mi@student.42seoul.kr>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/16 19:27:16 by mi                #+#    #+#             */
-/*   Updated: 2023/07/20 23:59:10 by mi               ###   ########.fr       */
+/*   Updated: 2023/07/20 23:10:46 by mi               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,13 @@ char	**dequoted_merge(t_quote **head)
 	char	*new_str;
 
 	strs_count = get_strs_count(*head);
-	result = (char **)ft_malloc(sizeof(char *) * (strs_count + 1));
+	result = (char **)malloc(sizeof(char *) * (strs_count + 1));
 	current = *head;
 	while (current)
 	{
 		if (current->index != -1)
 		{
-			result[current->index] = ft_strdup(current->str);
+			result[current->index] = strdup(current->str);
 		}
 		else
 		{
@@ -86,7 +86,7 @@ void	dequote(t_quote **head)
 		if (current->str[0] == '\'' || current->str[0] == '\"')
 		{
 			str = current->str;
-			len = ft_strlen(str);
+			len = strlen(str);
 			new_str = ft_substr(str, 1, len - 2);
 			free(str);
 			str = NULL;
