@@ -6,7 +6,7 @@
 /*   By: heejunki <heejunki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/06 14:25:04 by heejunki          #+#    #+#             */
-/*   Updated: 2023/07/20 14:34:29 by heejunki         ###   ########.fr       */
+/*   Updated: 2023/07/20 15:28:24 by heejunki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,7 +127,7 @@ typedef struct s_pipe
 	int				pipe_fd[2];
 	int				in_fd;
 	int				out_fd;
-	int				builtin;
+	int				exe_in_par;
 }	t_pipe;
 
 typedef struct s_cmd

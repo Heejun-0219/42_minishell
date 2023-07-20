@@ -6,7 +6,7 @@
 /*   By: heejunki <heejunki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/06 14:49:51 by heejunki          #+#    #+#             */
-/*   Updated: 2023/07/11 15:45:34 by heejunki         ###   ########.fr       */
+/*   Updated: 2023/07/20 15:28:24 by heejunki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ int	exe_export(t_parse *parse, t_cmd *cmd, t_info *info, t_pipe *pipe)
 		export_no(&(info->env_list));
 	else
 		export_insert(info, pipe);
-	if (pipe->builtin == TRUE)
+	if (pipe->exe_in_par == TRUE)
 		return (SUCCESS);
 	else
 		exit(SUCCESS);

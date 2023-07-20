@@ -6,7 +6,7 @@
 /*   By: heejunki <heejunki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/06 14:28:26 by heejunki          #+#    #+#             */
-/*   Updated: 2023/07/06 14:32:20 by heejunki         ###   ########.fr       */
+/*   Updated: 2023/07/20 15:28:24 by heejunki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,5 +65,5 @@ void	init_pipe(t_pipe *pipe)
 	pipe->is_pipe = FALSE;
 	pipe->in_fd = FAILURE;
 	pipe->out_fd = FAILURE;
-	pipe->builtin = FALSE;
+	pipe->exe_in_par = FALSE;
 }

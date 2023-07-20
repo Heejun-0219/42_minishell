@@ -6,7 +6,7 @@
 /*   By: heejunki <heejunki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/06 14:50:27 by heejunki          #+#    #+#             */
-/*   Updated: 2023/07/06 15:55:40 by heejunki         ###   ########.fr       */
+/*   Updated: 2023/07/20 15:28:24 by heejunki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int	exe_unset(t_info *info, t_pipe *pipe)
 {
 	if (pipe->cmd[1] == NULL)
 	{
-		if (pipe->builtin == TRUE)
+		if (pipe->exe_in_par == TRUE)
 			return (SUCCESS);
 		else
 			exit(EXIT_SUCCESS);
@@ -47,7 +47,7 @@ int	exe_unset(t_info *info, t_pipe *pipe)
 	{
 		del_env_val(info, pipe);
 	}
-	if (pipe->builtin == TRUE)
+	if (pipe->exe_in_par == TRUE)
 		return (SUCCESS);
 	else
 		exit(EXIT_SUCCESS);

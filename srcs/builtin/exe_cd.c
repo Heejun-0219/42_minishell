@@ -6,7 +6,7 @@
 /*   By: heejunki <heejunki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/06 14:46:33 by heejunki          #+#    #+#             */
-/*   Updated: 2023/07/20 14:34:42 by heejunki         ###   ########.fr       */
+/*   Updated: 2023/07/20 15:28:24 by heejunki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static int	home_cd(t_pipe *pipe, t_info *info)
 {
-	if (pipe->builtin == TRUE)
+	if (pipe->exe_in_par == TRUE)
 	{
 		if (chdir(ft_split(get_env_val("HOME=", info), '=')[1]) == FAILURE)
 			return (ft_perror(SUCCESS));
@@ -34,7 +34,7 @@ int	exe_cd(t_pipe *pipe, t_info *info)
 	if (chdir(path) == FAILURE)
 	{
 		g_exit_code = 1;
-		if (pipe->builtin == TRUE)
+		if (pipe->exe_in_par == TRUE)
 		{
 			printf("minishell: cd: %s: %s\n", path, strerror(errno));
 			return (ft_perror(SUCCESS));
@@ -42,7 +42,7 @@ int	exe_cd(t_pipe *pipe, t_info *info)
 		else
 			exit(EXIT_SUCCESS);
 	}
-	if (pipe->builtin == TRUE)
+	if (pipe->exe_in_par == TRUE)
 		return (SUCCESS);
 	else
 		exit(EXIT_SUCCESS);

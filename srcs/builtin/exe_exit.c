@@ -6,7 +6,7 @@
 /*   By: heejunki <heejunki@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/06 14:48:15 by heejunki          #+#    #+#             */
-/*   Updated: 2023/07/06 14:49:49 by heejunki         ###   ########.fr       */
+/*   Updated: 2023/07/20 15:28:24 by heejunki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ static void	exit_no_option(t_parse *parse, t_cmd *cmd, \
 	if (cmd->pipe[cmd->pipe_index].cmd[1] == NULL)
 	{
 		ft_lstclear(&info->env_list);
-		if (pipe->builtin == TRUE)
+		if (pipe->exe_in_par == TRUE)
 			printf("exit\n");
 		free_mini(parse, cmd);
 		exit(EXIT_SUCCESS);
@@ -69,7 +69,7 @@ int	exe_exit(t_parse *parse, t_cmd *cmd, t_info *info, t_pipe *pipe)
 	{
 		printf("minishell: exit: too many arguments\n");
 		g_exit_code = 1;
-		if (pipe->builtin == TRUE)
+		if (pipe->exe_in_par == TRUE)
 			return (SUCCESS);
 		exit(1);
 	}
