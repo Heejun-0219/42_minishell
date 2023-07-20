@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: heejunki <heejunki@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: mi <mi@student.42seoul.kr>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/06 14:26:58 by heejunki          #+#    #+#             */
-/*   Updated: 2023/07/11 15:42:53 by heejunki         ###   ########.fr       */
+/*   Updated: 2023/07/20 22:57:27 by mi               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,12 @@ static int	memory_parse(t_parse *parse, t_info *info)
 
 static void	parse_exe(t_parse *parse, t_cmd *cmd, t_info *info)
 {
-	tokenize_line(info, parse);
+	int tmp;
+	
+	tmp = tokenize_line(info, parse);
+	if (tmp == -1){
+		return;
+	}
 	if (make_cmd_info(parse, cmd, info) == FAILURE)
 		return ;
 	for (size_t i = 0; i < parse->token_count; i++)
