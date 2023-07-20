@@ -4,8 +4,10 @@ cc 		= 	cc
 CFLAGS	=	-Wall -Wextra -Werror -g -fsanitize=address
 RM		=	rm -rf
 
-READLINE_FLAGS		= -L$(HOME)/.brew/opt/readline/lib
-READLINE_INCLUDE	= -I$(HOME)/.brew/opt/readline/include
+# READLINE_FLAGS		= -L$(HOME)/.brew/opt/readline/lib
+# READLINE_INCLUDE	= -I$(HOME)/.brew/opt/readline/include
+READLINE_FLAGS		= -L/opt/homebrew/opt/readline/lib
+READLINE_INCLUDE	= -I/opt/homebrew/opt/readline/include
 
 INCLUDES	=	includes/
 LIBFT_DIR	=	srcs/Libft

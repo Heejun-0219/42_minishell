@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: heejunki <heejunki@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: mi <mi@student.42seoul.kr>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 15:43:14 by heejunki          #+#    #+#             */
-/*   Updated: 2023/07/11 15:43:15 by heejunki         ###   ########.fr       */
+/*   Updated: 2023/07/21 00:17:14 by mi               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,4 +50,17 @@ void	free_mini(t_parse *parse, t_cmd *cmd)
 {
 	free_tokens(parse, parse->token_count);
 	free_cmd(cmd, cmd->pipe_count);
+}
+
+void	free_2d(char **str)
+{
+	size_t	i;
+
+	i = 0;
+	while (str[i])
+	{
+		free(str[i]);
+		i++;
+	}
+	free(str);
 }
